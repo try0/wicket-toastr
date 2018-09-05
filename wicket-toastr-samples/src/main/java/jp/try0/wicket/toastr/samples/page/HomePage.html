@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>Wicket Toastr Samples</title>
+
+</head>
+<body>
+
+	<div wicket:id="navBar"></div>
+
+	<div class="container">
+		<form wicket:id="form">
+
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>
+						<label>Toast levels</label>
+						<wicket:container wicket:id="rdoLevel"></wicket:container>
+					</div>
+
+					<div>
+						<label>Toast positions</label>
+						<wicket:container wicket:id="rdoPosition"></wicket:container>
+					</div>
+
+					<div>
+						<label>Title</label> <input wicket:id="txtTitle" type="text"
+							class="form-control" placeholder="Title">
+					</div>
+
+
+					<div>
+						<label>Message</label>
+						<textarea wicket:id="txtMessage" rows="2" placeholder="Message"
+							class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<button wicket:id="link" class="btn">SubmitLink</button>
+				<button wicket:id="ajaxLink" class="btn">AjaxSubmitLink</button>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
