@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>jp.try0.wicket-toastr</groupId>
+		<groupId>jp.try0.wicket.toastr</groupId>
 		<artifactId>wicket-toastr-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../wicket-toastr-parent/pom.xml</relativePath>
