@@ -419,7 +419,7 @@ public class Toast implements IToast, Serializable {
 
 		// title is optional
 		if (title.isPresent()) {
-			script.append(", \"").append(title).append("\"");
+			script.append(", \"").append(title.get()).append("\"");
 		} else {
 			script.append(", \"\"");
 		}
