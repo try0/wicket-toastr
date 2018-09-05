@@ -3,6 +3,7 @@ package jp.try0.wicket.toastr.core.config;
 import java.util.Optional;
 
 import org.apache.wicket.Application;
+import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
 import org.apache.wicket.util.lang.Args;
 
@@ -82,12 +83,20 @@ public class ToastrSettings {
 
 	}
 
+	/**
+	 * Key of whether has already been initialized settings
+	 */
+	private final static MetaDataKey<ToastrSettings> INITIALIZED_KEY = new MetaDataKey<ToastrSettings>() {};
 
+	/**
+	 * Default settings
+	 */
+	private final static ToastrSettings DEFAULT = new ToastrSettings();
 
 	/**
 	 * Instance of {@link ToastrSettings}.
 	 */
-	private static ToastrSettings instance;
+	private static ToastrSettings instance = DEFAULT;
 
 
 	/**
@@ -108,6 +117,11 @@ public class ToastrSettings {
 	 * @param needAutoAppendToastrBehavior
 	 */
 	public static void setUp(final Application application, boolean needAutoAppendToastrBehavior, ToastOptions globalOptions) {
+
+		if (application.getMetaData(INITIALIZED_KEY) == DEFAULT) {
+			throw new UnsupportedOperationException("The setting has already been initialized. ToastrSettings # setUp can only be called once.");
+		}
+
 		if (needAutoAppendToastrBehavior) {
 			application.getComponentInstantiationListeners().add(new ToastrBehaviorAutoAppender());
 		}
@@ -117,6 +131,7 @@ public class ToastrSettings {
 		settings.globalOptions = Optional.ofNullable(globalOptions);
 
 		ToastrSettings.instance = settings;
+		application.setMetaData(INITIALIZED_KEY, DEFAULT);
 
 	}
 
@@ -142,7 +157,7 @@ public class ToastrSettings {
 	/**
 	 * Global options
 	 */
-	private Optional<ToastOptions> globalOptions;
+	private Optional<ToastOptions> globalOptions = Optional.empty();
 
 
 	/**
