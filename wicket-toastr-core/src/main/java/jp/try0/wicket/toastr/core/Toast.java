@@ -31,27 +31,32 @@ public class Toast implements IToast {
 		/**
 		 * Undefined level
 		 */
-		UNDEFINED("undefined", false),
+		UNDEFINED("undefined", FeedbackMessage.UNDEFINED, false),
 
 		/**
 		 * Success level
 		 */
-		SUCCESS("success", true),
+		SUCCESS("success", FeedbackMessage.SUCCESS, true),
 
 		/**
 		 * Information level
 		 */
-		INFO("info", true),
+		INFO("info", FeedbackMessage.INFO, true),
 
 		/**
 		 * Warning level
 		 */
-		WARNING("warning", true),
+		WARNING("warning", FeedbackMessage.WARNING, true),
 
 		/**
 		 * Error level
 		 */
-		ERROR("error", true),;
+		ERROR("error", FeedbackMessage.ERROR, true),;
+
+		/**
+		 * Feedback message level
+		 */
+		int feedbackMessageLevel;
 
 		/**
 		 * Short level string. Same as toastr's method name that display messages.
@@ -69,7 +74,8 @@ public class Toast implements IToast {
 		 * @param level
 		 * @param isSupported
 		 */
-		ToastLevel(String level, boolean isSupported) {
+		ToastLevel(String level, int feedbackMessageLevel, boolean isSupported) {
+			this.feedbackMessageLevel = feedbackMessageLevel;
 			this.level = level;
 			this.isSupported = isSupported;
 		}
@@ -86,6 +92,26 @@ public class Toast implements IToast {
 		 */
 		public boolean isSupported() {
 			return this.isSupported;
+		}
+
+		/**
+		 * Whether is less than argument's level.
+		 *
+		 * @param level
+		 * @return
+		 */
+		public boolean lessThan(ToastLevel level) {
+			return this.feedbackMessageLevel < level.feedbackMessageLevel;
+		}
+
+		/**
+		 * Whether is greater than argument's level.
+		 *
+		 * @param level
+		 * @return
+		 */
+		public boolean greaterThan(ToastLevel level) {
+			return this.feedbackMessageLevel > level.feedbackMessageLevel;
 		}
 
 		/**
