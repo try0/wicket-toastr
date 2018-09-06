@@ -82,8 +82,9 @@ public class HomePage extends WebPage {
 					public void onSubmit() {
 						super.onSubmit();
 
-						ToastOptions options = new ToastOptions();
-						options.positionClass = toastPosition.getObject();
+						ToastOptions options = ToastOptions.create()
+								.setPositionClass(toastPosition.getObject());
+
 
 						Toast toast = Toast.create(toastLevel.getObject(), message.getObject());
 						if (!Strings.isNullOrEmpty(title.getObject())) {
@@ -100,8 +101,8 @@ public class HomePage extends WebPage {
 					@Override
 					protected void onSubmit(AjaxRequestTarget target) {
 						super.onSubmit(target);
-						ToastOptions options = new ToastOptions();
-						options.positionClass = toastPosition.getObject();
+						ToastOptions options = ToastOptions.create()
+								.setPositionClass(toastPosition.getObject());
 
 						Toast toast = Toast.create(toastLevel.getObject(), message.getObject());
 						if (!Strings.isNullOrEmpty(title.getObject())) {

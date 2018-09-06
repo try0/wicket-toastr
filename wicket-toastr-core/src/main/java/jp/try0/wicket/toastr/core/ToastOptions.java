@@ -88,7 +88,7 @@ public class ToastOptions implements Serializable {
 	 */
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
-	private static @interface OptionName {
+	private static @interface ToastOption {
 		String value();
 		boolean squeezDoubleQuotes() default true;
 	}
@@ -230,87 +230,932 @@ public class ToastOptions implements Serializable {
 
 	}
 
-	@OptionName(value = OptionKeys.CLOSE_ON_HOVER, squeezDoubleQuotes = false)
-	public Boolean isCloseOnHover = null;
+	/**
+	 * Create new one.
+	 *
+	 * @return
+	 */
+	public static ToastOptions create() {
+		return new ToastOptions();
+	}
 
-	@OptionName(value = OptionKeys.TAP_TO_DISMISS, squeezDoubleQuotes = false)
-	public Boolean isTapToDismiss = null;
+	/**
+	 * Constractor
+	 */
+	public ToastOptions() {
 
-	@OptionName(value = OptionKeys.TOAST_CLASS)
-	public String toastClass = null;
+	}
 
-	@OptionName(value = OptionKeys.CONTAINER_ID)
-	public String containerId = null;
-
-	@OptionName(value = OptionKeys.SHOW_EASING)
-	public DisplayEasing showEasing = null;
-
-	@OptionName(value = OptionKeys.HIDE_EASING)
-	public DisplayEasing hideEasing = null;
-
-	@OptionName(value = OptionKeys.CLOSE_EASING)
-	public DisplayEasing closeEasing = null;
-
-	@OptionName(value = OptionKeys.CLOSE_BUTTON, squeezDoubleQuotes = false)
+	/**
+	 * closeButton
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_BUTTON, squeezDoubleQuotes = false)
 	private Boolean isEnableCloseButton = null;
 
-	@OptionName(value = OptionKeys.DEBUG, squeezDoubleQuotes = false)
+	/**
+	 * closeClass
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_CLASS)
+	private String closeClass = null;
+
+	/**
+	 * closeDuration
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_DURATION)
+	private Duration closeDureation = null;
+
+	/**
+	 * closeEasing
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_EASING)
+	private DisplayEasing closeEasing = null;
+
+	/**
+	 * closeHtml
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_HTML)
+	private String closeHtml = null;
+
+	/**
+	 * closeMethod
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_METHOD)
+	private CloseMethod closeMethod = null;
+
+	/**
+	 * closeOnHover
+	 */
+	@ToastOption(value = OptionKeys.CLOSE_ON_HOVER, squeezDoubleQuotes = false)
+	private Boolean isCloseOnHover = null;
+
+	/**
+	 * containerId
+	 */
+	@ToastOption(value = OptionKeys.CONTAINER_ID)
+	private String containerId = null;
+
+	/**
+	 * debug
+	 */
+	@ToastOption(value = OptionKeys.DEBUG, squeezDoubleQuotes = false)
 	private Boolean isDebug = null;
 
-	@OptionName(value = OptionKeys.NEWEST_ON_TOP, squeezDoubleQuotes = false)
-	private Boolean isNewestOnTop = null;
-
-	@OptionName(value = OptionKeys.PROGRESS_BAR, squeezDoubleQuotes = false)
-	private Boolean isEnableProgressBar = null;
-
-	@OptionName(value = OptionKeys.ESCAPE_HTML, squeezDoubleQuotes = false)
+	/**
+	 * escapeHtml
+	 */
+	@ToastOption(value = OptionKeys.ESCAPE_HTML, squeezDoubleQuotes = false)
 	private Boolean needEscapeHtml = null;
 
-	@OptionName(value = OptionKeys.POSITION_CLASS)
-	public PositionClass positionClass = null;
-
-	@OptionName(value = OptionKeys.PREVENT_DUPLICATES, squeezDoubleQuotes = false)
-	private Boolean needPreventDuplicates = null;
-
-	@OptionName(value = OptionKeys.ONCLICK, squeezDoubleQuotes = false)
-	public String onClickFunction = null;
-
-	@OptionName(value = OptionKeys.ON_SHOWN, squeezDoubleQuotes = false)
-	public String onShownFunction = null;
-
-	@OptionName(value = OptionKeys.ON_HIDDEN, squeezDoubleQuotes = false)
-	public String onHiddenFunction = null;
-
-	@OptionName(value = OptionKeys.ON_CLOSE_CLICK, squeezDoubleQuotes = false)
-	public String onCloseClickFunction = null;
-
-	@OptionName(value = OptionKeys.SHOW_DURATION)
-	private Duration showDuration = null;
-
-	@OptionName(value = OptionKeys.HIDE_DURATION)
-	private Duration hideDuration = null;
-
-	@OptionName(value = OptionKeys.TIME_OUT)
-	private Integer timeOut = null;
-
-	@OptionName(value = OptionKeys.EXTENDED_TIME_OUT)
+	/**
+	 * extendedTimeOut
+	 */
+	@ToastOption(value = OptionKeys.EXTENDED_TIME_OUT)
 	private Integer extendedTimeOut = null;
 
-	@OptionName(value = OptionKeys.SHOW_METHOD)
-	private ShowMethod showMethod = null;
+	/**
+	 * hideDuration
+	 */
+	@ToastOption(value = OptionKeys.HIDE_DURATION)
+	private Duration hideDuration = null;
 
-	@OptionName(value = OptionKeys.HIDE_METHOD)
+	/**
+	 * hideEasing
+	 */
+	@ToastOption(value = OptionKeys.HIDE_EASING)
+	private DisplayEasing hideEasing = null;
+
+	/**
+	 * hideMethod
+	 */
+	@ToastOption(value = OptionKeys.HIDE_METHOD)
 	private HideMethod hideMethod = null;
 
-	@OptionName(value = OptionKeys.CLOSE_METHOD)
-	public CloseMethod closeMethod = null;
+	/**
+	 * iconClass
+	 */
+	@ToastOption(value = OptionKeys.ICON_CLASS)
+	private String iconClass = null;
 
-	@OptionName(value = OptionKeys.RTL, squeezDoubleQuotes = false)
-	public Boolean isRightToLeft = null;
+	/**
+	 * iconClasses
+	 */
+	@ToastOption(value = OptionKeys.ICON_CLASSES)
+	private String iconClasses = null;
 
-	@OptionName(value = OptionKeys.CLOSE_HTML)
-	public String closeHtml = null;
+	/**
+	 * messageClass
+	 */
+	@ToastOption(value = OptionKeys.MESSAGE_CLASS)
+	private String messageClass = null;
 
+	/**
+	 * newestOnTop
+	 */
+	@ToastOption(value = OptionKeys.NEWEST_ON_TOP, squeezDoubleQuotes = false)
+	private Boolean isNewestOnTop = null;
+
+	/**
+	 * onclick
+	 */
+	@ToastOption(value = OptionKeys.ONCLICK, squeezDoubleQuotes = false)
+	private String onClickFunction = null;
+
+	/**
+	 * onCloseClick
+	 */
+	@ToastOption(value = OptionKeys.ON_CLOSE_CLICK, squeezDoubleQuotes = false)
+	private String onCloseClickFunction = null;
+
+	/**
+	 * onHidden
+	 */
+	@ToastOption(value = OptionKeys.ON_HIDDEN, squeezDoubleQuotes = false)
+	private String onHiddenFunction = null;
+
+	/**
+	 * onShown
+	 */
+	@ToastOption(value = OptionKeys.ON_SHOWN, squeezDoubleQuotes = false)
+	private String onShownFunction = null;
+
+	/**
+	 * positionClass
+	 */
+	@ToastOption(value = OptionKeys.POSITION_CLASS)
+	private PositionClass positionClass = null;
+
+	/**
+	 * preventDuplicates
+	 */
+	@ToastOption(value = OptionKeys.PREVENT_DUPLICATES, squeezDoubleQuotes = false)
+	private Boolean needPreventDuplicates = null;
+
+	/**
+	 * progressBar
+	 */
+	@ToastOption(value = OptionKeys.PROGRESS_BAR, squeezDoubleQuotes = false)
+	private Boolean isEnableProgressBar = null;
+
+	/**
+	 * progressClass
+	 */
+	@ToastOption(value = OptionKeys.PROGRESS_CLASS)
+	private String progressClass = null;
+
+	/**
+	 * rtl
+	 */
+	@ToastOption(value = OptionKeys.RTL, squeezDoubleQuotes = false)
+	private Boolean isRightToLeft = null;
+
+	/**
+	 * showDuration
+	 */
+	@ToastOption(value = OptionKeys.SHOW_DURATION)
+	private Duration showDuration = null;
+
+	/**
+	 * showEasing
+	 */
+	@ToastOption(value = OptionKeys.SHOW_EASING)
+	private DisplayEasing showEasing = null;
+
+	/**
+	 * showMethod
+	 */
+	@ToastOption(value = OptionKeys.SHOW_METHOD)
+	private ShowMethod showMethod = null;
+
+	/**
+	 * tapToDismiss
+	 */
+	@ToastOption(value = OptionKeys.TAP_TO_DISMISS, squeezDoubleQuotes = false)
+	private Boolean isTapToDismiss = null;
+
+	/**
+	 * target
+	 */
+	@ToastOption(value = OptionKeys.TARGET)
+	private String target = null;
+
+	/**
+	 * timeOut
+	 */
+	@ToastOption(value = OptionKeys.TIME_OUT)
+	private Integer timeOut = null;
+
+	/**
+	 * titleClass
+	 */
+	@ToastOption(value = OptionKeys.TITLE_CLASS)
+	private String titleClass = null;
+
+	/**
+	 * toastClass
+	 */
+	@ToastOption(value = OptionKeys.TOAST_CLASS)
+	private String toastClass = null;
+
+
+	/**
+	 * Get closeButton
+	 *
+	 * @return
+	 */
+	public Boolean isEnableCloseButton() {
+		return isEnableCloseButton;
+	}
+
+	/**
+	 * Set closeButton
+	 *
+	 * @param isEnableCloseButton
+	 * @return
+	 */
+	public ToastOptions setIsEnableCloseButton(Boolean isEnableCloseButton) {
+		this.isEnableCloseButton = isEnableCloseButton;
+		return this;
+	}
+
+	/**
+	 * Get closeClass
+	 *
+	 * @return
+	 */
+	public String getCloseClass() {
+		return closeClass;
+	}
+
+	/**
+	 * Set closeClass
+	 *
+	 * @param closeClass
+	 * @return
+	 */
+	public ToastOptions setCloseClass(String closeClass) {
+		this.closeClass = closeClass;
+		return this;
+	}
+
+	/**
+	 * Get closeDuration
+	 *
+	 * @return
+	 */
+	public Duration getCloseDureation() {
+		return closeDureation;
+	}
+
+	/**
+	 * Set closeDuration
+	 *
+	 * @param closeDureation
+	 * @return
+	 */
+	public ToastOptions setCloseDureation(Duration closeDureation) {
+		this.closeDureation = closeDureation;
+		return this;
+	}
+
+	/**
+	 * Get closeEasing
+	 *
+	 * @return
+	 */
+	public DisplayEasing getCloseEasing() {
+		return closeEasing;
+	}
+
+	/**
+	 * Set closeEasing
+	 *
+	 * @param closeEasing
+	 * @return
+	 */
+	public ToastOptions setCloseEasing(DisplayEasing closeEasing) {
+		this.closeEasing = closeEasing;
+		return this;
+	}
+
+	/**
+	 * Get closeHtml
+	 *
+	 * @return
+	 */
+	public String getCloseHtml() {
+		return closeHtml;
+	}
+
+	/**
+	 * Set closeHtml
+	 *
+	 * @param closeHtml
+	 * @return
+	 */
+	public ToastOptions setCloseHtml(String closeHtml) {
+		this.closeHtml = closeHtml;
+		return this;
+	}
+
+	/**
+	 * Get closeMethod
+	 *
+	 * @return
+	 */
+	public CloseMethod getCloseMethod() {
+		return closeMethod;
+	}
+
+	/**
+	 * Set closeMethod
+	 *
+	 * @param closeMethod
+	 * @return
+	 */
+	public ToastOptions setCloseMethod(CloseMethod closeMethod) {
+		this.closeMethod = closeMethod;
+		return this;
+	}
+
+	/**
+	 * Get closeOnHover
+	 *
+	 * @return
+	 */
+	public Boolean isCloseOnHover() {
+		return isCloseOnHover;
+	}
+
+	/**
+	 * Set closeOnHover
+	 *
+	 * @param isCloseOnHover
+	 * @return
+	 */
+	public ToastOptions setIsCloseOnHover(Boolean isCloseOnHover) {
+		this.isCloseOnHover = isCloseOnHover;
+		return this;
+	}
+
+	/**
+	 * Get containerId
+	 *
+	 * @return
+	 */
+	public String getContainerId() {
+		return containerId;
+	}
+
+	/**
+	 * Set containerId
+	 *
+	 * @param containerId
+	 * @return
+	 */
+	public ToastOptions setContainerId(String containerId) {
+		this.containerId = containerId;
+		return this;
+	}
+
+	/**
+	 * Get debug
+	 *
+	 * @return
+	 */
+	public Boolean isDebug() {
+		return isDebug;
+	}
+
+	/**
+	 * Set debug
+	 *
+	 * @param isDebug
+	 * @return
+	 */
+	public ToastOptions setIsDebug(Boolean isDebug) {
+		this.isDebug = isDebug;
+		return this;
+	}
+
+	/**
+	 * Get escapeHtml
+	 *
+	 * @return
+	 */
+	public Boolean needEscapeHtml() {
+		return needEscapeHtml;
+	}
+
+	/**
+	 * Set escapeHtml
+	 *
+	 * @param needEscapeHtml
+	 * @return
+	 */
+	public ToastOptions setNeedEscapeHtml(Boolean needEscapeHtml) {
+		this.needEscapeHtml = needEscapeHtml;
+		return this;
+	}
+
+	/**
+	 * Get extendedTimeOut
+	 *
+	 * @return
+	 */
+	public Integer getExtendedTimeOut() {
+		return extendedTimeOut;
+	}
+
+	/**
+	 * Set extendedTimeOut
+	 *
+	 * @param extendedTimeOut
+	 * @return
+	 */
+	public ToastOptions setExtendedTimeOut(Integer extendedTimeOut) {
+		this.extendedTimeOut = extendedTimeOut;
+		return this;
+	}
+
+	/**
+	 * Get hideDuration
+	 *
+	 * @return
+	 */
+	public Duration getHideDuration() {
+		return hideDuration;
+	}
+
+	/**
+	 * Set hideDuration
+	 *
+	 * @param hideDuration
+	 * @return
+	 */
+	public ToastOptions setHideDuration(Duration hideDuration) {
+		this.hideDuration = hideDuration;
+		return this;
+	}
+
+	/**
+	 * Get hideEasing
+	 *
+	 * @return
+	 */
+	public DisplayEasing getHideEasing() {
+		return hideEasing;
+	}
+
+	/**
+	 * Set hideEasing
+	 *
+	 * @param hideEasing
+	 * @return
+	 */
+	public ToastOptions setHideEasing(DisplayEasing hideEasing) {
+		this.hideEasing = hideEasing;
+		return this;
+	}
+
+	/**
+	 * Get hideMethod
+	 *
+	 * @return
+	 */
+	public HideMethod getHideMethod() {
+		return hideMethod;
+	}
+
+	/**
+	 * Set hideMethod
+	 *
+	 * @param hideMethod
+	 * @return
+	 */
+	public ToastOptions setHideMethod(HideMethod hideMethod) {
+		this.hideMethod = hideMethod;
+		return this;
+	}
+
+	/**
+	 * Get iconClass
+	 *
+	 * @return
+	 */
+	public String getIconClass() {
+		return iconClass;
+	}
+
+	/**
+	 * Set iconClass
+	 *
+	 * @param iconClass
+	 * @return
+	 */
+	public ToastOptions setIconClass(String iconClass) {
+		this.iconClass = iconClass;
+		return this;
+	}
+
+	/**
+	 * Get iconClasses
+	 *
+	 * @return
+	 */
+	public String getIconClasses() {
+		return iconClasses;
+	}
+
+	/**
+	 * Set iconClasses
+	 *
+	 * @param iconClasses
+	 * @return
+	 */
+	public ToastOptions setIconClasses(String iconClasses) {
+		this.iconClasses = iconClasses;
+		return this;
+	}
+
+	/**
+	 * Get messageClass
+	 *
+	 * @return
+	 */
+	public String getMessageClass() {
+		return messageClass;
+	}
+
+	/**
+	 * Set messageClass
+	 *
+	 * @param messageClass
+	 * @return
+	 */
+	public ToastOptions setMessageClass(String messageClass) {
+		this.messageClass = messageClass;
+		return this;
+	}
+
+	/**
+	 * Get newestOnTop
+	 *
+	 * @return
+	 */
+	public Boolean isNewestOnTop() {
+		return isNewestOnTop;
+	}
+
+	/**
+	 * Set newestOnTop
+	 *
+	 * @param isNewestOnTop
+	 * @return
+	 */
+	public ToastOptions setIsNewestOnTop(Boolean isNewestOnTop) {
+		this.isNewestOnTop = isNewestOnTop;
+		return this;
+	}
+
+	/**
+	 * Get onclick
+	 *
+	 * @return
+	 */
+	public String getOnClickFunction() {
+		return onClickFunction;
+	}
+
+	/**
+	 * Set onclick
+	 *
+	 * @param onClickFunction
+	 * @return
+	 */
+	public ToastOptions setOnClickFunction(String onClickFunction) {
+		this.onClickFunction = onClickFunction;
+		return this;
+	}
+
+	/**
+	 * Get onCloseClick
+	 *
+	 * @return
+	 */
+	public String getOnCloseClickFunction() {
+		return onCloseClickFunction;
+	}
+
+	/**
+	 * Set onCloseClick
+	 *
+	 * @param onCloseClickFunction
+	 * @return
+	 */
+	public ToastOptions setOnCloseClickFunction(String onCloseClickFunction) {
+		this.onCloseClickFunction = onCloseClickFunction;
+		return this;
+	}
+
+	/**
+	 * Get onHidden
+	 *
+	 * @return
+	 */
+	public String getOnHiddenFunction() {
+		return onHiddenFunction;
+	}
+
+	/**
+	 * Set onHidden
+	 *
+	 * @param onHiddenFunction
+	 * @return
+	 */
+	public ToastOptions setOnHiddenFunction(String onHiddenFunction) {
+		this.onHiddenFunction = onHiddenFunction;
+		return this;
+	}
+
+	/**
+	 * Get onShown
+	 *
+	 * @return
+	 */
+	public String getOnShownFunction() {
+		return onShownFunction;
+	}
+
+	/**
+	 * Set onShown
+	 *
+	 * @param onShownFunction
+	 * @return
+	 */
+	public ToastOptions setOnShownFunction(String onShownFunction) {
+		this.onShownFunction = onShownFunction;
+		return this;
+	}
+
+	/**
+	 * Get positionClass
+	 *
+	 * @return
+	 */
+	public PositionClass getPositionClass() {
+		return positionClass;
+	}
+
+	/**
+	 * Set positionClass
+	 *
+	 * @param positionClass
+	 * @return
+	 */
+	public ToastOptions setPositionClass(PositionClass positionClass) {
+		this.positionClass = positionClass;
+		return this;
+	}
+
+	/**
+	 * Get preventDuplicates
+	 *
+	 * @return
+	 */
+	public Boolean needPreventDuplicates() {
+		return needPreventDuplicates;
+	}
+
+	/**
+	 * Set preventDuplicates
+	 *
+	 * @param needPreventDuplicates
+	 * @return
+	 */
+	public ToastOptions setNeedPreventDuplicates(Boolean needPreventDuplicates) {
+		this.needPreventDuplicates = needPreventDuplicates;
+		return this;
+	}
+
+	/**
+	 * Get progressBar
+	 *
+	 * @return
+	 */
+	public Boolean isEnableProgressBar() {
+		return isEnableProgressBar;
+	}
+
+	/**
+	 * Set progressBar
+	 *
+	 * @param isEnableProgressBar
+	 * @return
+	 */
+	public ToastOptions setIsEnableProgressBar(Boolean isEnableProgressBar) {
+		this.isEnableProgressBar = isEnableProgressBar;
+		return this;
+	}
+
+	/**
+	 * Get progressClass
+	 *
+	 * @return
+	 */
+	public String getProgressClass() {
+		return progressClass;
+	}
+
+	/**
+	 * Set progressClass
+	 *
+	 * @param progressClass
+	 * @return
+	 */
+	public ToastOptions setProgressClass(String progressClass) {
+		this.progressClass = progressClass;
+		return this;
+	}
+
+	/**
+	 * Get rtl
+	 *
+	 * @return
+	 */
+	public Boolean isRightToLeft() {
+		return isRightToLeft;
+	}
+
+	/**
+	 * Set rtl
+	 *
+	 * @param isRightToLeft
+	 * @return
+	 */
+	public ToastOptions setIsRightToLeft(Boolean isRightToLeft) {
+		this.isRightToLeft = isRightToLeft;
+		return this;
+	}
+
+	/**
+	 * Get showDuration
+	 *
+	 * @return
+	 */
+	public Duration getShowDuration() {
+		return showDuration;
+	}
+
+	/**
+	 * Set showDuration
+	 *
+	 * @param showDuration
+	 * @return
+	 */
+	public ToastOptions setShowDuration(Duration showDuration) {
+		this.showDuration = showDuration;
+		return this;
+	}
+
+	/**
+	 * Get showEasing
+	 *
+	 * @return
+	 */
+	public DisplayEasing getShowEasing() {
+		return showEasing;
+	}
+
+	/**
+	 * Set showEasing
+	 *
+	 * @param showEasing
+	 * @return
+	 */
+	public ToastOptions setShowEasing(DisplayEasing showEasing) {
+		this.showEasing = showEasing;
+		return this;
+	}
+
+	/**
+	 * Get showMethod
+	 *
+	 * @return
+	 */
+	public ShowMethod getShowMethod() {
+		return showMethod;
+	}
+
+	/**
+	 * Set showMethod
+	 *
+	 * @param showMethod
+	 * @return
+	 */
+	public ToastOptions setShowMethod(ShowMethod showMethod) {
+		this.showMethod = showMethod;
+		return this;
+	}
+
+	/**
+	 * Get tapToDismiss
+	 *
+	 * @return
+	 */
+	public Boolean isTapToDismiss() {
+		return isTapToDismiss;
+	}
+
+	/**
+	 * Set tapToDismiss
+	 *
+	 * @param isTapToDismiss
+	 * @return
+	 */
+	public ToastOptions setIsTapToDismiss(Boolean isTapToDismiss) {
+		this.isTapToDismiss = isTapToDismiss;
+		return this;
+	}
+
+	/**
+	 * Get target
+	 *
+	 * @return
+	 */
+	public String getTarget() {
+		return target;
+	}
+
+	/**
+	 * Set target
+	 *
+	 * @param target
+	 * @return
+	 */
+	public ToastOptions setTarget(String target) {
+		this.target = target;
+		return this;
+	}
+
+	/**
+	 * Get timeOut
+	 *
+	 * @return
+	 */
+	public Integer getTimeOut() {
+		return timeOut;
+	}
+
+	/**
+	 * Set timeOut
+	 *
+	 * @param timeOut
+	 * @return
+	 */
+	public ToastOptions setTimeOut(Integer timeOut) {
+		this.timeOut = timeOut;
+		return this;
+	}
+
+	/**
+	 * Get titleClass
+	 *
+	 * @return
+	 */
+	public String getTitleClass() {
+		return titleClass;
+	}
+
+	/**
+	 * Set titleClass
+	 *
+	 * @param titleClass
+	 * @return
+	 */
+	public ToastOptions setTitleClass(String titleClass) {
+		this.titleClass = titleClass;
+		return this;
+	}
+
+	/**
+	 * Get toastClass
+	 *
+	 * @return
+	 */
+	public String getToastClass() {
+		return toastClass;
+	}
+
+	/**
+	 * Set toastClass
+	 *
+	 * @param toastClass
+	 * @return
+	 */
+	public ToastOptions setToastClass(String toastClass) {
+		this.toastClass = toastClass;
+		return this;
+	}
 
 	/**
 	 * Gets Options as json string.
@@ -322,26 +1167,26 @@ public class ToastOptions implements Serializable {
 
 		for (Field field : this.getClass().getDeclaredFields()) {
 
-			OptionName optionName = field.getAnnotation(OptionName.class);
-			if (optionName == null) {
+			ToastOption option = field.getAnnotation(ToastOption.class);
+			if (option == null) {
 				continue;
 			}
 
 			field.setAccessible(true);
 
-			Object option;
+			Object optionValue;
 			try {
-				option = field.get(this);
+				optionValue = field.get(this);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				throw new RuntimeException(e);
 			}
 
-			if (option != null) {
-				sb.append("\"").append(optionName.value()).append("\":");
-				if (optionName.squeezDoubleQuotes()) {
-					sb.append("\"").append(option.toString()).append("\",");
+			if (optionValue != null) {
+				sb.append("\"").append(option.value()).append("\":");
+				if (option.squeezDoubleQuotes()) {
+					sb.append("\"").append(optionValue.toString()).append("\",");
 				} else {
-					sb.append(option.toString()).append(",");
+					sb.append(optionValue.toString()).append(",");
 				}
 			}
 
