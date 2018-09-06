@@ -1,7 +1,6 @@
 package jp.try0.wicket.toastr.core;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -9,6 +8,7 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.util.lang.Args;
+import org.danekja.java.util.function.serializable.SerializableSupplier;
 
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 
@@ -352,7 +352,7 @@ public class Toast implements IToast {
 	 * @param titleFactory
 	 * @return
 	 */
-	public Toast withToastTitle(boolean canSet, Supplier<String> titleFactory) {
+	public Toast withToastTitle(boolean canSet, SerializableSupplier<String> titleFactory) {
 		if (canSet) {
 			this.title = Optional.ofNullable(titleFactory.get());
 		}
@@ -387,7 +387,7 @@ public class Toast implements IToast {
 	 * @param optionsFactory
 	 * @return
 	 */
-	public Toast withToastOptions(boolean canSet, Supplier<ToastOptions> optionsFactory) {
+	public Toast withToastOptions(boolean canSet, SerializableSupplier<ToastOptions> optionsFactory) {
 		if (canSet) {
 			this.options = Optional.ofNullable(optionsFactory.get());
 		}
