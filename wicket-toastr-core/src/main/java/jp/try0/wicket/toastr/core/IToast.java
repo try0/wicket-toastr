@@ -1,5 +1,6 @@
 package jp.try0.wicket.toastr.core;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
@@ -10,7 +11,7 @@ import jp.try0.wicket.toastr.core.Toast.ToastLevel;
  * @author Ryo Tsunoda
  *
  */
-public interface IToast {
+public interface IToast extends Serializable {
 
 	/**
 	 * Gets toast level.
@@ -24,14 +25,14 @@ public interface IToast {
 	 *
 	 * @return
 	 */
-	public String getToastMessage();
+	public String getMessage();
 
 	/**
 	 * Gets toast title.
 	 *
 	 * @return
 	 */
-	public default Optional<String> getToastTitle() {
+	public default Optional<String> getTitle() {
 		return Optional.empty();
 	}
 

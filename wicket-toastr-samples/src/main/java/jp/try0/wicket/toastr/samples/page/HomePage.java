@@ -86,12 +86,10 @@ public class HomePage extends WebPage {
 								.setPositionClass(toastPosition.getObject());
 
 
-						Toast toast = Toast.create(toastLevel.getObject(), message.getObject());
-						if (!Strings.isNullOrEmpty(title.getObject())) {
-							toast.withToastTitle(title.getObject());
-						}
-						toast.withToastOptions(options)
-						.show(this);
+						Toast.create(toastLevel.getObject(), message.getObject())
+							.withToastTitle(!Strings.isNullOrEmpty(title.getObject()), title::getObject)
+							.withToastOptions(options)
+							.show(this);
 
 					}
 
@@ -104,12 +102,10 @@ public class HomePage extends WebPage {
 						ToastOptions options = ToastOptions.create()
 								.setPositionClass(toastPosition.getObject());
 
-						Toast toast = Toast.create(toastLevel.getObject(), message.getObject());
-						if (!Strings.isNullOrEmpty(title.getObject())) {
-							toast.withToastTitle(title.getObject());
-						}
-						toast.withToastOptions(options)
-						.show(target);
+						Toast.create(toastLevel.getObject(), message.getObject())
+						.withToastTitle(!Strings.isNullOrEmpty(title.getObject()), title::getObject)
+						.withToastOptions(options)
+						.show(this);
 					};
 
 				});

@@ -1,7 +1,7 @@
 package jp.try0.wicket.toastr.core;
 
-import java.io.Serializable;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -18,7 +18,7 @@ import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
  * @author Ryo Tsunoda
  *
  */
-public class Toast implements IToast, Serializable {
+public class Toast implements IToast {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -51,8 +51,7 @@ public class Toast implements IToast, Serializable {
 		/**
 		 * Error level
 		 */
-		ERROR("error", true),
-		;
+		ERROR("error", true),;
 
 		/**
 		 * Short level string. Same as toastr's method name that display messages.
@@ -63,7 +62,6 @@ public class Toast implements IToast, Serializable {
 		 * Whether toast can be displayed.
 		 */
 		boolean isSupported;
-
 
 		/**
 		 * Constractor
@@ -93,7 +91,8 @@ public class Toast implements IToast, Serializable {
 		/**
 		 * Convert feedback message level to toast level.
 		 *
-		 * @param levelOfFeedbackMessage feedback message level
+		 * @param levelOfFeedbackMessage
+		 *            feedback message level
 		 * @return toast level
 		 */
 		public static ToastLevel fromFeedbackMessageLevel(int levelOfFeedbackMessage) {
@@ -110,7 +109,8 @@ public class Toast implements IToast, Serializable {
 		/**
 		 * Converts feedback message level to toast level.
 		 *
-		 * @param level feedback message level
+		 * @param level
+		 *            feedback message level
 		 * @return toast level
 		 */
 		public static ToastLevel fromFeedbackMessageLevel(FeedbackMessageLevel level) {
@@ -173,8 +173,7 @@ public class Toast implements IToast, Serializable {
 		/**
 		 * Fatal level
 		 */
-		FATAL(FeedbackMessage.FATAL),
-		;
+		FATAL(FeedbackMessage.FATAL),;
 
 		/**
 		 * FeedbackMessage's constant of message level.
@@ -222,7 +221,6 @@ public class Toast implements IToast, Serializable {
 
 		}
 	}
-
 
 	/**
 	 * Creates a toast.
@@ -275,9 +273,6 @@ public class Toast implements IToast, Serializable {
 		return new Toast(ToastLevel.ERROR, message);
 	}
 
-
-
-
 	/**
 	 * Toast level
 	 */
@@ -298,7 +293,6 @@ public class Toast implements IToast, Serializable {
 	 */
 	private Optional<ToastOptions> options;
 
-
 	/**
 	 * Constractor
 	 *
@@ -317,7 +311,7 @@ public class Toast implements IToast, Serializable {
 	 * @param title
 	 */
 	public Toast(ToastLevel level, String message, String title) {
-		this(level, message , title, null);
+		this(level, message, title, null);
 	}
 
 	/**
@@ -329,14 +323,15 @@ public class Toast implements IToast, Serializable {
 	 * @param options
 	 */
 	public Toast(ToastLevel level, String message, String title, ToastOptions options) {
+		if (!level.isSupported()) {
+			throw new IllegalArgumentException("This level is unsupported.");
+		}
+
 		this.level = Args.notNull(level, "level");
 		this.message = Args.notNull(message, "message");
 		this.title = Optional.ofNullable(title);
 		this.options = Optional.ofNullable(options);
 
-		if (!level.isSupported()) {
-			throw new IllegalArgumentException("This level is unsupported.");
-		}
 	}
 
 	/**
@@ -351,12 +346,26 @@ public class Toast implements IToast, Serializable {
 	}
 
 	/**
+	 * Set title if the condition is true.
+	 *
+	 * @param canSet
+	 * @param titleFactory
+	 * @return
+	 */
+	public Toast withToastTitle(boolean canSet, Supplier<String> titleFactory) {
+		if (canSet) {
+			this.title = Optional.ofNullable(titleFactory.get());
+		}
+		return this;
+	}
+
+	/**
 	 * Gets title.
 	 *
 	 * @return
 	 */
 	@Override
-	public Optional<String> getToastTitle() {
+	public Optional<String> getTitle() {
 		return title;
 	}
 
@@ -368,6 +377,20 @@ public class Toast implements IToast, Serializable {
 	 */
 	public Toast withToastOptions(ToastOptions options) {
 		this.options = Optional.ofNullable(options);
+		return this;
+	}
+
+	/**
+	 * Sets override options if the condition is true.
+	 *
+	 * @param canSet
+	 * @param optionsFactory
+	 * @return
+	 */
+	public Toast withToastOptions(boolean canSet, Supplier<ToastOptions> optionsFactory) {
+		if (canSet) {
+			this.options = Optional.ofNullable(optionsFactory.get());
+		}
 		return this;
 	}
 
@@ -397,10 +420,9 @@ public class Toast implements IToast, Serializable {
 	 * @return
 	 */
 	@Override
-	public String getToastMessage() {
+	public String getMessage() {
 		return message;
 	}
-
 
 	/**
 	 * Creates script for display toast with consider level of feedback messages.
@@ -410,11 +432,7 @@ public class Toast implements IToast, Serializable {
 	@Override
 	public String getScriptForDisplay() {
 		final StringBuilder script = new StringBuilder();
-		script.append("toastr.")
-		.append(level.getLevelString())
-		.append("(\"")
-		.append(message)
-		.append("\"");
+		script.append("toastr.").append(level.getLevelString()).append("(\"").append(message).append("\"");
 
 		// title is optional
 		if (title.isPresent()) {
@@ -436,9 +454,7 @@ public class Toast implements IToast, Serializable {
 	 * @param target
 	 */
 	public void show(AjaxRequestTarget target) {
-		StringBuilder script = new StringBuilder("$(function(){")
-		.append(getScriptForDisplay())
-		.append("});");
+		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
 
 		target.appendJavaScript(script);
 	}
@@ -449,9 +465,7 @@ public class Toast implements IToast, Serializable {
 	 * @param responce
 	 */
 	public void show(IHeaderResponse responce) {
-		StringBuilder script = new StringBuilder("$(function(){")
-		.append(getScriptForDisplay())
-		.append("});");
+		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
 
 		responce.render(JavaScriptHeaderItem.forScript(script, null));
 	}
