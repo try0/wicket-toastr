@@ -464,7 +464,25 @@ public class Toast implements IToast, Serializable {
 	 * @param component
 	 */
 	public void show(Component component) {
-		component.getFeedbackMessages().add(toFeedbackToast(component));
+		switch (level) {
+		case ERROR:
+			component.error(toFeedbackToast(component));
+			break;
+		case INFO:
+			component.info(toFeedbackToast(component));
+			break;
+		case SUCCESS:
+			component.success(toFeedbackToast(component));
+			break;
+		case UNDEFINED:
+			break;
+		case WARNING:
+			component.warn(toFeedbackToast(component));
+			break;
+		default:
+			break;
+
+		}
 	}
 
 	/**

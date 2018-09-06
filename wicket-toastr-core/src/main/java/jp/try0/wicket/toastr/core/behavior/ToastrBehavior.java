@@ -224,9 +224,9 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * @return
 	 */
 	protected IToast getToast(FeedbackMessage feedbackMessage, ToastLevel toastLevel) {
-		if (feedbackMessage instanceof FeedbackToast) {
+		if (feedbackMessage.getMessage() instanceof FeedbackToast) {
 			// use feedback message
-			return (FeedbackToast) feedbackMessage;
+			return (FeedbackToast) feedbackMessage.getMessage();
 		} else {
 			// create new one
 			return Toast.create(toastLevel, feedbackMessage.getMessage().toString());
