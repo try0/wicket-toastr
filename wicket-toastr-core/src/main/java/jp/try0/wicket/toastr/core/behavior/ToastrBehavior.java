@@ -19,7 +19,6 @@ import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
-import jp.try0.wicket.toastr.core.feedback.FeedbackToast;
 
 /**
  * Toastr behavior
@@ -224,9 +223,9 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * @return
 	 */
 	protected IToast getToast(FeedbackMessage feedbackMessage, ToastLevel toastLevel) {
-		if (feedbackMessage.getMessage() instanceof FeedbackToast) {
+		if (feedbackMessage.getMessage() instanceof IToast) {
 			// use feedback message
-			return (FeedbackToast) feedbackMessage.getMessage();
+			return (IToast) feedbackMessage.getMessage();
 		} else {
 			// create new one
 			return Toast.create(toastLevel, feedbackMessage.getMessage().toString());

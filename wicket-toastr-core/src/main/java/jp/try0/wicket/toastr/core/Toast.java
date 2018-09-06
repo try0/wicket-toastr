@@ -11,7 +11,6 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.util.lang.Args;
 
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
-import jp.try0.wicket.toastr.core.feedback.FeedbackToast;
 
 /**
  * Toast
@@ -346,7 +345,7 @@ public class Toast implements IToast, Serializable {
 	 * @param title
 	 * @return
 	 */
-	public Toast setToastTitle(String title) {
+	public Toast withToastTitle(String title) {
 		this.title = Optional.ofNullable(title);
 		return this;
 	}
@@ -367,7 +366,7 @@ public class Toast implements IToast, Serializable {
 	 * @param options
 	 * @return
 	 */
-	public Toast setToastOptions(ToastOptions options) {
+	public Toast withToastOptions(ToastOptions options) {
 		this.options = Optional.ofNullable(options);
 		return this;
 	}
@@ -466,33 +465,23 @@ public class Toast implements IToast, Serializable {
 	public void show(Component component) {
 		switch (level) {
 		case ERROR:
-			component.error(toFeedbackToast(component));
+			component.error(this);
 			break;
 		case INFO:
-			component.info(toFeedbackToast(component));
+			component.info(this);
 			break;
 		case SUCCESS:
-			component.success(toFeedbackToast(component));
+			component.success(this);
 			break;
 		case UNDEFINED:
 			break;
 		case WARNING:
-			component.warn(toFeedbackToast(component));
+			component.warn(this);
 			break;
 		default:
 			break;
 
 		}
-	}
-
-	/**
-	 * Converts to FeedbackToast.
-	 *
-	 * @param component
-	 * @return
-	 */
-	public FeedbackToast toFeedbackToast(Component component) {
-		return new FeedbackToast(component, this);
 	}
 
 }

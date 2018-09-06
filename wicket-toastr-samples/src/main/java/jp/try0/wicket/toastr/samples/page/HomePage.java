@@ -87,9 +87,9 @@ public class HomePage extends WebPage {
 
 						Toast toast = Toast.create(toastLevel.getObject(), message.getObject());
 						if (!Strings.isNullOrEmpty(title.getObject())) {
-							toast.setToastTitle(title.getObject());
+							toast.withToastTitle(title.getObject());
 						}
-						toast.setToastOptions(options)
+						toast.withToastOptions(options)
 						.show(this);
 
 					}
@@ -105,9 +105,9 @@ public class HomePage extends WebPage {
 
 						Toast toast = Toast.create(toastLevel.getObject(), message.getObject());
 						if (!Strings.isNullOrEmpty(title.getObject())) {
-							toast.setToastTitle(title.getObject());
+							toast.withToastTitle(title.getObject());
 						}
-						toast.setToastOptions(options)
+						toast.withToastOptions(options)
 						.show(target);
 					};
 
