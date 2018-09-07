@@ -7,6 +7,7 @@
 </head>
 <body>
 
+	<!-- NavigationBar  -->
 	<div wicket:id="navBar"></div>
 
 	<div class="container">
@@ -14,22 +15,71 @@
 
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div>
-						<label>Toast levels</label>
-						<wicket:container wicket:id="rdoLevel"></wicket:container>
+
+					<!-- Toast Options  -->
+					<label>Toast Options</label>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+
+								<!-- Toast Levels -->
+								<div class="col-sm-2">
+									<label>Levels</label>
+									<wicket:container wicket:id="rdoLevel"></wicket:container>
+								</div>
+								<!-- Toast Positions -->
+								<div class="col-sm-3">
+									<label>Positions</label>
+									<wicket:container wicket:id="rdoPosition"></wicket:container>
+								</div>
+
+
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
+
+									<!-- Toast Callback Functions -->
+									<table class="table">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Callbacks</th>
+												<th scope="col">alert</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row">onShown</th>
+												<td><wicket:container wicket:id="switchOnShown"></wicket:container>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">onHidden</th>
+												<td><wicket:container wicket:id="switchOnHidden"></wicket:container></td>
+											</tr>
+											<tr>
+												<th scope="row">onclick</th>
+												<td><wicket:container wicket:id="switchOnClick"></wicket:container></td>
+											</tr>
+											<tr>
+												<th scope="row">onCloseClick</th>
+												<td><wicket:container wicket:id="switchOnCloseClick"></wicket:container></td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+						</div>
 					</div>
 
-					<div>
-						<label>Toast positions</label>
-						<wicket:container wicket:id="rdoPosition"></wicket:container>
-					</div>
-
+					<!-- Toast Title  -->
 					<div>
 						<label>Title</label> <input wicket:id="txtTitle" type="text"
 							class="form-control" placeholder="Title">
 					</div>
 
-
+					<!-- Toast Message  -->
 					<div>
 						<label>Message</label>
 						<textarea wicket:id="txtMessage" rows="2" placeholder="Message"
