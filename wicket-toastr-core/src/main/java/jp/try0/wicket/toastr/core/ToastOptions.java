@@ -93,13 +93,19 @@ public class ToastOptions implements Serializable {
 		boolean squeezDoubleQuotes() default true;
 	}
 
+	public interface IAppearMethod extends Serializable {
+	}
+
+	public interface IDisappearMethod extends Serializable {
+	}
+
 	/**
 	 * Show method names.
 	 *
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum ShowMethod {
+	public static enum ShowMethod implements IAppearMethod {
 		SHOW("show"),
 		FADE_ID("fadeIn"),
 		SLIDE_DOWN("slideDown"),
@@ -123,7 +129,7 @@ public class ToastOptions implements Serializable {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum HideMethod {
+	public static enum HideMethod implements IDisappearMethod {
 		HIDE("hide"),
 		FADE_OUT("fadeOut"),
 		SLIDE_UP("slideUp"),
@@ -142,12 +148,37 @@ public class ToastOptions implements Serializable {
 	}
 
 	/**
-	 * TODO
+	 * Close method names.
 	 *
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum CloseMethod {}
+	public static enum CloseMethod implements IDisappearMethod {
+		HIDE("hide"),
+		FADE_OUT("fadeOut"),
+		SLIDE_UP("slideUp"),
+		;
+
+		String methodName;
+
+		private CloseMethod(String methodName) {
+			this.methodName = methodName;
+		}
+
+		@Override
+		public String toString() {
+			return methodName;
+		}
+	}
+
+	/**
+	 * Easing interface.
+	 *
+	 * @author ryoMac
+	 *
+	 */
+	public static interface IEasing extends Serializable {
+	}
 
 	/**
 	 * Easing types.
@@ -155,11 +186,9 @@ public class ToastOptions implements Serializable {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum DisplayEasing {
+	public static enum DisplayEasing implements IEasing {
 		SWING("swing"),
 		LINEAR("linear"),
-		EASE_OUT_BOUNCE("easeOutBounce"),
-		EASE_IN_BACK("easeInBack"),
 		;
 
 		String easing;
@@ -268,7 +297,7 @@ public class ToastOptions implements Serializable {
 	 * closeEasing
 	 */
 	@ToastOption(value = OptionKeys.CLOSE_EASING)
-	private DisplayEasing closeEasing = null;
+	private IEasing closeEasing = null;
 
 	/**
 	 * closeHtml
@@ -280,7 +309,7 @@ public class ToastOptions implements Serializable {
 	 * closeMethod
 	 */
 	@ToastOption(value = OptionKeys.CLOSE_METHOD)
-	private CloseMethod closeMethod = null;
+	private IDisappearMethod closeMethod = null;
 
 	/**
 	 * closeOnHover
@@ -322,13 +351,13 @@ public class ToastOptions implements Serializable {
 	 * hideEasing
 	 */
 	@ToastOption(value = OptionKeys.HIDE_EASING)
-	private DisplayEasing hideEasing = null;
+	private IEasing hideEasing = null;
 
 	/**
 	 * hideMethod
 	 */
 	@ToastOption(value = OptionKeys.HIDE_METHOD)
-	private HideMethod hideMethod = null;
+	private IDisappearMethod hideMethod = null;
 
 	/**
 	 * iconClass
@@ -418,7 +447,7 @@ public class ToastOptions implements Serializable {
 	 * showEasing
 	 */
 	@ToastOption(value = OptionKeys.SHOW_EASING)
-	private DisplayEasing showEasing = null;
+	private IEasing showEasing = null;
 
 	/**
 	 * showMethod
@@ -522,7 +551,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public DisplayEasing getCloseEasing() {
+	public IEasing getCloseEasing() {
 		return closeEasing;
 	}
 
@@ -532,7 +561,7 @@ public class ToastOptions implements Serializable {
 	 * @param closeEasing
 	 * @return
 	 */
-	public ToastOptions setCloseEasing(DisplayEasing closeEasing) {
+	public ToastOptions setCloseEasing(IEasing closeEasing) {
 		this.closeEasing = closeEasing;
 		return this;
 	}
@@ -562,7 +591,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public CloseMethod getCloseMethod() {
+	public IDisappearMethod getCloseMethod() {
 		return closeMethod;
 	}
 
@@ -572,7 +601,7 @@ public class ToastOptions implements Serializable {
 	 * @param closeMethod
 	 * @return
 	 */
-	public ToastOptions setCloseMethod(CloseMethod closeMethod) {
+	public ToastOptions setCloseMethod(IDisappearMethod closeMethod) {
 		this.closeMethod = closeMethod;
 		return this;
 	}
@@ -702,7 +731,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public DisplayEasing getHideEasing() {
+	public IEasing getHideEasing() {
 		return hideEasing;
 	}
 
@@ -712,7 +741,7 @@ public class ToastOptions implements Serializable {
 	 * @param hideEasing
 	 * @return
 	 */
-	public ToastOptions setHideEasing(DisplayEasing hideEasing) {
+	public ToastOptions setHideEasing(IEasing hideEasing) {
 		this.hideEasing = hideEasing;
 		return this;
 	}
@@ -722,7 +751,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public HideMethod getHideMethod() {
+	public IDisappearMethod getHideMethod() {
 		return hideMethod;
 	}
 
@@ -732,7 +761,7 @@ public class ToastOptions implements Serializable {
 	 * @param hideMethod
 	 * @return
 	 */
-	public ToastOptions setHideMethod(HideMethod hideMethod) {
+	public ToastOptions setHideMethod(IDisappearMethod hideMethod) {
 		this.hideMethod = hideMethod;
 		return this;
 	}
@@ -1022,7 +1051,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public DisplayEasing getShowEasing() {
+	public IEasing getShowEasing() {
 		return showEasing;
 	}
 
@@ -1032,7 +1061,7 @@ public class ToastOptions implements Serializable {
 	 * @param showEasing
 	 * @return
 	 */
-	public ToastOptions setShowEasing(DisplayEasing showEasing) {
+	public ToastOptions setShowEasing(IEasing showEasing) {
 		this.showEasing = showEasing;
 		return this;
 	}
