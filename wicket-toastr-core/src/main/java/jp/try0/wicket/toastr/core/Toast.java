@@ -332,7 +332,7 @@ public class Toast implements IToast {
 	 * @param response
 	 */
 	public static void clear(final AjaxRequestTarget target) {
-		target.appendJavaScript("toastr.remove();");
+		target.appendJavaScript("toastr.clear();");
 	}
 
 	/**
