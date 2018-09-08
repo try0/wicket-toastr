@@ -300,6 +300,42 @@ public class Toast implements IToast {
 	}
 
 	/**
+	 * Remove current toasts without using animation.
+	 *
+	 * @param response
+	 */
+	public static void remove(final IHeaderResponse response) {
+		response.render(JavaScriptHeaderItem.forScript("toastr.remove();", null));
+	}
+
+	/**
+	 * Remove current toasts without using animation.
+	 *
+	 * @param response
+	 */
+	public static void remove(final AjaxRequestTarget target) {
+		target.appendJavaScript("toastr.remove();");
+	}
+
+	/**
+	 * Remove current toasts using animation.
+	 *
+	 * @param response
+	 */
+	public static void clear(final IHeaderResponse response) {
+		response.render(JavaScriptHeaderItem.forScript("toastr.clear();", null));
+	}
+
+	/**
+	 * Remove current toasts using animation.
+	 *
+	 * @param response
+	 */
+	public static void clear(final AjaxRequestTarget target) {
+		target.appendJavaScript("toastr.remove();");
+	}
+
+	/**
 	 * Toast level
 	 */
 	private ToastLevel level;
@@ -479,7 +515,7 @@ public class Toast implements IToast {
 	 *
 	 * @param target
 	 */
-	public void show(AjaxRequestTarget target) {
+	public void show(final AjaxRequestTarget target) {
 		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
 
 		target.appendJavaScript(script);
@@ -490,7 +526,7 @@ public class Toast implements IToast {
 	 *
 	 * @param responce
 	 */
-	public void show(IHeaderResponse responce) {
+	public void show(final IHeaderResponse responce) {
 		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
 
 		responce.render(JavaScriptHeaderItem.forScript(script, null));
@@ -502,7 +538,7 @@ public class Toast implements IToast {
 	 *
 	 * @param component
 	 */
-	public void show(Component component) {
+	public void show(final Component component) {
 		switch (level) {
 		case ERROR:
 			component.error(this);
