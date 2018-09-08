@@ -6,12 +6,15 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.value.IValueMap;
+import org.apache.wicket.util.value.ValueMap;
 
 import com.google.common.base.Strings;
 
@@ -22,7 +25,11 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
+import jp.try0.wicket.toastr.core.ToastOptions.DisplayEasing;
+import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
+import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
 
 /**
  * Home page
@@ -52,21 +59,46 @@ public class HomePage extends WebPage {
 			{
 //				fluid();
 				setBrandName(Model.of("Wicket Toastr Samples"));
+
 			}
 		});
 
 
 		add(new BootstrapForm<Void>("form") {
 			{
-				// Toast levels
-				IModel<ToastLevel> toastLevel = new Model<ToastLevel>(ToastLevel.INFO);
-				List<ToastLevel> levels =
-						Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING, ToastLevel.ERROR);
-				add(new BootstrapRadioChoice<ToastLevel>("rdoLevel", toastLevel, levels));
 
 				// Toast positions
 				IModel<PositionClass> toastPosition = new Model<PositionClass>(PositionClass.TOP_RIGHT);
 				add(new BootstrapRadioChoice<PositionClass>("rdoPosition", toastPosition, Arrays.asList(PositionClass.values())));
+
+				// Methods
+				IModel<ShowMethod> showMethod = new Model<ShowMethod>(ShowMethod.FADE_ID);
+				add(new BootstrapRadioChoice<ShowMethod>("rdoShowMethod", showMethod, Arrays.asList(ShowMethod.values())));
+
+				IModel<HideMethod> hideMethod = new Model<HideMethod>(HideMethod.FADE_OUT);
+				add(new BootstrapRadioChoice<HideMethod>("rdoHideMethod", hideMethod, Arrays.asList(HideMethod.values())));
+
+				IModel<CloseMethod> closeMethod = new Model<CloseMethod>(CloseMethod.FADE_OUT);
+				add(new BootstrapRadioChoice<CloseMethod>("rdoCloseMethod", closeMethod, Arrays.asList(CloseMethod.values())));
+
+				// Easing
+				IModel<DisplayEasing> showEasing = new Model<DisplayEasing>(DisplayEasing.SWING);
+				add(new BootstrapRadioChoice<DisplayEasing>("rdoShowEasing", showEasing, Arrays.asList(DisplayEasing.values())));
+
+				IModel<DisplayEasing> hideEasing = new Model<DisplayEasing>(DisplayEasing.SWING);
+				add(new BootstrapRadioChoice<DisplayEasing>("rdoHideEasing", hideEasing, Arrays.asList(DisplayEasing.values())));
+
+				IModel<DisplayEasing> closeEasing = new Model<DisplayEasing>(DisplayEasing.SWING);
+				add(new BootstrapRadioChoice<DisplayEasing>("rdoCloseEasing", closeEasing, Arrays.asList(DisplayEasing.values())));
+
+				// Progress Bar
+				IModel<Boolean> progressBar = new Model<>(false);
+				add(new BooleanRadioGroup("switchProgressBar", progressBar));
+
+
+				// Right to left
+				IModel<Boolean> rtl = new Model<>(false);
+				add(new BooleanRadioGroup("switchRtl", rtl));
 
 				// Callbacks
 				IModel<Boolean> onShown = new Model<>(false);
@@ -80,6 +112,63 @@ public class HomePage extends WebPage {
 
 				IModel<Boolean> onCloseClick = new Model<>(false);
 				add(new BooleanRadioGroup("switchOnCloseClick", onCloseClick));
+
+				// Display sequence
+				IModel<Boolean> newestOnTop = new Model<>(false);
+				add(new BooleanRadioGroup("switchNewestOnTop", newestOnTop));
+
+				// Prevent duplicates
+				IModel<Boolean> preventDuplicates = new Model<>(false);
+				add(new BooleanRadioGroup("switchPreventDuplicates", preventDuplicates));
+
+				// Time out
+				IModel<Integer> timeOut = new Model<Integer>(600);
+				add(new NumberTextField<Integer>("txtTimeOut", timeOut));
+
+				// Extended time out
+				IModel<Integer> extendedTimeOut = new Model<Integer>(600);
+				add(new NumberTextField<Integer>("txtExtendedTimeOut", extendedTimeOut));
+
+
+				// Toast levels
+				IModel<ToastLevel> toastLevel = new Model<ToastLevel>(ToastLevel.INFO);
+				List<ToastLevel> levels =
+						Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING, ToastLevel.ERROR);
+				add(new BootstrapRadioChoice<ToastLevel>("rdoLevel", toastLevel, levels) {
+
+
+					@Override
+					protected IValueMap getAdditionalAttributesForLabel(int index, ToastLevel choice) {
+						IValueMap vm = super.getAdditionalAttributes(index, choice);
+
+						if (vm == null) {
+							vm = new ValueMap();
+						}
+						String classNames = vm.getKey("class");
+
+						switch (choice) {
+						case ERROR:
+							classNames += " text-danger";
+							break;
+						case INFO:
+							classNames += " text-info";
+							break;
+						case SUCCESS:
+							classNames += " text-success";
+							break;
+						case WARNING:
+							classNames += " text-warning";
+							break;
+
+						}
+
+						vm.put("class", classNames);
+
+						return vm;
+					}
+				});
+
+
 
 				// Toast title
 				IModel<String> title = new Model<String>("");
@@ -97,9 +186,22 @@ public class HomePage extends WebPage {
 				IModel<ToastOptions> options = () -> {
 					ToastOptions opts = ToastOptions.create()
 							.setPositionClass(toastPosition.getObject())
+							.setShowMethod(showMethod.getObject())
+							.setHideMethod(hideMethod.getObject())
+							.setCloseMethod(closeMethod.getObject())
+							.setShowEasing(showEasing.getObject())
+							.setHideEasing(hideEasing.getObject())
+							.setCloseEasing(closeEasing.getObject())
+							.setIsNewestOnTop(newestOnTop.getObject())
+							.setIsEnableProgressBar(progressBar.getObject())
+							.setIsRightToLeft(rtl.getObject())
+							.setTimeOut(timeOut.getObject())
+							.setExtendedTimeOut(extendedTimeOut.getObject())
+							.setNeedPreventDuplicates(preventDuplicates.getObject())
 							.setOnShownFunction(onShown.getObject() ? "function() {alert('fired onShown');}" : "false")
 							.setOnHiddenFunction(onHidden.getObject() ? "function() {alert('fired onHidden');}" : "false")
 							.setOnClickFunction(onClick.getObject() ? "function() {alert('fired onclick');}" : "false")
+							.setIsEnableCloseButton(onCloseClick.getObject())
 							.setOnCloseClickFunction(onCloseClick.getObject() ? "function() {alert('fired onCloseClick');}" : "false");
 					return 	opts;
 				};

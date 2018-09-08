@@ -4,6 +4,31 @@
 <meta charset="utf-8" />
 <title>Wicket Toastr Samples</title>
 
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+
+<style>
+i {
+	padding-right: 5px;
+}
+
+.container {
+	padding-bottom: 15px;
+}
+
+footer {
+	background-color: #e7e7e7;
+}
+
+footer .container {
+	padding-top: 10px;
+}
+</style>
+
+
+
 </head>
 <body>
 
@@ -22,28 +47,84 @@
 						<div class="panel-body">
 							<div class="row">
 
-								<!-- Toast Levels -->
+								<!-- Toast Show Method -->
 								<div class="col-sm-2">
-									<label>Levels</label>
-									<wicket:container wicket:id="rdoLevel"></wicket:container>
+									<label class="text-primary">ShowMethod</label>
+									<wicket:container wicket:id="rdoShowMethod"></wicket:container>
 								</div>
-								<!-- Toast Positions -->
-								<div class="col-sm-3">
-									<label>Positions</label>
-									<wicket:container wicket:id="rdoPosition"></wicket:container>
+
+								<!-- Toast Hide Method -->
+								<div class="col-sm-2">
+									<label class="text-primary">HideMethod</label>
+									<wicket:container wicket:id="rdoHideMethod"></wicket:container>
+								</div>
+
+								<!-- Toast Close Method -->
+								<div class="col-sm-2">
+									<label class="text-primary">CloseMethod</label>
+									<wicket:container wicket:id="rdoCloseMethod"></wicket:container>
+								</div>
+
+								<!-- Toast Show Easing -->
+								<div class="col-sm-2">
+									<label class="text-primary">ShowEasing</label>
+									<wicket:container wicket:id="rdoShowEasing"></wicket:container>
+								</div>
+
+								<!-- Toast Hide Easing -->
+								<div class="col-sm-2">
+									<label class="text-primary">HideEasing</label>
+									<wicket:container wicket:id="rdoHideEasing"></wicket:container>
+								</div>
+
+								<!-- Toast Close Easing -->
+								<div class="col-sm-2">
+									<label class="text-primary">CloseEasing</label>
+									<wicket:container wicket:id="rdoCloseEasing"></wicket:container>
 								</div>
 
 
 							</div>
-
 							<div class="row">
+
+								<!-- Toast Progress Bar -->
 								<div class="col-sm-3">
+									<label class="text-primary">ProgressBar</label><br>
+									<wicket:container wicket:id="switchProgressBar"></wicket:container>
+								</div>
+
+								<!-- Toast Right To Left -->
+								<div class="col-sm-3">
+									<label class="text-primary">RithtToLeft</label><br>
+									<wicket:container wicket:id="switchRtl"></wicket:container>
+								</div>
+
+								<!-- Toast Display Sequence -->
+								<div class="col-sm-3">
+									<label class="text-primary">NewestOnTop</label><br>
+									<wicket:container wicket:id="switchNewestOnTop"></wicket:container>
+								</div>
+
+								<!-- Toast Prevent Duplicates -->
+								<div class="col-sm-3">
+									<label class="text-primary">PreventDuplicates</label><br>
+									<wicket:container wicket:id="switchPreventDuplicates"></wicket:container>
+								</div>
+							</div>
+							<div class="row">
+								<!-- Toast Positions -->
+								<div class="col-sm-3">
+									<label class="text-primary">Positions</label>
+									<wicket:container wicket:id="rdoPosition"></wicket:container>
+								</div>
+								<div class="col-sm-6">
 
 									<!-- Toast Callback Functions -->
 									<table class="table">
 										<thead class="thead-light">
 											<tr>
-												<th scope="col">Callbacks</th>
+												<th scope="col" class="text-primary"><i
+													class="fas fa-circle"></i>Callbacks</th>
 												<th scope="col">alert</th>
 											</tr>
 										</thead>
@@ -70,30 +151,60 @@
 
 								</div>
 							</div>
+							<div class="row">
+								<!-- Toast Time Out  -->
+								<div class="col-sm-3">
+									<label class="text-primary">TimeOut</label>
+									<input wicket:id="txtTimeOut" type="number"
+										class="form-control" placeholder="Title">
+								</div>
+								<!-- Toast Extended Time Out   -->
+								<div class="col-sm-3">
+									<label class="text-primary">ExtendedTimeOut</label>
+									<input wicket:id="txtExtendedTimeOut" type="number"
+										class="form-control" placeholder="Title">
+								</div>
+							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<!-- Toast Levels -->
+							<div>
+								<label class="text-primary">Levels</label>
+								<wicket:container wicket:id="rdoLevel"></wicket:container>
+							</div>
+						</div>
+						<div class="col-sm-9">
+							<!-- Toast Title  -->
+							<div>
+								<label class="text-primary">Title</label>
+								<input wicket:id="txtTitle" type="text" class="form-control"
+									placeholder="Title">
+							</div>
 
-					<!-- Toast Title  -->
-					<div>
-						<label>Title</label> <input wicket:id="txtTitle" type="text"
-							class="form-control" placeholder="Title">
-					</div>
-
-					<!-- Toast Message  -->
-					<div>
-						<label>Message</label>
-						<textarea wicket:id="txtMessage" rows="2" placeholder="Message"
-							class="form-control"></textarea>
+							<!-- Toast Message  -->
+							<div>
+								<label class="text-primary">Message</label>
+								<textarea wicket:id="txtMessage" rows="2" placeholder="Message"
+									class="form-control"></textarea>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div>
-				<button wicket:id="link" class="btn">SubmitLink</button>
-				<button wicket:id="ajaxLink" class="btn">AjaxSubmitLink</button>
+				<button wicket:id="link" class="btn">
+					<i class="fas fa-comment-alt"></i>SubmitLink
+				</button>
+				<button wicket:id="ajaxLink" class="btn">
+					<i class="fas fa-comment-alt"></i>AjaxSubmitLink
+				</button>
 			</div>
 
 		</form>
 	</div>
+
 </body>
 </html>
