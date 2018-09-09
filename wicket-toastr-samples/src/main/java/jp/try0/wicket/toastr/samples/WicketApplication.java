@@ -16,7 +16,7 @@ import jp.try0.wicket.toastr.samples.page.HomePage;
 public class WicketApplication extends WebApplication
 {
 	/**
-	 * @see org.apache.wicket.Application#getHomePage()
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Class<? extends WebPage> getHomePage()
@@ -25,7 +25,7 @@ public class WicketApplication extends WebApplication
 	}
 
 	/**
-	 * @see org.apache.wicket.Application#init()
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void init()
