@@ -81,7 +81,7 @@ public class ToastOptions implements Serializable {
 	}
 
 	/**
-	 * Option name
+	 * Option value and config.
 	 *
 	 * @author Ryo Tsunoda
 	 *
@@ -89,8 +89,11 @@ public class ToastOptions implements Serializable {
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
 	private static @interface ToastOption {
+
 		String value();
+
 		boolean squeezDoubleQuotes() default true;
+
 	}
 
 	public interface IAppearMethod extends Serializable {
@@ -233,18 +236,17 @@ public class ToastOptions implements Serializable {
 
 	}
 
+	public static interface IIconClass {
+	}
+
 	/**
 	 * Toast icon class names.
 	 *
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum IconClass {
-        ERROR("toast-error"),
-        INFO("toast-info"),
-        SUCCESS("toast-success"),
-        WARNING("toast-warning")
-		;
+	public static enum IconClass implements IIconClass {
+		ERROR("toast-error"), INFO("toast-info"), SUCCESS("toast-success"), WARNING("toast-warning");
 
 		String iconClassName;
 
@@ -363,13 +365,13 @@ public class ToastOptions implements Serializable {
 	 * iconClass
 	 */
 	@ToastOption(value = OptionKeys.ICON_CLASS)
-	private String iconClass = null;
+	private IIconClass iconClass = null;
 
-	/**
-	 * iconClasses
-	 */
-	@ToastOption(value = OptionKeys.ICON_CLASSES)
-	private String iconClasses = null;
+//	/**
+//	 * iconClasses
+//	 */
+//	@ToastOption(value = OptionKeys.ICON_CLASSES)
+//	private Map<String, IIconClass> iconClasses = null;
 
 	/**
 	 * messageClass
@@ -484,7 +486,6 @@ public class ToastOptions implements Serializable {
 	 */
 	@ToastOption(value = OptionKeys.TOAST_CLASS)
 	private String toastClass = null;
-
 
 	/**
 	 * Get closeButton
@@ -771,7 +772,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public String getIconClass() {
+	public IIconClass getIconClass() {
 		return iconClass;
 	}
 
@@ -781,28 +782,8 @@ public class ToastOptions implements Serializable {
 	 * @param iconClass
 	 * @return
 	 */
-	public ToastOptions setIconClass(String iconClass) {
+	public ToastOptions setIconClass(IIconClass iconClass) {
 		this.iconClass = iconClass;
-		return this;
-	}
-
-	/**
-	 * Get iconClasses
-	 *
-	 * @return
-	 */
-	public String getIconClasses() {
-		return iconClasses;
-	}
-
-	/**
-	 * Set iconClasses
-	 *
-	 * @param iconClasses
-	 * @return
-	 */
-	public ToastOptions setIconClasses(String iconClasses) {
-		this.iconClasses = iconClasses;
 		return this;
 	}
 
@@ -1211,6 +1192,7 @@ public class ToastOptions implements Serializable {
 			}
 
 			if (optionValue != null) {
+
 				sb.append("\"").append(option.value()).append("\":");
 				if (option.squeezDoubleQuotes()) {
 					sb.append("\"").append(optionValue.toString()).append("\",");
@@ -1218,7 +1200,6 @@ public class ToastOptions implements Serializable {
 					sb.append(optionValue.toString()).append(",");
 				}
 			}
-
 
 		}
 		sb.append("}");
