@@ -220,7 +220,7 @@ public class HomePage extends WebPage {
 				// Toast
 				IModel<Toast> toast = () -> {
 					return Toast.create(toastLevel.getObject(), message.getObject())
-							.withToastTitle(!Strings.isNullOrEmpty(title.getObject()), title::getObject)
+							.withTitle(!Strings.isNullOrEmpty(title.getObject()), title::getObject)
 							.withToastOptions(options.getObject());
 				};
 
