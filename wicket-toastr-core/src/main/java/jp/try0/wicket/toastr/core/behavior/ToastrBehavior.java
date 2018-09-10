@@ -9,6 +9,7 @@ import org.apache.wicket.event.IEvent;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.model.IModel;
@@ -18,7 +19,9 @@ import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.config.ToastrFontAwsomeIcons;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
+import jp.try0.wicket.toastr.core.resource.css.ToastrFontAwsomeCssResourceReference;
 
 /**
  * Toastr behavior
@@ -165,6 +168,23 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		if (!feedbackMessagesModel.getObject().isEmpty()) {
 			// notification script
 			response.render(JavaScriptHeaderItem.forScript(getScriptForDisplay(), null));
+
+			ToastrSettings.getFontAwsomeIcons().ifPresent(icons -> {
+				response.render(CssHeaderItem.forReference(ToastrFontAwsomeCssResourceReference.INSTANCE, null));
+				response.render(CssHeaderItem
+						.forCSS(ToastrFontAwsomeIcons.getStyleForAdaptIconContent(icons), null));
+			});
+
+			for (FeedbackMessage fm : feedbackMessagesModel.getObject()) {
+
+				IToast toast = getToast(fm);
+
+				ToastrSettings.getFontAwsomeIcons().ifPresent(icons -> {
+					response.render(CssHeaderItem
+							.forCSS(ToastrFontAwsomeIcons.getStyleForAdaptIconContent(toast, icons), null));
+				});
+			}
+
 		}
 
 		// mark rendered
@@ -205,7 +225,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 				continue;
 			}
 
-			IToast toast = getToast(feedbackMessage, toastLevel);
+			IToast toast = getToast(feedbackMessage);
 			// create script
 			final String scriptForDisplay = getScriptForDisplay(toast);
 			scriptReady.append(scriptForDisplay);
@@ -222,13 +242,14 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * @param toastLevel
 	 * @return
 	 */
-	protected IToast getToast(FeedbackMessage feedbackMessage, ToastLevel toastLevel) {
+	protected IToast getToast(FeedbackMessage feedbackMessage) {
 		if (feedbackMessage.getMessage() instanceof IToast) {
 			// use feedback message
 			return (IToast) feedbackMessage.getMessage();
 		} else {
 			// create new one
-			return Toast.create(toastLevel, feedbackMessage.getMessage().toString());
+			ToastLevel level = ToastLevel.fromFeedbackMessageLevel(feedbackMessage.getLevel());
+			return Toast.create(level, feedbackMessage.getMessage().toString());
 		}
 	}
 

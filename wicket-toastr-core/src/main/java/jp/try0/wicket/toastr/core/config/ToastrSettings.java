@@ -20,10 +20,21 @@ public class ToastrSettings {
 
 	/**
 	 * Builder
+	 *
 	 * @author Ryo Tsunoda
 	 *
 	 */
 	public static class SettingBuilder {
+
+		/**
+		 * Create builder.
+		 *
+		 * @param application
+		 * @return
+		 */
+		public static SettingBuilder create(final Application application) {
+			return new SettingBuilder(application);
+		}
 
 		/**
 		 * Application
@@ -36,10 +47,14 @@ public class ToastrSettings {
 		private ToastOptions globalOptions;
 
 		/**
-		 * Need append behavior to pages.
+		 * Need append behavior to pages
 		 */
 		private boolean needAutoAppendToastrBehavior;
 
+		/**
+		 * Font Awsome Icons
+		 */
+		private ToastrFontAwsomeIcons icons;
 
 		/**
 		 * Constractor
@@ -47,7 +62,8 @@ public class ToastrSettings {
 		 * @param application
 		 */
 		public SettingBuilder(Application application) {
-			this.application = Args.notNull(application, "application");;
+			this.application = Args.notNull(application, "application");
+			;
 		}
 
 		/**
@@ -73,53 +89,93 @@ public class ToastrSettings {
 		}
 
 		/**
+		 * Set icons.
+		 *
+		 * @param icons
+		 * @return
+		 */
+		public SettingBuilder setFontAwsomeIcons(ToastrFontAwsomeIcons icons) {
+			this.icons = icons;
+			return this;
+		}
+
+		/**
 		 * Initialize toastr settings.
 		 *
 		 * @param defaultOptions
 		 */
-		public void setUp() {
-			ToastrSettings.setUp(application, needAutoAppendToastrBehavior, globalOptions);
+		public void initializeSettings() {
+			ToastrSettings.initialize(application, needAutoAppendToastrBehavior, globalOptions, icons);
 		}
 
 	}
 
 	/**
-	 * Key of whether has already been initialized settings
+	 * Key of {@link ToastrSettings} instance.
 	 */
-	private final static MetaDataKey<ToastrSettings> INITIALIZED_KEY = new MetaDataKey<ToastrSettings>() {};
+	private final static MetaDataKey<ToastrSettings> META_DATA_KEY = new MetaDataKey<ToastrSettings>() {
+	};
 
 	/**
-	 * Default settings
+	 * Create setting builder.
+	 *
+	 * @param application
+	 * @return
 	 */
-	private final static ToastrSettings DEFAULT = new ToastrSettings();
+	public static SettingBuilder createBuilder(final Application application) {
+		return SettingBuilder.create(application);
+	}
 
 	/**
-	 * Instance of {@link ToastrSettings}.
+	 * Set up default values.
 	 */
-	private static ToastrSettings instance = DEFAULT;
+	public static ToastrSettings initialize() {
 
+		if (!Application.exists()) {
+			throw new UnsupportedOperationException("Application is not exisits.");
+		}
+
+		final Application application = Application.get();
+		boolean needAutoAppendToastrBehavior = true;
+		return initialize(application, needAutoAppendToastrBehavior, null, null);
+	}
 
 	/**
-	 * Set up defaults values.
+	 * Set up default values.
 	 *
 	 * @param application
 	 * @param needAutoAppendToastrBehavior
 	 */
-	public static void setUp(final Application application, boolean needAutoAppendToastrBehavior) {
-		setUp(application, needAutoAppendToastrBehavior, null);
+	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior) {
+		return initialize(application, needAutoAppendToastrBehavior, null, null);
 	}
 
 	/**
-	 * Set up defaults values.
+	 * Set up default values.
+	 *
+	 * @param application
+	 * @param needAutoAppendToastrBehavior
+	 * @param globalOptions
+	 * @return
+	 */
+	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
+			ToastOptions globalOptions) {
+		return initialize(application, needAutoAppendToastrBehavior, globalOptions, null);
+	}
+
+	/**
+	 * Set up default values.
 	 *
 	 * @param application
 	 * @param globalOptions
 	 * @param needAutoAppendToastrBehavior
 	 */
-	public static void setUp(final Application application, boolean needAutoAppendToastrBehavior, ToastOptions globalOptions) {
+	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
+			ToastOptions globalOptions, ToastrFontAwsomeIcons icons) {
 
-		if (application.getMetaData(INITIALIZED_KEY) == DEFAULT) {
-			throw new UnsupportedOperationException("The setting has already been initialized. ToastrSettings # setUp can only be called once.");
+		if (application.getMetaData(META_DATA_KEY) != null) {
+			throw new UnsupportedOperationException(
+					"The setting has already been initialized. ToastrSettings#setUp can only be called once.");
 		}
 
 		if (needAutoAppendToastrBehavior) {
@@ -129,10 +185,31 @@ public class ToastrSettings {
 		ToastrSettings settings = new ToastrSettings();
 
 		settings.globalOptions = Optional.ofNullable(globalOptions);
+		settings.fontAwsomeIcons = Optional.ofNullable(icons);
 
-		ToastrSettings.instance = settings;
-		application.setMetaData(INITIALIZED_KEY, DEFAULT);
+		application.setMetaData(META_DATA_KEY, settings);
 
+		return settings;
+	}
+
+	/**
+	 * Get TastrSettings.
+	 *
+	 * @return
+	 */
+	public static ToastrSettings getInstance() {
+		if (!Application.exists()) {
+			throw new IllegalStateException("There is no active application.");
+		}
+
+		Application application = Application.get();
+		ToastrSettings settings = application.getMetaData(META_DATA_KEY);
+
+		if (settings != null) {
+			return settings;
+		}
+
+		return ToastrSettings.initialize();
 	}
 
 	/**
@@ -141,7 +218,7 @@ public class ToastrSettings {
 	 * @return
 	 */
 	public static Optional<ToastOptions> getGlobalOptions() {
-		return instance.globalOptions;
+		return getInstance().globalOptions;
 	}
 
 	/**
@@ -150,23 +227,32 @@ public class ToastrSettings {
 	 * @return
 	 */
 	public static boolean hasGlobalOptions() {
-		return instance.globalOptions.isPresent();
+		return getInstance().globalOptions.isPresent();
 	}
 
+	/**
+	 * Get icons.
+	 *
+	 * @return
+	 */
+	public static Optional<ToastrFontAwsomeIcons> getFontAwsomeIcons() {
+		return getInstance().fontAwsomeIcons;
+	}
 
 	/**
 	 * Global options
 	 */
 	private Optional<ToastOptions> globalOptions = Optional.empty();
 
+	/**
+	 * Font Awsome Icons
+	 */
+	private Optional<ToastrFontAwsomeIcons> fontAwsomeIcons = Optional.empty();
 
 	/**
 	 * Constractor
 	 */
 	private ToastrSettings() {
 	}
-
-
-
 
 }

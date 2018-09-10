@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
 import de.agilecoders.wicket.core.Bootstrap;
+import jp.try0.wicket.toastr.core.config.ToastrFontAwsomeIcons;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
 import jp.try0.wicket.toastr.samples.page.HomePage;
 
@@ -35,7 +36,14 @@ public class WicketApplication extends WebApplication
 		getMarkupSettings().setStripWicketTags(true);
 
 		// toastr configuration
-		ToastrSettings.setUp(this, true);
+		ToastrSettings.createBuilder(this)
+		.setAutoAppendBehavior(true)
+		.setFontAwsomeIcons(new ToastrFontAwsomeIcons(
+				"\\f058", /* fa-check-circle */
+				"\\f05a", /* fa-info-circle */
+				"\\f071", /* fa-exclamation-triangle */
+				"\\f00d"  /* fa-times */))
+		.initializeSettings();
 
 		Bootstrap.install(this);
 	}
