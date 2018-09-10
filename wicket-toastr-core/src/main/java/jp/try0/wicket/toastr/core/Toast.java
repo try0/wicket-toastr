@@ -27,7 +27,7 @@ public class Toast implements IToast {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public enum ToastLevel {
+	public static enum ToastLevel {
 		/**
 		 * Undefined level
 		 */
@@ -402,7 +402,7 @@ public class Toast implements IToast {
 	 * @param title
 	 * @return
 	 */
-	public Toast withToastTitle(String title) {
+	public Toast withTitle(String title) {
 		this.title = Optional.ofNullable(title);
 		return this;
 	}
@@ -414,7 +414,7 @@ public class Toast implements IToast {
 	 * @param titleFactory
 	 * @return
 	 */
-	public Toast withToastTitle(boolean canSet, SerializableSupplier<String> titleFactory) {
+	public Toast withTitle(boolean canSet, SerializableSupplier<String> titleFactory) {
 		if (canSet) {
 			this.title = Optional.ofNullable(titleFactory.get());
 		}
@@ -487,6 +487,16 @@ public class Toast implements IToast {
 	}
 
 	/**
+	 * Replace \r\n and \r to &lt;br&gt; tag.
+	 *
+	 * @param value
+	 * @return
+	 */
+	private static String replaceBreakCodeToTag(String value) {
+		return value.replaceAll("\r\n", "\n").replaceAll("\r", "\n").replaceAll("\n", "<br/>");
+	}
+
+	/**
 	 * Creates script for display toast with consider level of feedback messages.
 	 *
 	 * @return
@@ -494,16 +504,19 @@ public class Toast implements IToast {
 	@Override
 	public String getScriptForDisplay() {
 		final StringBuilder script = new StringBuilder();
-		script.append("toastr.").append(level.getLevelString()).append("(\"").append(message).append("\"");
+		script.append("toastr.").append(level.getLevelString()).append("(\"").append(replaceBreakCodeToTag(message)).append("\"");
 
-		// title is optional
+		// set title
 		if (title.isPresent()) {
-			script.append(", \"").append(title.get()).append("\"");
+			script.append(", \"").append(replaceBreakCodeToTag(title.get())).append("\"");
 		} else {
 			script.append(", \"\"");
 		}
-		// override option is optional
-		options.ifPresent(opt -> script.append(", ").append(opt.toJsonString()));
+
+		// set override options
+		options.ifPresent(opt -> {
+			script.append(", ").append(opt.toJsonString());
+		});
 
 		script.append(");");
 
@@ -517,7 +530,6 @@ public class Toast implements IToast {
 	 */
 	public void show(final AjaxRequestTarget target) {
 		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
-
 		target.appendJavaScript(script);
 	}
 
@@ -528,7 +540,6 @@ public class Toast implements IToast {
 	 */
 	public void show(final IHeaderResponse responce) {
 		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
-
 		responce.render(JavaScriptHeaderItem.forScript(script, null));
 	}
 
