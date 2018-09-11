@@ -2,12 +2,8 @@ package jp.try0.wicket.toastr.core.config;
 
 import java.io.Serializable;
 
-import com.google.common.base.Strings;
-
-import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
-import jp.try0.wicket.toastr.core.ToastOptions.IIconClass;
 import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
 
 /**
@@ -19,67 +15,28 @@ import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
 public class ToastrFontAwsomeIcons implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Get the style to adapt the Font Awsome icons.
-	 *
-	 * @param toast
-	 * @param icons
-	 * @return
-	 */
-	public static String getStyleForAdaptIconContent(IToast toast, ToastrFontAwsomeIcons icons) {
-		String containerId = "";
-		String iconClassName = "";
-		if (toast.getToastOptions().isPresent()) {
-
-			ToastOptions options = toast.getToastOptions().get();
-
-			containerId = options.getContainerId();
-
-			IIconClass iconClass = options.getIconClass();
-			if (iconClass != null) {
-				iconClassName = iconClass.toString();
-			}
-
-		}
-
-		if (Strings.isNullOrEmpty(containerId)) {
-			containerId = ToastOptions.DEFAULT_CONTAINER_ID;
-		}
-
-		if (Strings.isNullOrEmpty(iconClassName)) {
-			switch (toast.getToastLevel()) {
-			case ERROR:
-				iconClassName = IconClass.ERROR.toString();
-				break;
-			case INFO:
-				iconClassName = IconClass.INFO.toString();
-				break;
-			case SUCCESS:
-				iconClassName = IconClass.SUCCESS.toString();
-				break;
-			case WARNING:
-				iconClassName = IconClass.WARNING.toString();
-				break;
-			case UNDEFINED:
-				break;
-			default:
-				break;
-			}
-		}
-
-		StringBuilder sb = new StringBuilder();
-		appendStyleForAdaptIconContent(sb, containerId, iconClassName, icons, toast.getToastLevel());
-		return sb.toString();
-	}
 
 	/**
 	 * Get the style to adapt the Font Awsome icons.
 	 *
-	 * @param toast
 	 * @param icons
 	 * @return
 	 */
 	public static String getStyleForAdaptIconContent(ToastrFontAwsomeIcons icons) {
+
+		final String containerId;
+
+		if (ToastrSettings.hasGlobalOptions()) {
+			String tmpContainerId = ToastrSettings.getGlobalOptions().get().getContainerId();
+			if (com.google.common.base.Strings.isNullOrEmpty(tmpContainerId)) {
+				containerId = ToastOptions.DEFAULT_CONTAINER_ID;
+			} else {
+				containerId = tmpContainerId;
+			}
+
+		} else {
+			containerId = ToastOptions.DEFAULT_CONTAINER_ID;
+		}
 
 		final StringBuilder sb = new StringBuilder();
 		for (ToastLevel level : ToastLevel.values()) {
@@ -101,25 +58,17 @@ public class ToastrFontAwsomeIcons implements Serializable {
 				continue;
 			}
 
-			appendStyleForAdaptIconContent(sb, ToastOptions.DEFAULT_CONTAINER_ID, iconClassName, icons, level);
+
+			sb.append("#").append(containerId).append(">.").append(iconClassName).append(":not(.rtl):before{content:\"")
+			.append(icons.getContent(level)).append("\";}");
+
+			sb.append("#").append(containerId).append(">.").append(iconClassName).append(".rtl:after{content:\"")
+			.append(icons.getContent(level)).append("\";}");
 		}
 
 		return sb.toString();
 	}
 
-	/**
-	 * Append style to string builder.
-	 *
-	 * @param sb
-	 * @param containerId
-	 * @param iconClassName
-	 * @param icons
-	 * @param level
-	 */
-	private static void appendStyleForAdaptIconContent(StringBuilder sb, String containerId, String iconClassName, ToastrFontAwsomeIcons icons, ToastLevel level) {
-		sb.append("#").append(containerId).append(">.").append(iconClassName).append(":before{content:\"")
-		.append(icons.getContent(level)).append("\";}");
-	}
 
 
 	private String successIconUnicode;

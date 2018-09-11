@@ -175,16 +175,6 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 						.forCSS(ToastrFontAwsomeIcons.getStyleForAdaptIconContent(icons), null));
 			});
 
-			for (FeedbackMessage fm : feedbackMessagesModel.getObject()) {
-
-				IToast toast = getToast(fm);
-
-				ToastrSettings.getFontAwsomeIcons().ifPresent(icons -> {
-					response.render(CssHeaderItem
-							.forCSS(ToastrFontAwsomeIcons.getStyleForAdaptIconContent(toast, icons), null));
-				});
-			}
-
 		}
 
 		// mark rendered
