@@ -1,6 +1,7 @@
 package jp.try0.wicket.toastr.core.feedback;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
@@ -103,7 +104,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	/**
 	 * Accepts toast levels
 	 */
-	private EnumSet<ToastLevel> accepts;
+	private final EnumSet<ToastLevel> accepts;
 
 
 
@@ -113,9 +114,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 * @param ignores
 	 */
 	public ToastLevelFeedbackMessageFilter(ToastLevel... accepts) {
-		for (ToastLevel accept : accepts) {
-			this.accepts.add(accept);
-		}
+		this(Arrays.asList(accepts));
 	}
 
 	/**
@@ -124,7 +123,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 * @param ignores
 	 */
 	public ToastLevelFeedbackMessageFilter(Collection<ToastLevel> accepts) {
-		this.accepts.addAll(accepts);
+		this.accepts = EnumSet.copyOf(accepts);
 	}
 
 
