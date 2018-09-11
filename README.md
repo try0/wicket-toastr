@@ -41,21 +41,21 @@ or set "true" second argument on initialize settings
 ToastrSettings.initialize(this, true, options);
 ```
 
-Component#success, Session#success
-⇒ displayed success toast
+Component#success, Session#success  
+⇒ displayed success toast  
 <img alt="toast_success" src="https://user-images.githubusercontent.com/17096601/45070139-dd932f00-b10a-11e8-8c8a-b539945fcdc1.png" width="350px">
 
-Component#info, Session#info
-⇒ displayed info toast
+Component#info, Session#info  
+⇒ displayed info toast  
 <img alt="toast_info" src="https://user-images.githubusercontent.com/17096601/45070137-dd932f00-b10a-11e8-85ec-03036d325299.png" width="350px">
 
-Component#warn, Session#warn
-⇒ displayed warn toast
+Component#warn, Session#warn  
+⇒ displayed warn toast  
 <img alt="toast_warn" src="https://user-images.githubusercontent.com/17096601/45070136-dd932f00-b10a-11e8-85b8-69ff6accf8e1.png" width="350px">
 
-Component#error, Session#error
-Component#fatal, Session#fatal
-⇒ displayed error toast
+Component#error, Session#error  
+Component#fatal, Session#fatal  
+⇒ displayed error toast  
 <img alt="toast_error" src="https://user-images.githubusercontent.com/17096601/45070135-dcfa9880-b10a-11e8-8b32-9f1741bb2925.png" width="350px">
 
 ## Display toast manually
