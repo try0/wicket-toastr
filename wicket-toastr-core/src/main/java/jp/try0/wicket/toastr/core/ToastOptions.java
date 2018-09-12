@@ -7,8 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
-import org.apache.wicket.util.time.Duration;
-
 /**
  * Toast options<br>
  *
@@ -292,8 +290,8 @@ public class ToastOptions implements Serializable {
 	/**
 	 * closeDuration
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_DURATION)
-	private Duration closeDureation = null;
+	@ToastOption(value = OptionKeys.CLOSE_DURATION, squeezDoubleQuotes = false)
+	private Integer closeDureation = null;
 
 	/**
 	 * closeEasing
@@ -346,8 +344,8 @@ public class ToastOptions implements Serializable {
 	/**
 	 * hideDuration
 	 */
-	@ToastOption(value = OptionKeys.HIDE_DURATION)
-	private Duration hideDuration = null;
+	@ToastOption(value = OptionKeys.HIDE_DURATION, squeezDoubleQuotes = false)
+	private Integer hideDuration = null;
 
 	/**
 	 * hideEasing
@@ -442,8 +440,8 @@ public class ToastOptions implements Serializable {
 	/**
 	 * showDuration
 	 */
-	@ToastOption(value = OptionKeys.SHOW_DURATION)
-	private Duration showDuration = null;
+	@ToastOption(value = OptionKeys.SHOW_DURATION, squeezDoubleQuotes = false)
+	private Integer showDuration = null;
 
 	/**
 	 * showEasing
@@ -532,7 +530,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public Duration getCloseDureation() {
+	public Integer getCloseDureation() {
 		return closeDureation;
 	}
 
@@ -542,7 +540,7 @@ public class ToastOptions implements Serializable {
 	 * @param closeDureation
 	 * @return
 	 */
-	public ToastOptions setCloseDureation(Duration closeDureation) {
+	public ToastOptions setCloseDureation(Integer closeDureation) {
 		this.closeDureation = closeDureation;
 		return this;
 	}
@@ -712,7 +710,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public Duration getHideDuration() {
+	public Integer getHideDuration() {
 		return hideDuration;
 	}
 
@@ -722,7 +720,7 @@ public class ToastOptions implements Serializable {
 	 * @param hideDuration
 	 * @return
 	 */
-	public ToastOptions setHideDuration(Duration hideDuration) {
+	public ToastOptions setHideDuration(Integer hideDuration) {
 		this.hideDuration = hideDuration;
 		return this;
 	}
@@ -1012,7 +1010,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public Duration getShowDuration() {
+	public Integer getShowDuration() {
 		return showDuration;
 	}
 
@@ -1022,7 +1020,7 @@ public class ToastOptions implements Serializable {
 	 * @param showDuration
 	 * @return
 	 */
-	public ToastOptions setShowDuration(Duration showDuration) {
+	public ToastOptions setShowDuration(Integer showDuration) {
 		this.showDuration = showDuration;
 		return this;
 	}
