@@ -83,8 +83,32 @@ i {
 									<wicket:container wicket:id="rdoCloseEasing"></wicket:container>
 								</div>
 
-
 							</div>
+
+							<div class="row">
+								<!-- Show Duration -->
+								<div class="col-sm-3" data-toggle="tooltip"
+									title="The time it takes for the toast to be completely displayed.">
+									<label class="text-primary">ShowDuration</label> <input
+										wicket:id="txtShowDuration" type="number" class="form-control"
+										placeholder="Duration">
+								</div>
+								<!-- Hide Duration -->
+								<div class="col-sm-3" data-toggle="tooltip"
+									title="The time it takes for the toast to be completely hidden.">
+									<label class="text-primary">HideDuration</label> <input
+										wicket:id="txtHideDuration" type="number" class="form-control"
+										placeholder="Duration">
+								</div>
+								<!-- Close Duration  -->
+								<div class="col-sm-3" data-toggle="tooltip"
+									title="The time it takes for the toast to be completely closed.">
+									<label class="text-primary">CloseDuration</label> <input
+										wicket:id="txtCloseDuration" type="number"
+										class="form-control" placeholder="Duration">
+								</div>
+							</div>
+
 							<div class="row">
 
 								<!-- Toast Progress Bar -->
@@ -115,6 +139,7 @@ i {
 									<wicket:container wicket:id="switchPreventDuplicates"></wicket:container>
 								</div>
 							</div>
+
 							<div class="row">
 								<!-- Toast Positions -->
 								<div class="col-sm-6" data-toggle="tooltip"

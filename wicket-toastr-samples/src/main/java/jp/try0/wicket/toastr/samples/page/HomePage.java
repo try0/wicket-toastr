@@ -142,6 +142,18 @@ public class HomePage extends WebPage {
 				IModel<Boolean> preventDuplicates = new Model<>(false);
 				add(new BooleanRadioGroup("switchPreventDuplicates", preventDuplicates));
 
+				// show duration
+				IModel<Integer> showDuration = new Model<Integer>(1000);
+				add(new NumberTextField<Integer>("txtShowDuration", showDuration));
+
+				// hide duration
+				IModel<Integer> hideDuration = new Model<Integer>(500);
+				add(new NumberTextField<Integer>("txtHideDuration", hideDuration));
+
+				// close duration
+				IModel<Integer> closeDuration = new Model<Integer>(500);
+				add(new NumberTextField<Integer>("txtCloseDuration", closeDuration));
+
 				// Time out
 				IModel<Integer> timeOut = new Model<Integer>(3000);
 				add(new NumberTextField<Integer>("txtTimeOut", timeOut));
@@ -201,12 +213,20 @@ public class HomePage extends WebPage {
 
 				// ToastOptions
 				IModel<ToastOptions> options = () -> {
-					ToastOptions opts = ToastOptions.create().setPositionClass(toastPosition.getObject())
-							.setShowMethod(showMethod.getObject()).setHideMethod(hideMethod.getObject())
-							.setCloseMethod(closeMethod.getObject()).setShowEasing(showEasing.getObject())
-							.setHideEasing(hideEasing.getObject()).setCloseEasing(closeEasing.getObject())
-							.setIsNewestOnTop(newestOnTop.getObject()).setIsEnableProgressBar(progressBar.getObject())
-							.setIsRightToLeft(rtl.getObject()).setTimeOut(timeOut.getObject())
+					ToastOptions opts = ToastOptions.create()
+							.setPositionClass(toastPosition.getObject())
+							.setShowMethod(showMethod.getObject())
+							.setHideMethod(hideMethod.getObject())
+							.setCloseMethod(closeMethod.getObject())
+							.setShowEasing(showEasing.getObject())
+							.setHideEasing(hideEasing.getObject())
+							.setCloseEasing(closeEasing.getObject())
+							.setShowDuration(showDuration.getObject())
+							.setHideDuration(hideDuration.getObject())
+							.setIsNewestOnTop(newestOnTop.getObject())
+							.setIsEnableProgressBar(progressBar.getObject())
+							.setIsRightToLeft(rtl.getObject())
+							.setTimeOut(timeOut.getObject())
 							.setExtendedTimeOut(extendedTimeOut.getObject())
 							.setNeedPreventDuplicates(preventDuplicates.getObject())
 							.setOnShownFunction(onShown.getObject() ? "function() {alert('fired onShown');}" : "false")
