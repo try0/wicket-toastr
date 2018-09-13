@@ -1,14 +1,12 @@
 package jp.try0.wicket.toastr.core.test;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.markup.Markup;
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+
+
 
 /**
  * Test base class.
@@ -18,25 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
  */
 public abstract class AbstractToastrTest {
 
-	public static class ToastrTestPage extends WebPage {
-
-		public ToastrTestPage() {
-			super();
-		}
-
-		public ToastrTestPage(final IModel<?> model) {
-			super(model);
-		}
-
-		public ToastrTestPage(final PageParameters parameters) {
-			super(parameters);
-		}
-
-        @Override
-        public Markup getAssociatedMarkup() {
-            return Markup.of("<!DOCTYPE html><html></html>");
-        }
-	}
 
 	private WebApplication application;
 	private WicketTester tester;
