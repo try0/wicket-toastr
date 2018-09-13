@@ -117,7 +117,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 */
 	public static ToastLevelFeedbackMessageFilter ignores(ToastLevel ...ignores) {
 
-		Set<ToastLevel> accepts = ToastLevel.asList().stream()
+		Set<ToastLevel> accepts = EnumSet.allOf(ToastLevel.class).stream()
 				.filter(lv -> {
 					for (ToastLevel ignore : ignores) {
 						if (lv == ignore) {
