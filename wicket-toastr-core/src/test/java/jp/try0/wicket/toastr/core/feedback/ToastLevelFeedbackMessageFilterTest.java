@@ -176,7 +176,7 @@ public class ToastLevelFeedbackMessageFilterTest extends AbstractToastrTest {
 
 	}
 
-
+	private static final String GET_LEVEL_SET_SOURCE = "getLevelSetSource";
 	public static Stream<Set<ToastLevel>> getLevelSetSource() {
 		return Stream.of(
 				Sets.newHashSet(ToastLevel.SUCCESS),
@@ -194,7 +194,7 @@ public class ToastLevelFeedbackMessageFilterTest extends AbstractToastrTest {
 	 * @param level
 	 */
 	@ParameterizedTest
-	@MethodSource("getLevelSetSource")
+	@MethodSource(GET_LEVEL_SET_SOURCE)
 	public void accepts(Set<ToastLevel> levels) {
 
 		ToastLevelFeedbackMessageFilter filter =
@@ -226,7 +226,7 @@ public class ToastLevelFeedbackMessageFilterTest extends AbstractToastrTest {
 	 * @param level
 	 */
 	@ParameterizedTest
-	@MethodSource("getLevelSetSource")
+	@MethodSource(GET_LEVEL_SET_SOURCE)
 	public void ignores(Set<ToastLevel> levels) {
 
 		ToastLevelFeedbackMessageFilter filter =
