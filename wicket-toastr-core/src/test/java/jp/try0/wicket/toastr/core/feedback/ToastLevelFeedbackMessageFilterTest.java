@@ -2,12 +2,18 @@ package jp.try0.wicket.toastr.core.feedback;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.EnumSource.Mode;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import com.google.common.collect.Sets;
 
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.FeedbackMessageLevel;
@@ -167,6 +173,82 @@ public class ToastLevelFeedbackMessageFilterTest extends AbstractToastrTest {
 		FeedbackMessage errorMessage = new FeedbackMessage(dummy, errorToast, FeedbackMessage.ERROR);
 		assertEquals(filter.accept(errorMessage),
 				errorToast.getToastLevel().greaterThan(level) || errorToast.getToastLevel().equals(level));
+
+	}
+
+
+	public static Stream<Set<ToastLevel>> getLevelSetSource() {
+		return Stream.of(
+				Sets.newHashSet(ToastLevel.SUCCESS),
+				Sets.newHashSet(ToastLevel.SUCCESS, ToastLevel.ERROR),
+				Sets.newHashSet(ToastLevel.INFO, ToastLevel.ERROR),
+				Sets.newHashSet(ToastLevel.WARNING, ToastLevel.ERROR),
+				Sets.newHashSet(ToastLevel.SUCCESS, ToastLevel.WARNING),
+				Sets.newHashSet(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.ERROR)
+				);
+	}
+
+	/**
+	 * {@link ToastLevelFeedbackMessageFilter#accepts(ToastLevel...)} test.
+	 *
+	 * @param level
+	 */
+	@ParameterizedTest
+	@MethodSource("getLevelSetSource")
+	public void accepts(Set<ToastLevel> levels) {
+
+		ToastLevelFeedbackMessageFilter filter =
+				ToastLevelFeedbackMessageFilter.accepts(levels.toArray(new ToastLevel[0]));
+
+		Component dummy = new WebMarkupContainer("dummy");
+
+		Toast successToast = Toast.success("dummy");
+		FeedbackMessage successMessage = new FeedbackMessage(dummy, successToast, FeedbackMessage.SUCCESS);
+		assertEquals(filter.accept(successMessage), levels.contains(successToast.getToastLevel()));
+
+		Toast infoToast = Toast.info("dummy");
+		FeedbackMessage infoMessage = new FeedbackMessage(dummy, infoToast, FeedbackMessage.INFO);
+		assertEquals(filter.accept(infoMessage), levels.contains(infoToast.getToastLevel()));
+
+		Toast warnToast = Toast.warn("dummy");
+		FeedbackMessage warnMessage = new FeedbackMessage(dummy, warnToast, FeedbackMessage.WARNING);
+		assertEquals(filter.accept(warnMessage), levels.contains(warnToast.getToastLevel()));
+
+		Toast errorToast = Toast.error("dummy");
+		FeedbackMessage errorMessage = new FeedbackMessage(dummy, errorToast, FeedbackMessage.ERROR);
+		assertEquals(filter.accept(errorMessage), levels.contains(errorToast.getToastLevel()));
+
+	}
+
+	/**
+	 * {@link ToastLevelFeedbackMessageFilter#ignores(ToastLevel...)} test.
+	 *
+	 * @param level
+	 */
+	@ParameterizedTest
+	@MethodSource("getLevelSetSource")
+	public void ignores(Set<ToastLevel> levels) {
+
+		ToastLevelFeedbackMessageFilter filter =
+				ToastLevelFeedbackMessageFilter.ignores(levels.toArray(new ToastLevel[0]));
+
+		Component dummy = new WebMarkupContainer("dummy");
+
+		Toast successToast = Toast.success("dummy");
+		FeedbackMessage successMessage = new FeedbackMessage(dummy, successToast, FeedbackMessage.SUCCESS);
+		assertEquals(filter.accept(successMessage), !levels.contains(successToast.getToastLevel()));
+
+		Toast infoToast = Toast.info("dummy");
+		FeedbackMessage infoMessage = new FeedbackMessage(dummy, infoToast, FeedbackMessage.INFO);
+		assertEquals(filter.accept(infoMessage), !levels.contains(infoToast.getToastLevel()));
+
+		Toast warnToast = Toast.warn("dummy");
+		FeedbackMessage warnMessage = new FeedbackMessage(dummy, warnToast, FeedbackMessage.WARNING);
+		assertEquals(filter.accept(warnMessage), !levels.contains(warnToast.getToastLevel()));
+
+		Toast errorToast = Toast.error("dummy");
+		FeedbackMessage errorMessage = new FeedbackMessage(dummy, errorToast, FeedbackMessage.ERROR);
+		assertEquals(filter.accept(errorMessage), !levels.contains(errorToast.getToastLevel()));
 
 	}
 
