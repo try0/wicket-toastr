@@ -1,5 +1,7 @@
 package jp.try0.wicket.toastr.core;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.wicket.Component;
@@ -52,6 +54,20 @@ public class Toast implements IToast {
 		 * Error level
 		 */
 		ERROR("error", FeedbackMessage.ERROR, true),;
+
+		/**
+		 * level list
+		 */
+		private static final List<ToastLevel> LEVEL_LIST = Arrays.asList(ToastLevel.values());
+
+		/**
+		 * Get levels as list.
+		 *
+		 * @return
+		 */
+		public static List<ToastLevel> asList() {
+			return LEVEL_LIST;
+		}
 
 		/**
 		 * Feedback message level
