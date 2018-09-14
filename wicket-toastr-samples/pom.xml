@@ -16,7 +16,7 @@
 
 	<parent>
 		<artifactId>wicket-toastr-parent</artifactId>
-		<groupId>jp.try0.wicket.toastr</groupId>
+		<groupId>jp.try0.wicket</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -46,7 +46,7 @@
 
 		<!-- WICKET TOASTR DEPENDENCIES -->
 		<dependency>
-			<groupId>jp.try0.wicket.toastr</groupId>
+			<groupId>jp.try0.wicket</groupId>
 			<artifactId>wicket-toastr-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
