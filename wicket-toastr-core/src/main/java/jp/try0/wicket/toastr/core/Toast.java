@@ -492,7 +492,7 @@ public class Toast implements IToast {
 	 * @param value
 	 * @return
 	 */
-	private static String replaceBreakCodeToTag(String value) {
+	private static String replaceNewLineCodeToTag(String value) {
 		return value.replaceAll("\r\n", "\n").replaceAll("\r", "\n").replaceAll("\n", "<br/>");
 	}
 
@@ -504,12 +504,12 @@ public class Toast implements IToast {
 	@Override
 	public String getScriptForDisplay() {
 		final StringBuilder script = new StringBuilder();
-		script.append("toastr.").append(level.getLevelString()).append("(\"").append(replaceBreakCodeToTag(message))
+		script.append("toastr.").append(level.getLevelString()).append("(\"").append(replaceNewLineCodeToTag(message))
 				.append("\"");
 
 		// set title
 		if (title.isPresent()) {
-			script.append(", \"").append(replaceBreakCodeToTag(title.get())).append("\"");
+			script.append(", \"").append(replaceNewLineCodeToTag(title.get())).append("\"");
 		} else {
 			script.append(", \"\"");
 		}
@@ -530,8 +530,7 @@ public class Toast implements IToast {
 	 * @param target
 	 */
 	public void show(final AjaxRequestTarget target) {
-		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
-		target.appendJavaScript(script);
+		target.appendJavaScript(getScriptForDisplay());
 	}
 
 	/**
@@ -540,8 +539,7 @@ public class Toast implements IToast {
 	 * @param responce
 	 */
 	public void show(final IHeaderResponse responce) {
-		StringBuilder script = new StringBuilder("$(function(){").append(getScriptForDisplay()).append("});");
-		responce.render(JavaScriptHeaderItem.forScript(script, null));
+		responce.render(JavaScriptHeaderItem.forScript(getScriptForDisplay(), null));
 	}
 
 	/**
@@ -561,13 +559,11 @@ public class Toast implements IToast {
 		case SUCCESS:
 			component.success(this);
 			break;
-		case UNDEFINED:
-			break;
 		case WARNING:
 			component.warn(this);
 			break;
 		default:
-			break;
+			throw new IllegalArgumentException("This level is unsupported.");
 
 		}
 	}
