@@ -141,14 +141,16 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		if (payload instanceof AjaxRequestTarget) {
 			// even when recieve an ajax request, show toast
 
-			String script = getScriptForDisplay();
-			if (!script.isEmpty()) {
-				AjaxRequestTarget target = (AjaxRequestTarget) payload;
+			if (!feedbackMessagesModel.getObject().isEmpty()) {
+				String script = getScriptForDisplay();
+				if (!script.isEmpty()) {
+					AjaxRequestTarget target = (AjaxRequestTarget) payload;
 
-				target.appendJavaScript(script);
+					target.appendJavaScript(script);
+				}
 
-				// mark rendered
-				markRendered();
+				// clear cache messages
+				feedbackMessagesModel.detach();
 			}
 		}
 	}
@@ -177,8 +179,8 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 
 		}
 
-		// mark rendered
-		markRendered();
+		// clear cache messages
+		feedbackMessagesModel.detach();
 	}
 
 	/**
@@ -219,6 +221,9 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			// create script
 			final String scriptForDisplay = getScriptForDisplay(toast);
 			scriptReady.append(scriptForDisplay);
+
+			// mark rendered
+			markRendered(feedbackMessage);
 
 		}
 		scriptReady.append("});");
@@ -265,11 +270,9 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	/**
 	 * Sets whether already rendered.
 	 */
-	private void markRendered() {
+	protected void markRendered(FeedbackMessage feedbackMessage) {
 		// mark rendered
-		feedbackMessagesModel.getObject().forEach(FeedbackMessage::markRendered);
-		// clear cache messages
-		feedbackMessagesModel.detach();
+		feedbackMessage.markRendered();
 	}
 
 }
