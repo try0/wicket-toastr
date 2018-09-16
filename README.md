@@ -1,15 +1,21 @@
 # wicket-toastr
 
-[Apache Wicket](https://github.com/apache/wicket) utilities for using [toastr](https://github.com/CodeSeven/toastr) which is library of a simple javascript toast notification.
+[Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.
 
 Just add behavior to component, you can display toast.
-This behavior use wicket feedback message system.
+This behavior use wicket feedback message system.  
 Also, you can display toast manually without use feedback message.
 
 
+## Demo
+Deployed wicket-toastr-samples module.  
+[demo](https://try0.jp/app/wicket-toastr-samples/)
 
 ## Version
-use toastr 2.1.4, wicket 8.0.0
+|  |toastr  |wicket  |
+|---|---|---|
+|1.0.0  |2.1.4  |8.x  |
+
 
 ## Maven
 ```
@@ -32,7 +38,7 @@ add ToastrBehavior to any of components in page
 ```java
 add(new ToastrBehavior());
 ```
-or set "true" second argument on initialize settings
+or set "true" to second argument on initialize settings
 
 ```java
 // arg1: Application
@@ -83,3 +89,26 @@ Toast.create(toastLevel, message)
 .show(target);
 ```
 
+
+## Author
+Ryo Tsunoda  
+[GitHub](https://github.com/try0)  
+[Twitter](https://twitter.com/0yrt_)
+
+
+## Licence
+```
+   Copyright 2018 Ryo Tsunoda
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
