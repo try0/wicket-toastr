@@ -13,7 +13,7 @@ Deployed wicket-toastr-samples module.
 
 ## Version
 |  |toastr  |wicket  |
-|---|---|---|
+|--:|--:|--:|
 |1.0.0  |2.1.4  |8.x  |
 
 
