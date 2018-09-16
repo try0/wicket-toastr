@@ -16,9 +16,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.lang.Args;
 
 import jp.try0.wicket.toastr.core.IToast;
+import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
-import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.config.ToastrFontAwsomeIcons;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
 import jp.try0.wicket.toastr.core.resource.css.ToastrFontAwsomeCssResourceReference;
@@ -248,7 +248,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 *
 	 * @return
 	 */
-	protected String getScriptForSettingOptions(ToastOptions options) {
+	protected String getScriptForSettingOptions(IToastOptions options) {
 		return "toastr.options =" + options.toJsonString() + ";";
 	}
 

@@ -1,6 +1,5 @@
 package jp.try0.wicket.toastr.core;
 
-import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,72 +13,11 @@ import java.lang.reflect.Field;
  * @author Ryo Tsunoda
  *
  */
-public class ToastOptions implements Serializable {
+public class ToastOptions implements IToastOptions {
 	private static final long serialVersionUID = 1L;
 
-	public final static String DEFAULT_TOAST_CLASS = "toast";
-	public final static String DEFAULT_CONTAINER_ID = "toast-container";
-	public final static String DEFAULT_TITLE_CLASS = "toast-title";
-	public final static String DEFAULT_MESSAGE_CLASS = "toast-message";
-	public final static String DEFAULT_CLOSE_CLASS = "toast-close-button";
-	public final static String DEFAULT_PROGRESS_CLASS = "toast-progress";
-
 	/**
-	 * Empty options.
-	 */
-	public final static ToastOptions EMPTY = new ToastOptions() {
-		@Override
-		public String toJsonString() {
-			return "";
-		}
-	};
-
-	/**
-	 * Option keys
-	 *
-	 * @author Ryo Tsunoda
-	 *
-	 */
-	public static final class OptionKeys {
-		public final static String CLOSE_BUTTON = "closeButton";
-		public final static String CLOSE_CLASS = "closeClass";
-		public final static String CLOSE_DURATION = "closeDuration";
-		public final static String CLOSE_EASING = "closeEasing";
-		public final static String CLOSE_HTML = "closeHtml";
-		public final static String CLOSE_METHOD = "closeMethod";
-		public final static String CLOSE_ON_HOVER = "closeOnHover";
-		public final static String CONTAINER_ID = "containerId";
-		public final static String DEBUG = "debug";
-		public final static String ESCAPE_HTML = "escapeHtml";
-		public final static String EXTENDED_TIME_OUT = "extendedTimeOut";
-		public final static String HIDE_DURATION = "hideDuration";
-		public final static String HIDE_EASING = "hideEasing";
-		public final static String HIDE_METHOD = "hideMethod";
-		public final static String ICON_CLASS = "iconClass";
-		public final static String ICON_CLASSES = "iconClasses";
-		public final static String MESSAGE_CLASS = "messageClass";
-		public final static String NEWEST_ON_TOP = "newestOnTop";
-		public final static String ONCLICK = "onclick";
-		public final static String ON_CLOSE_CLICK = "onCloseClick";
-		public final static String ON_HIDDEN = "onHidden";
-		public final static String ON_SHOWN = "onShown";
-		public final static String POSITION_CLASS = "positionClass";
-		public final static String PREVENT_DUPLICATES = "preventDuplicates";
-		public final static String PROGRESS_BAR = "progressBar";
-		public final static String PROGRESS_CLASS = "progressClass";
-		public final static String RTL = "rtl";
-		public final static String SHOW_DURATION = "showDuration";
-		public final static String SHOW_EASING = "showEasing";
-		public final static String SHOW_METHOD = "showMethod";
-		public final static String TAP_TO_DISMISS = "tapToDismiss";
-		public final static String TARGET = "target";
-		public final static String TIME_OUT = "timeOut";
-		public final static String TITLE_CLASS = "titleClass";
-		public final static String TOAST_CLASS = "toastClass";
-	}
-
-	/**
-	 * Option value and config.
+	 * Option name and config.
 	 *
 	 * @author Ryo Tsunoda
 	 *
@@ -92,12 +30,6 @@ public class ToastOptions implements Serializable {
 
 		boolean squeezDoubleQuotes() default true;
 
-	}
-
-	public interface IAppearMethod extends Serializable {
-	}
-
-	public interface IDisappearMethod extends Serializable {
 	}
 
 	/**
@@ -173,15 +105,6 @@ public class ToastOptions implements Serializable {
 	}
 
 	/**
-	 * Easing interface.
-	 *
-	 * @author ryoMac
-	 *
-	 */
-	public static interface IEasing extends Serializable {
-	}
-
-	/**
 	 * Easing types.
 	 *
 	 * @author Ryo Tsunoda
@@ -210,7 +133,7 @@ public class ToastOptions implements Serializable {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum PositionClass {
+	public static enum PositionClass implements IPositionClass {
 		TOP_RIGHT("toast-top-right"),
 		BOTTOM_RIGHT("toast-bottom-right"),
 		BOTTOM_LEFT("toast-bottom-left"),
@@ -232,9 +155,6 @@ public class ToastOptions implements Serializable {
 			return positionClassName;
 		}
 
-	}
-
-	public static interface IIconClass {
 	}
 
 	/**
@@ -411,7 +331,7 @@ public class ToastOptions implements Serializable {
 	 * positionClass
 	 */
 	@ToastOption(value = OptionKeys.POSITION_CLASS)
-	private PositionClass positionClass = null;
+	private IPositionClass positionClass = null;
 
 	/**
 	 * preventDuplicates
@@ -453,7 +373,7 @@ public class ToastOptions implements Serializable {
 	 * showMethod
 	 */
 	@ToastOption(value = OptionKeys.SHOW_METHOD)
-	private ShowMethod showMethod = null;
+	private IAppearMethod showMethod = null;
 
 	/**
 	 * tapToDismiss
@@ -490,6 +410,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isEnableCloseButton() {
 		return isEnableCloseButton;
 	}
@@ -510,6 +431,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getCloseClass() {
 		return closeClass;
 	}
@@ -530,6 +452,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Integer getCloseDureation() {
 		return closeDureation;
 	}
@@ -550,6 +473,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public IEasing getCloseEasing() {
 		return closeEasing;
 	}
@@ -570,6 +494,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getCloseHtml() {
 		return closeHtml;
 	}
@@ -590,6 +515,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public IDisappearMethod getCloseMethod() {
 		return closeMethod;
 	}
@@ -610,6 +536,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isCloseOnHover() {
 		return isCloseOnHover;
 	}
@@ -630,6 +557,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getContainerId() {
 		return containerId;
 	}
@@ -650,6 +578,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isDebug() {
 		return isDebug;
 	}
@@ -670,6 +599,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean needEscapeHtml() {
 		return needEscapeHtml;
 	}
@@ -690,6 +620,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Integer getExtendedTimeOut() {
 		return extendedTimeOut;
 	}
@@ -710,6 +641,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Integer getHideDuration() {
 		return hideDuration;
 	}
@@ -730,6 +662,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public IEasing getHideEasing() {
 		return hideEasing;
 	}
@@ -750,6 +683,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public IDisappearMethod getHideMethod() {
 		return hideMethod;
 	}
@@ -770,6 +704,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public IIconClass getIconClass() {
 		return iconClass;
 	}
@@ -790,6 +725,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getMessageClass() {
 		return messageClass;
 	}
@@ -810,6 +746,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isNewestOnTop() {
 		return isNewestOnTop;
 	}
@@ -830,6 +767,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getOnClickFunction() {
 		return onClickFunction;
 	}
@@ -850,6 +788,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getOnCloseClickFunction() {
 		return onCloseClickFunction;
 	}
@@ -870,6 +809,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getOnHiddenFunction() {
 		return onHiddenFunction;
 	}
@@ -890,6 +830,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getOnShownFunction() {
 		return onShownFunction;
 	}
@@ -910,7 +851,8 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public PositionClass getPositionClass() {
+	@Override
+	public IPositionClass getPositionClass() {
 		return positionClass;
 	}
 
@@ -920,7 +862,7 @@ public class ToastOptions implements Serializable {
 	 * @param positionClass
 	 * @return
 	 */
-	public ToastOptions setPositionClass(PositionClass positionClass) {
+	public ToastOptions setPositionClass(IPositionClass positionClass) {
 		this.positionClass = positionClass;
 		return this;
 	}
@@ -930,6 +872,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean needPreventDuplicates() {
 		return needPreventDuplicates;
 	}
@@ -950,6 +893,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isEnableProgressBar() {
 		return isEnableProgressBar;
 	}
@@ -970,6 +914,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getProgressClass() {
 		return progressClass;
 	}
@@ -990,6 +935,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isRightToLeft() {
 		return isRightToLeft;
 	}
@@ -1010,6 +956,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Integer getShowDuration() {
 		return showDuration;
 	}
@@ -1030,6 +977,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public IEasing getShowEasing() {
 		return showEasing;
 	}
@@ -1050,7 +998,8 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
-	public ShowMethod getShowMethod() {
+	@Override
+	public IAppearMethod getShowMethod() {
 		return showMethod;
 	}
 
@@ -1060,7 +1009,7 @@ public class ToastOptions implements Serializable {
 	 * @param showMethod
 	 * @return
 	 */
-	public ToastOptions setShowMethod(ShowMethod showMethod) {
+	public ToastOptions setShowMethod(IAppearMethod showMethod) {
 		this.showMethod = showMethod;
 		return this;
 	}
@@ -1070,6 +1019,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Boolean isTapToDismiss() {
 		return isTapToDismiss;
 	}
@@ -1090,6 +1040,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getTarget() {
 		return target;
 	}
@@ -1110,6 +1061,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public Integer getTimeOut() {
 		return timeOut;
 	}
@@ -1130,6 +1082,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getTitleClass() {
 		return titleClass;
 	}
@@ -1150,6 +1103,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String getToastClass() {
 		return toastClass;
 	}
@@ -1170,6 +1124,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String toJsonString() {
 		StringBuilder sb = new StringBuilder("{");
 
@@ -1202,6 +1157,53 @@ public class ToastOptions implements Serializable {
 		}
 		sb.append("}");
 		return sb.toString();
+	}
+
+	/**
+	 * Gets new overwritten options.<br>
+	 * If the value of the argument's option is exists, overwrite the option value.
+	 *
+	 * @param options
+	 * @return
+	 */
+	@Override
+	public ToastOptions overwrite(IToastOptions options) {
+
+		return ToastOptions.create()
+		.setIsEnableCloseButton(options.isEnableCloseButton() == null ? this.isEnableCloseButton : options.isEnableCloseButton())
+		.setCloseClass(options. getCloseClass() == null ? this.closeClass : options.getCloseClass())
+		.setCloseDureation(options. getCloseDureation() == null ? this.closeDureation : options.getCloseDureation())
+		.setCloseEasing(options. getCloseEasing() == null ? this.closeEasing : options.getCloseEasing())
+		.setCloseHtml(options. getCloseHtml() == null ? this.closeHtml : options.getCloseHtml())
+		.setCloseMethod(options. getCloseMethod() == null ? this.closeMethod : options.getCloseMethod())
+		.setIsCloseOnHover(options. isCloseOnHover() == null ? this.isCloseOnHover : options.isCloseOnHover())
+		.setContainerId(options. getContainerId() == null ? this.containerId : options.getContainerId())
+		.setIsDebug(options. isDebug() == null ? this.isDebug : options.isDebug())
+		.setNeedEscapeHtml(options. needEscapeHtml() == null ? this.needEscapeHtml:options.needEscapeHtml())
+		.setExtendedTimeOut(options. getExtendedTimeOut() == null ? this.extendedTimeOut:options.getExtendedTimeOut())
+		.setHideDuration(options. getHideDuration() == null ? this.hideDuration:options.getHideDuration())
+		.setHideEasing(options. getHideEasing() == null ? this.hideEasing:options.getHideEasing())
+		.setHideMethod(options. getHideMethod() == null ? this.hideMethod:options.getHideMethod())
+		.setIconClass(options. getIconClass() == null ? this.iconClass:options.getIconClass())
+		.setMessageClass(options. getMessageClass() == null ? this.messageClass:options.getMessageClass())
+		.setIsNewestOnTop(options. isNewestOnTop() == null ? this.isNewestOnTop:options.isNewestOnTop())
+		.setOnClickFunction(options. getOnClickFunction() == null ? this.onClickFunction:options.getOnClickFunction())
+		.setOnCloseClickFunction(options. getOnCloseClickFunction() == null ? this.onCloseClickFunction:options.getOnCloseClickFunction())
+		.setOnHiddenFunction(options. getOnHiddenFunction() == null ? this.onHiddenFunction:options.getOnHiddenFunction())
+		.setOnShownFunction(options. getOnShownFunction() == null ? this.onShownFunction:options.getOnShownFunction())
+		.setPositionClass(options. getPositionClass() == null ? this.positionClass:options.getPositionClass())
+		.setNeedPreventDuplicates(options. needPreventDuplicates() == null ? this.needPreventDuplicates:options.needPreventDuplicates())
+		.setIsEnableProgressBar(options. isEnableProgressBar() == null ? this.isEnableProgressBar:options.isEnableProgressBar())
+		.setProgressClass(options. getProgressClass() == null ? this.progressClass:options.getProgressClass())
+		.setIsRightToLeft(options. isRightToLeft() == null ? this.isRightToLeft:options.isRightToLeft())
+		.setShowDuration(options. getShowDuration() == null ? this.showDuration:options.getShowDuration())
+		.setShowEasing(options. getShowEasing() == null ? this.showEasing:options.getShowEasing())
+		.setShowMethod(options. getShowMethod() == null ? this.showMethod:options.getShowMethod())
+		.setIsTapToDismiss(options. isTapToDismiss() == null ? this.isTapToDismiss:options.isTapToDismiss())
+		.setTarget(options. getTarget() == null ? this.target:options.getTarget())
+		.setTimeOut(options. getTimeOut() == null ? this.timeOut:options.getTimeOut())
+		.setTitleClass(options. getTitleClass() == null ? this.titleClass:options.getTitleClass())
+		.setToastClass(options. getToastClass() == null ? this.toastClass:options.getToastClass());
 	}
 
 }

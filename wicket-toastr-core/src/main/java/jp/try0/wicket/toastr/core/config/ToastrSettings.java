@@ -7,6 +7,7 @@ import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
 import org.apache.wicket.util.lang.Args;
 
+import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 
@@ -175,7 +176,7 @@ public class ToastrSettings {
 
 		if (application.getMetaData(META_DATA_KEY) != null) {
 			throw new UnsupportedOperationException(
-					"The setting has already been initialized. ToastrSettings#setUp can only be called once.");
+					"The setting has already been initialized. ToastrSettings#initialize can only be called once.");
 		}
 
 		if (needAutoAppendToastrBehavior) {
@@ -217,7 +218,7 @@ public class ToastrSettings {
 	 *
 	 * @return
 	 */
-	public static Optional<ToastOptions> getGlobalOptions() {
+	public static Optional<IToastOptions> getGlobalOptions() {
 		return getInstance().globalOptions;
 	}
 
@@ -242,7 +243,7 @@ public class ToastrSettings {
 	/**
 	 * Global options
 	 */
-	private Optional<ToastOptions> globalOptions = Optional.empty();
+	private Optional<IToastOptions> globalOptions = Optional.empty();
 
 	/**
 	 * Font Awsome Icons
