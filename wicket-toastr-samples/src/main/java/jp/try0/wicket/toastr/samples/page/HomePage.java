@@ -81,7 +81,6 @@ public class HomePage extends WebPage {
 
 		add(new BootstrapForm<Void>("form") {
 			{
-
 				// Toast positions
 				IModel<PositionClass> toastPosition = new Model<PositionClass>(PositionClass.TOP_RIGHT);
 				add(new BootstrapRadioChoice<PositionClass>("rdoPosition", toastPosition,
@@ -155,12 +154,16 @@ public class HomePage extends WebPage {
 				add(new NumberTextField<Integer>("txtCloseDuration", closeDuration));
 
 				// Time out
-				IModel<Integer> timeOut = new Model<Integer>(3000);
+				IModel<Integer> timeOut = new Model<Integer>(5000);
 				add(new NumberTextField<Integer>("txtTimeOut", timeOut));
 
 				// Extended time out
 				IModel<Integer> extendedTimeOut = new Model<Integer>(1000);
 				add(new NumberTextField<Integer>("txtExtendedTimeOut", extendedTimeOut));
+
+				// Extended time out
+				IModel<Boolean> escapeHtml = new Model<>(true);
+				add(new BooleanRadioGroup("switchEscapeHtml", escapeHtml));
 
 				// Toast levels
 				IModel<ToastLevel> toastLevel = new Model<ToastLevel>(ToastLevel.INFO);
@@ -226,6 +229,7 @@ public class HomePage extends WebPage {
 							.setIsNewestOnTop(newestOnTop.getObject())
 							.setIsEnableProgressBar(progressBar.getObject())
 							.setIsRightToLeft(rtl.getObject())
+							.setNeedEscapeHtml(escapeHtml.getObject())
 							.setTimeOut(timeOut.getObject())
 							.setExtendedTimeOut(extendedTimeOut.getObject())
 							.setNeedPreventDuplicates(preventDuplicates.getObject())

@@ -42,7 +42,6 @@ height: 100px;
 				<div class="panel-body">
 
 					<!-- Toast Options  -->
-					<label>Toast Options</label>
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="row">
@@ -201,6 +200,12 @@ height: 100px;
 									<label class="text-primary">ExtendedTimeOut</label> <input
 										wicket:id="txtExtendedTimeOut" type="number"
 										class="form-control" placeholder="Title">
+								</div>
+								<!-- Escape Message -->
+								<div class="col-sm-3" data-toggle="tooltip"
+									title="Whether or not to display the message from the right.">
+									<label class="text-primary">EscapeHtml</label><br>
+									<wicket:container wicket:id="switchEscapeHtml"></wicket:container>
 								</div>
 							</div>
 						</div>
