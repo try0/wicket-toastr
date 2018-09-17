@@ -1,5 +1,6 @@
 package jp.try0.wicket.toastr.core.behavior;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,18 +11,18 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.Response;
 import org.apache.wicket.util.lang.Args;
 
 import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
-import jp.try0.wicket.toastr.core.config.ToastrFontAwsomeIcons;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
-import jp.try0.wicket.toastr.core.resource.css.ToastrFontAwsomeCssResourceReference;
 
 /**
  * Toastr behavior
@@ -162,22 +163,35 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
-		ToastrSettings.getGlobalOptions().ifPresent(options -> {
+		ToastrSettings.get().getGlobalOptions().ifPresent(options -> {
 			// toastr option setting
 			response.render(JavaScriptHeaderItem.forScript(getScriptForSettingOptions(options), null));
+		});
+		ToastrSettings.get().getFontAwsomeSettings().ifPresent(faSettings -> {
+			response.render(new HeaderItem() {
+
+				@Override
+				public void render(Response response) {
+					response.write(faSettings.getFontAwesomeCssLinkTag());
+				}
+
+				@Override
+				public Iterable<?> getRenderTokens() {
+					return Arrays.asList(faSettings.getFontAwesomeCssLinkTag());
+				}
+			});
+			response.render(CssHeaderItem.forReference(faSettings.getTweakCssResourceReference(), null));
+			response.render(CssHeaderItem
+					.forCSS(faSettings.getIcons().getStyleForAdaptIconContent(), null));
 		});
 
 		if (!feedbackMessagesModel.getObject().isEmpty()) {
 			// notification script
 			response.render(JavaScriptHeaderItem.forScript(getScriptForDisplay(), null));
-
-			ToastrSettings.getFontAwsomeIcons().ifPresent(icons -> {
-				response.render(CssHeaderItem.forReference(ToastrFontAwsomeCssResourceReference.INSTANCE, null));
-				response.render(CssHeaderItem
-						.forCSS(ToastrFontAwsomeIcons.getStyleForAdaptIconContent(icons), null));
-			});
-
 		}
+
+
+		response.getResponse().write("");
 
 		// clear cache messages
 		feedbackMessagesModel.detach();

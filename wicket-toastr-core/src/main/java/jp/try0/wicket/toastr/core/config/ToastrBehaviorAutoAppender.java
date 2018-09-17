@@ -1,5 +1,7 @@
 package jp.try0.wicket.toastr.core.config;
 
+import java.util.function.Supplier;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.application.IComponentInstantiationListener;
@@ -14,11 +16,15 @@ import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
  */
 public class ToastrBehaviorAutoAppender implements IComponentInstantiationListener {
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onInstantiation(Component component) {
 		if (component instanceof Page) {
-			component.add(new ToastrBehavior());
+			Supplier<ToastrBehavior> factory = ToastrSettings.get().getToastrBehaviorFactory();
+			ToastrBehavior behavior = factory.get();
+			component.add(behavior);
 		}
 	}
 

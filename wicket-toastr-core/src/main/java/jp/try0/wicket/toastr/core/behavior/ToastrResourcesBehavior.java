@@ -19,10 +19,8 @@ public class ToastrResourcesBehavior extends Behavior {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Instance of {@link ToastrBehavior}.
+	 * {@inheritDoc}
 	 */
-	public final static ToastrBehavior INSTANCE = new ToastrBehavior();
-
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
