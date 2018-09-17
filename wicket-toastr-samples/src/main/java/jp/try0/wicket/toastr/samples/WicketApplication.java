@@ -6,6 +6,8 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.RequestCycleSettings.RenderStrategy;
 
 import de.agilecoders.wicket.core.Bootstrap;
+import jp.try0.wicket.toastr.core.config.ToastrFontAwesomeIcons;
+import jp.try0.wicket.toastr.core.config.ToastrFontAwesomeSettings;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
 import jp.try0.wicket.toastr.samples.page.HomePage;
 
@@ -38,15 +40,15 @@ public class WicketApplication extends WebApplication
 		getRequestCycleSettings().setRenderStrategy(RenderStrategy.ONE_PASS_RENDER);
 
 		// toastr configuration
-		ToastrSettings.createBuilder(this)
+		ToastrSettings.createInitializer(this)
 		.setAutoAppendBehavior(true)
-//		.setFontAwsomeIcons(new ToastrFontAwsomeIcons(
+//		.setFontAwesomeSettings(new ToastrFontAwesomeSettings(new ToastrFontAwesomeIcons(
 //				"\\f058", // fa-check-circle
 //				"\\f05a", // fa-info-circle
 //				"\\f071", // fa-exclamation-triangle
-//				"\\f00d"  // fa-times
-//		))
-		.initializeSettings();
+//				"\\f057"  // fa-times-circle
+//		)))
+		.initialize();
 
 		Bootstrap.install(this);
 	}
