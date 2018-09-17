@@ -28,7 +28,7 @@ public class ToastOptions implements IToastOptions {
 
 		String value();
 
-		boolean squeezDoubleQuotes() default true;
+		boolean squeezeWithDoubleQuotes() default true;
 
 	}
 
@@ -198,7 +198,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * closeButton
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_BUTTON, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.CLOSE_BUTTON, squeezeWithDoubleQuotes = false)
 	private Boolean isEnableCloseButton = null;
 
 	/**
@@ -210,7 +210,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * closeDuration
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_DURATION, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.CLOSE_DURATION, squeezeWithDoubleQuotes = false)
 	private Integer closeDureation = null;
 
 	/**
@@ -234,7 +234,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * closeOnHover
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_ON_HOVER, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.CLOSE_ON_HOVER, squeezeWithDoubleQuotes = false)
 	private Boolean isCloseOnHover = null;
 
 	/**
@@ -246,13 +246,13 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * debug
 	 */
-	@ToastOption(value = OptionKeys.DEBUG, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.DEBUG, squeezeWithDoubleQuotes = false)
 	private Boolean isDebug = null;
 
 	/**
 	 * escapeHtml
 	 */
-	@ToastOption(value = OptionKeys.ESCAPE_HTML, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.ESCAPE_HTML, squeezeWithDoubleQuotes = false)
 	private Boolean needEscapeHtml = null;
 
 	/**
@@ -264,7 +264,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * hideDuration
 	 */
-	@ToastOption(value = OptionKeys.HIDE_DURATION, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.HIDE_DURATION, squeezeWithDoubleQuotes = false)
 	private Integer hideDuration = null;
 
 	/**
@@ -300,31 +300,31 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * newestOnTop
 	 */
-	@ToastOption(value = OptionKeys.NEWEST_ON_TOP, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.NEWEST_ON_TOP, squeezeWithDoubleQuotes = false)
 	private Boolean isNewestOnTop = null;
 
 	/**
 	 * onclick
 	 */
-	@ToastOption(value = OptionKeys.ONCLICK, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.ONCLICK, squeezeWithDoubleQuotes = false)
 	private String onClickFunction = null;
 
 	/**
 	 * onCloseClick
 	 */
-	@ToastOption(value = OptionKeys.ON_CLOSE_CLICK, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.ON_CLOSE_CLICK, squeezeWithDoubleQuotes = false)
 	private String onCloseClickFunction = null;
 
 	/**
 	 * onHidden
 	 */
-	@ToastOption(value = OptionKeys.ON_HIDDEN, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.ON_HIDDEN, squeezeWithDoubleQuotes = false)
 	private String onHiddenFunction = null;
 
 	/**
 	 * onShown
 	 */
-	@ToastOption(value = OptionKeys.ON_SHOWN, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.ON_SHOWN, squeezeWithDoubleQuotes = false)
 	private String onShownFunction = null;
 
 	/**
@@ -336,13 +336,13 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * preventDuplicates
 	 */
-	@ToastOption(value = OptionKeys.PREVENT_DUPLICATES, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.PREVENT_DUPLICATES, squeezeWithDoubleQuotes = false)
 	private Boolean needPreventDuplicates = null;
 
 	/**
 	 * progressBar
 	 */
-	@ToastOption(value = OptionKeys.PROGRESS_BAR, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.PROGRESS_BAR, squeezeWithDoubleQuotes = false)
 	private Boolean isEnableProgressBar = null;
 
 	/**
@@ -354,13 +354,13 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * rtl
 	 */
-	@ToastOption(value = OptionKeys.RTL, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.RTL, squeezeWithDoubleQuotes = false)
 	private Boolean isRightToLeft = null;
 
 	/**
 	 * showDuration
 	 */
-	@ToastOption(value = OptionKeys.SHOW_DURATION, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.SHOW_DURATION, squeezeWithDoubleQuotes = false)
 	private Integer showDuration = null;
 
 	/**
@@ -378,7 +378,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * tapToDismiss
 	 */
-	@ToastOption(value = OptionKeys.TAP_TO_DISMISS, squeezDoubleQuotes = false)
+	@ToastOption(value = OptionKeys.TAP_TO_DISMISS, squeezeWithDoubleQuotes = false)
 	private Boolean isTapToDismiss = null;
 
 	/**
@@ -1147,7 +1147,7 @@ public class ToastOptions implements IToastOptions {
 			if (optionValue != null) {
 
 				sb.append("\"").append(option.value()).append("\":");
-				if (option.squeezDoubleQuotes()) {
+				if (option.squeezeWithDoubleQuotes()) {
 					sb.append("\"").append(optionValue.toString()).append("\",");
 				} else {
 					sb.append(optionValue.toString()).append(",");
