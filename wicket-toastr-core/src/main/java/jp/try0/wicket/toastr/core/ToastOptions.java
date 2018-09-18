@@ -40,7 +40,7 @@ public class ToastOptions implements IToastOptions {
 	 */
 	public static enum ShowMethod implements IAppearMethod {
 		SHOW("show"),
-		FADE_ID("fadeIn"),
+		FADE_IN("fadeIn"),
 		SLIDE_DOWN("slideDown"),
 		;
 
@@ -110,14 +110,14 @@ public class ToastOptions implements IToastOptions {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum DisplayEasing implements IEasing {
+	public static enum Easing implements IEasing {
 		SWING("swing"),
 		LINEAR("linear"),
 		;
 
 		String easing;
 
-		private DisplayEasing(String easing) {
+		private Easing(String easing) {
 			this.easing = easing;
 		}
 

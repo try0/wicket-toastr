@@ -30,7 +30,7 @@ import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.DisplayEasing;
+import jp.try0.wicket.toastr.core.ToastOptions.Easing;
 import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
@@ -87,7 +87,7 @@ public class HomePage extends WebPage {
 						Arrays.asList(PositionClass.values())));
 
 				// Methods
-				IModel<ShowMethod> showMethod = new Model<ShowMethod>(ShowMethod.FADE_ID);
+				IModel<ShowMethod> showMethod = new Model<ShowMethod>(ShowMethod.FADE_IN);
 				add(new BootstrapRadioChoice<ShowMethod>("rdoShowMethod", showMethod,
 						Arrays.asList(ShowMethod.values())));
 
@@ -100,17 +100,17 @@ public class HomePage extends WebPage {
 						Arrays.asList(CloseMethod.values())));
 
 				// Easing
-				IModel<DisplayEasing> showEasing = new Model<DisplayEasing>(DisplayEasing.SWING);
-				add(new BootstrapRadioChoice<DisplayEasing>("rdoShowEasing", showEasing,
-						Arrays.asList(DisplayEasing.values())));
+				IModel<Easing> showEasing = new Model<Easing>(Easing.SWING);
+				add(new BootstrapRadioChoice<Easing>("rdoShowEasing", showEasing,
+						Arrays.asList(Easing.values())));
 
-				IModel<DisplayEasing> hideEasing = new Model<DisplayEasing>(DisplayEasing.SWING);
-				add(new BootstrapRadioChoice<DisplayEasing>("rdoHideEasing", hideEasing,
-						Arrays.asList(DisplayEasing.values())));
+				IModel<Easing> hideEasing = new Model<Easing>(Easing.SWING);
+				add(new BootstrapRadioChoice<Easing>("rdoHideEasing", hideEasing,
+						Arrays.asList(Easing.values())));
 
-				IModel<DisplayEasing> closeEasing = new Model<DisplayEasing>(DisplayEasing.SWING);
-				add(new BootstrapRadioChoice<DisplayEasing>("rdoCloseEasing", closeEasing,
-						Arrays.asList(DisplayEasing.values())));
+				IModel<Easing> closeEasing = new Model<Easing>(Easing.SWING);
+				add(new BootstrapRadioChoice<Easing>("rdoCloseEasing", closeEasing,
+						Arrays.asList(Easing.values())));
 
 				// Progress Bar
 				IModel<Boolean> progressBar = new Model<>(false);

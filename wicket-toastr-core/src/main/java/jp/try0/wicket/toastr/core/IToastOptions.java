@@ -64,10 +64,10 @@ public interface IToastOptions extends Serializable {
 		public final static String TOAST_CLASS = "toastClass";
 	}
 
-	public interface IAppearMethod extends Serializable {
+	public static interface IAppearMethod extends Serializable {
 	}
 
-	public interface IDisappearMethod extends Serializable {
+	public static interface IDisappearMethod extends Serializable {
 	}
 
 	public static interface IEasing extends Serializable {
