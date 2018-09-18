@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 /**
- * Toast options<br>
+ * Toast options.<br>
  *
  *
  * @author Ryo Tsunoda
@@ -26,8 +26,18 @@ public class ToastOptions implements IToastOptions {
 	@Retention(RetentionPolicy.RUNTIME)
 	private static @interface ToastOption {
 
+		/**
+		 * Option key name.
+		 *
+		 * @return option key
+		 */
 		String value();
 
+		/**
+		 * Whether or not to squeeze with double quotes. Default is true.
+		 *
+		 * @return true if an option value needs squeeze with double quotes, otherwise false
+		 */
 		boolean squeezeWithDoubleQuotes() default true;
 
 	}
@@ -38,18 +48,29 @@ public class ToastOptions implements IToastOptions {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum ShowMethod implements IAppearMethod {
+	public static enum ShowMethod implements IAppearAnimationMethod {
 		SHOW("show"),
 		FADE_IN("fadeIn"),
 		SLIDE_DOWN("slideDown"),
 		;
 
+		/**
+		 * Method name
+		 */
 		String methodName;
 
+		/**
+		 * Constractor
+		 *
+		 * @param methodName name of show method
+		 */
 		private ShowMethod(String methodName) {
 			this.methodName = methodName;
 		}
 
+		/**
+		 * Returns {@link ShowMethod#methodName}.
+		 */
 		@Override
 		public String toString() {
 			return methodName;
@@ -62,18 +83,29 @@ public class ToastOptions implements IToastOptions {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum HideMethod implements IDisappearMethod {
+	public static enum HideMethod implements IDisappearAnimationMethod {
 		HIDE("hide"),
 		FADE_OUT("fadeOut"),
 		SLIDE_UP("slideUp"),
 		;
 
+		/**
+		 * Method name
+		 */
 		String methodName;
 
+		/**
+		 * Constractor
+		 *
+		 * @param methodName name of hide method
+		 */
 		private HideMethod(String methodName) {
 			this.methodName = methodName;
 		}
 
+		/**
+		 * Returns {@link HideMethod#methodName}.
+		 */
 		@Override
 		public String toString() {
 			return methodName;
@@ -86,18 +118,29 @@ public class ToastOptions implements IToastOptions {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static enum CloseMethod implements IDisappearMethod {
+	public static enum CloseMethod implements IDisappearAnimationMethod {
 		HIDE("hide"),
 		FADE_OUT("fadeOut"),
 		SLIDE_UP("slideUp"),
 		;
 
+		/**
+		 * Method name
+		 */
 		String methodName;
 
+		/**
+		 * Constractor
+		 *
+		 * @param methodName name of close method
+		 */
 		private CloseMethod(String methodName) {
 			this.methodName = methodName;
 		}
 
+		/**
+		 * Returns {@link CloseMethod#methodName}.
+		 */
 		@Override
 		public String toString() {
 			return methodName;
@@ -144,12 +187,23 @@ public class ToastOptions implements IToastOptions {
 		BOTTOM_CENTER("toast-bottom-center"),
 		;
 
+		/**
+		 * Position class name
+		 */
 		String positionClassName;
 
+		/**
+		 * Constractor
+		 *
+		 * @param positionClassName the name of position class
+		 */
 		PositionClass(String positionClassName) {
 			this.positionClassName = positionClassName;
 		}
 
+		/**
+		 * Returns {@link PositionClass#positionClassName}.
+		 */
 		@Override
 		public String toString() {
 			return positionClassName;
@@ -166,12 +220,23 @@ public class ToastOptions implements IToastOptions {
 	public static enum IconClass implements IIconClass {
 		ERROR("toast-error"), INFO("toast-info"), SUCCESS("toast-success"), WARNING("toast-warning");
 
+		/**
+		 * Icon class name
+		 */
 		String iconClassName;
 
+		/**
+		 * Constractor
+		 *
+		 * @param iconClassName the name of icon class
+		 */
 		IconClass(String iconClassName) {
 			this.iconClassName = iconClassName;
 		}
 
+		/**
+		 * Returns {@link IconClass#iconClassName}.
+		 */
 		@Override
 		public String toString() {
 			return iconClassName;
@@ -182,7 +247,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * Create new one.
 	 *
-	 * @return
+	 * @return new {@link ToastOptions}
 	 */
 	public static ToastOptions create() {
 		return new ToastOptions();
@@ -229,7 +294,7 @@ public class ToastOptions implements IToastOptions {
 	 * closeMethod
 	 */
 	@ToastOption(value = OptionKeys.CLOSE_METHOD)
-	private IDisappearMethod closeMethod = null;
+	private IDisappearAnimationMethod closeMethod = null;
 
 	/**
 	 * closeOnHover
@@ -277,7 +342,7 @@ public class ToastOptions implements IToastOptions {
 	 * hideMethod
 	 */
 	@ToastOption(value = OptionKeys.HIDE_METHOD)
-	private IDisappearMethod hideMethod = null;
+	private IDisappearAnimationMethod hideMethod = null;
 
 	/**
 	 * iconClass
@@ -373,7 +438,7 @@ public class ToastOptions implements IToastOptions {
 	 * showMethod
 	 */
 	@ToastOption(value = OptionKeys.SHOW_METHOD)
-	private IAppearMethod showMethod = null;
+	private IAppearAnimationMethod showMethod = null;
 
 	/**
 	 * tapToDismiss
@@ -406,9 +471,7 @@ public class ToastOptions implements IToastOptions {
 	private String toastClass = null;
 
 	/**
-	 * Get closeButton
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isEnableCloseButton() {
@@ -416,10 +479,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set closeButton
+	 * Sets closeButton option value.
 	 *
-	 * @param isEnableCloseButton
-	 * @return
+	 * @param isEnableCloseButton option value
+	 * @return this
 	 */
 	public ToastOptions setIsEnableCloseButton(Boolean isEnableCloseButton) {
 		this.isEnableCloseButton = isEnableCloseButton;
@@ -427,9 +490,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get closeClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getCloseClass() {
@@ -437,10 +498,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set closeClass
+	 * Sets closeClass option value.
 	 *
-	 * @param closeClass
-	 * @return
+	 * @param closeClass option value
+	 * @return this
 	 */
 	public ToastOptions setCloseClass(String closeClass) {
 		this.closeClass = closeClass;
@@ -448,9 +509,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get closeDuration
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Integer getCloseDureation() {
@@ -458,10 +517,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set closeDuration
+	 * Sets closeDuration option value
 	 *
-	 * @param closeDureation
-	 * @return
+	 * @param closeDureation option value
+	 * @return this
 	 */
 	public ToastOptions setCloseDureation(Integer closeDureation) {
 		this.closeDureation = closeDureation;
@@ -469,9 +528,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get closeEasing
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IEasing getCloseEasing() {
@@ -479,10 +536,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set closeEasing
+	 * Sets closeEasing option value.
 	 *
-	 * @param closeEasing
-	 * @return
+	 * @param closeEasing option value
+	 * @return this
 	 */
 	public ToastOptions setCloseEasing(IEasing closeEasing) {
 		this.closeEasing = closeEasing;
@@ -490,9 +547,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get closeHtml
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getCloseHtml() {
@@ -500,10 +555,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set closeHtml
+	 * Sets closeHtml option value.
 	 *
-	 * @param closeHtml
-	 * @return
+	 * @param closeHtml option value
+	 * @return this
 	 */
 	public ToastOptions setCloseHtml(String closeHtml) {
 		this.closeHtml = closeHtml;
@@ -511,30 +566,26 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get closeMethod
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
-	public IDisappearMethod getCloseMethod() {
+	public IDisappearAnimationMethod getCloseMethod() {
 		return closeMethod;
 	}
 
 	/**
-	 * Set closeMethod
+	 * Sets closeMethod option value.
 	 *
-	 * @param closeMethod
-	 * @return
+	 * @param closeMethod option value
+	 * @return this
 	 */
-	public ToastOptions setCloseMethod(IDisappearMethod closeMethod) {
+	public ToastOptions setCloseMethod(IDisappearAnimationMethod closeMethod) {
 		this.closeMethod = closeMethod;
 		return this;
 	}
 
 	/**
-	 * Get closeOnHover
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isCloseOnHover() {
@@ -542,10 +593,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set closeOnHover
+	 * Sets closeOnHover option value.
 	 *
-	 * @param isCloseOnHover
-	 * @return
+	 * @param isCloseOnHover option value
+	 * @return this
 	 */
 	public ToastOptions setIsCloseOnHover(Boolean isCloseOnHover) {
 		this.isCloseOnHover = isCloseOnHover;
@@ -553,9 +604,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get containerId
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getContainerId() {
@@ -563,10 +612,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set containerId
+	 * Sets containerId option value.
 	 *
-	 * @param containerId
-	 * @return
+	 * @param containerId option value
+	 * @return this
 	 */
 	public ToastOptions setContainerId(String containerId) {
 		this.containerId = containerId;
@@ -574,9 +623,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get debug
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isDebug() {
@@ -584,7 +631,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set debug
+	 * Sets debug option value.
 	 *
 	 * @param isDebug
 	 * @return
@@ -595,9 +642,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get escapeHtml
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean needEscapeHtml() {
@@ -605,10 +650,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set escapeHtml
+	 * Sets escapeHtml option value.
 	 *
-	 * @param needEscapeHtml
-	 * @return
+	 * @param needEscapeHtml option value
+	 * @return this
 	 */
 	public ToastOptions setNeedEscapeHtml(Boolean needEscapeHtml) {
 		this.needEscapeHtml = needEscapeHtml;
@@ -616,9 +661,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get extendedTimeOut
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Integer getExtendedTimeOut() {
@@ -626,10 +669,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set extendedTimeOut
+	 * Sets extendedTimeOut option value.
 	 *
-	 * @param extendedTimeOut
-	 * @return
+	 * @param extendedTimeOut option value
+	 * @return this
 	 */
 	public ToastOptions setExtendedTimeOut(Integer extendedTimeOut) {
 		this.extendedTimeOut = extendedTimeOut;
@@ -637,9 +680,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get hideDuration
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Integer getHideDuration() {
@@ -647,10 +688,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set hideDuration
+	 * Sets hideDuration option value.
 	 *
-	 * @param hideDuration
-	 * @return
+	 * @param hideDuration option value
+	 * @return this
 	 */
 	public ToastOptions setHideDuration(Integer hideDuration) {
 		this.hideDuration = hideDuration;
@@ -658,9 +699,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get hideEasing
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IEasing getHideEasing() {
@@ -668,10 +707,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set hideEasing
+	 * Sets hideEasing option value
 	 *
-	 * @param hideEasing
-	 * @return
+	 * @param hideEasing option value
+	 * @return this
 	 */
 	public ToastOptions setHideEasing(IEasing hideEasing) {
 		this.hideEasing = hideEasing;
@@ -679,30 +718,26 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get hideMethod
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
-	public IDisappearMethod getHideMethod() {
+	public IDisappearAnimationMethod getHideMethod() {
 		return hideMethod;
 	}
 
 	/**
-	 * Set hideMethod
+	 * Sets hideMethod option value.
 	 *
-	 * @param hideMethod
-	 * @return
+	 * @param hideMethod option value
+	 * @return this
 	 */
-	public ToastOptions setHideMethod(IDisappearMethod hideMethod) {
+	public ToastOptions setHideMethod(IDisappearAnimationMethod hideMethod) {
 		this.hideMethod = hideMethod;
 		return this;
 	}
 
 	/**
-	 * Get iconClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IIconClass getIconClass() {
@@ -710,10 +745,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set iconClass
+	 * Sets iconClass option value.
 	 *
-	 * @param iconClass
-	 * @return
+	 * @param iconClass option value
+	 * @return this
 	 */
 	public ToastOptions setIconClass(IIconClass iconClass) {
 		this.iconClass = iconClass;
@@ -721,9 +756,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get messageClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getMessageClass() {
@@ -731,10 +764,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set messageClass
+	 * Sets messageClass option value.
 	 *
-	 * @param messageClass
-	 * @return
+	 * @param messageClass option value
+	 * @return this
 	 */
 	public ToastOptions setMessageClass(String messageClass) {
 		this.messageClass = messageClass;
@@ -742,9 +775,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get newestOnTop
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isNewestOnTop() {
@@ -752,10 +783,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set newestOnTop
+	 * Sets newestOnTop option value.
 	 *
-	 * @param isNewestOnTop
-	 * @return
+	 * @param isNewestOnTop option value
+	 * @return this
 	 */
 	public ToastOptions setIsNewestOnTop(Boolean isNewestOnTop) {
 		this.isNewestOnTop = isNewestOnTop;
@@ -763,9 +794,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get onclick
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getOnClickFunction() {
@@ -773,10 +802,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set onclick
+	 * Sets onclick option value.
 	 *
-	 * @param onClickFunction
-	 * @return
+	 * @param onClickFunction option value
+	 * @return this
 	 */
 	public ToastOptions setOnClickFunction(String onClickFunction) {
 		this.onClickFunction = onClickFunction;
@@ -784,9 +813,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get onCloseClick
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getOnCloseClickFunction() {
@@ -794,10 +821,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set onCloseClick
+	 * Sets onCloseClick option value.
 	 *
-	 * @param onCloseClickFunction
-	 * @return
+	 * @param onCloseClickFunction option value
+	 * @return this
 	 */
 	public ToastOptions setOnCloseClickFunction(String onCloseClickFunction) {
 		this.onCloseClickFunction = onCloseClickFunction;
@@ -805,9 +832,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get onHidden
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getOnHiddenFunction() {
@@ -815,10 +840,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set onHidden
+	 * Sets onHidden option value.
 	 *
-	 * @param onHiddenFunction
-	 * @return
+	 * @param onHiddenFunction option value
+	 * @return this
 	 */
 	public ToastOptions setOnHiddenFunction(String onHiddenFunction) {
 		this.onHiddenFunction = onHiddenFunction;
@@ -826,9 +851,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get onShown
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getOnShownFunction() {
@@ -836,10 +859,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set onShown
+	 * Sets onShown option value.
 	 *
-	 * @param onShownFunction
-	 * @return
+	 * @param onShownFunction option value
+	 * @return this
 	 */
 	public ToastOptions setOnShownFunction(String onShownFunction) {
 		this.onShownFunction = onShownFunction;
@@ -847,9 +870,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get positionClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IPositionClass getPositionClass() {
@@ -857,10 +878,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set positionClass
+	 * Sets positionClass option value.
 	 *
-	 * @param positionClass
-	 * @return
+	 * @param positionClass option value
+	 * @return this
 	 */
 	public ToastOptions setPositionClass(IPositionClass positionClass) {
 		this.positionClass = positionClass;
@@ -868,9 +889,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get preventDuplicates
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean needPreventDuplicates() {
@@ -878,10 +897,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set preventDuplicates
+	 * Sets preventDuplicates option value.
 	 *
-	 * @param needPreventDuplicates
-	 * @return
+	 * @param needPreventDuplicates option value
+	 * @return this
 	 */
 	public ToastOptions setNeedPreventDuplicates(Boolean needPreventDuplicates) {
 		this.needPreventDuplicates = needPreventDuplicates;
@@ -889,9 +908,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get progressBar
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isEnableProgressBar() {
@@ -899,10 +916,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set progressBar
+	 * Sets progressBar option value.
 	 *
-	 * @param isEnableProgressBar
-	 * @return
+	 * @param isEnableProgressBar option value
+	 * @return this
 	 */
 	public ToastOptions setIsEnableProgressBar(Boolean isEnableProgressBar) {
 		this.isEnableProgressBar = isEnableProgressBar;
@@ -910,9 +927,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get progressClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getProgressClass() {
@@ -920,10 +935,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set progressClass
+	 * Sets progressClass option value.
 	 *
-	 * @param progressClass
-	 * @return
+	 * @param progressClass option value
+	 * @return this
 	 */
 	public ToastOptions setProgressClass(String progressClass) {
 		this.progressClass = progressClass;
@@ -931,9 +946,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get rtl
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isRightToLeft() {
@@ -941,10 +954,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set rtl
+	 * Sets rtl option value.
 	 *
-	 * @param isRightToLeft
-	 * @return
+	 * @param isRightToLeft option value
+	 * @return this
 	 */
 	public ToastOptions setIsRightToLeft(Boolean isRightToLeft) {
 		this.isRightToLeft = isRightToLeft;
@@ -952,9 +965,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get showDuration
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Integer getShowDuration() {
@@ -962,10 +973,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set showDuration
+	 * Sets showDuration option value.
 	 *
-	 * @param showDuration
-	 * @return
+	 * @param showDuration option value
+	 * @return this
 	 */
 	public ToastOptions setShowDuration(Integer showDuration) {
 		this.showDuration = showDuration;
@@ -973,9 +984,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get showEasing
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public IEasing getShowEasing() {
@@ -983,10 +992,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set showEasing
+	 * Sets showEasing option value.
 	 *
-	 * @param showEasing
-	 * @return
+	 * @param showEasing option value
+	 * @return this
 	 */
 	public ToastOptions setShowEasing(IEasing showEasing) {
 		this.showEasing = showEasing;
@@ -994,30 +1003,26 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get showMethod
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
-	public IAppearMethod getShowMethod() {
+	public IAppearAnimationMethod getShowMethod() {
 		return showMethod;
 	}
 
 	/**
-	 * Set showMethod
+	 * Sets showMethod option value.
 	 *
-	 * @param showMethod
-	 * @return
+	 * @param showMethod option value
+	 * @return this
 	 */
-	public ToastOptions setShowMethod(IAppearMethod showMethod) {
+	public ToastOptions setShowMethod(IAppearAnimationMethod showMethod) {
 		this.showMethod = showMethod;
 		return this;
 	}
 
 	/**
-	 * Get tapToDismiss
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Boolean isTapToDismiss() {
@@ -1025,10 +1030,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set tapToDismiss
+	 * Sets tapToDismiss option value.
 	 *
-	 * @param isTapToDismiss
-	 * @return
+	 * @param isTapToDismiss  option value
+	 * @return this
 	 */
 	public ToastOptions setIsTapToDismiss(Boolean isTapToDismiss) {
 		this.isTapToDismiss = isTapToDismiss;
@@ -1036,9 +1041,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get target
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getTarget() {
@@ -1046,10 +1049,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set target
+	 * Sets target option value.
 	 *
-	 * @param target
-	 * @return
+	 * @param target option value
+	 * @return this
 	 */
 	public ToastOptions setTarget(String target) {
 		this.target = target;
@@ -1057,9 +1060,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get timeOut
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Integer getTimeOut() {
@@ -1067,10 +1068,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set timeOut
+	 * Sets timeOut option value.
 	 *
-	 * @param timeOut
-	 * @return
+	 * @param timeOut option value
+	 * @return this
 	 */
 	public ToastOptions setTimeOut(Integer timeOut) {
 		this.timeOut = timeOut;
@@ -1078,9 +1079,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get titleClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getTitleClass() {
@@ -1088,10 +1087,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set titleClass
+	 * Sets titleClass  option value.
 	 *
-	 * @param titleClass
-	 * @return
+	 * @param titleClass option value
+	 * @return this
 	 */
 	public ToastOptions setTitleClass(String titleClass) {
 		this.titleClass = titleClass;
@@ -1099,9 +1098,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Get toastClass
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getToastClass() {
@@ -1109,10 +1106,10 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Set toastClass
+	 * Sets toastClass option value.
 	 *
-	 * @param toastClass
-	 * @return
+	 * @param toastClass option value
+	 * @return this
 	 */
 	public ToastOptions setToastClass(String toastClass) {
 		this.toastClass = toastClass;
@@ -1120,9 +1117,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Gets Options as json string.
-	 *
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toJsonString() {
@@ -1160,11 +1155,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Gets new overwritten options.<br>
-	 * If the value of the argument's option is exists, overwrite the option value.
-	 *
-	 * @param options
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public ToastOptions overwrite(IToastOptions options) {

@@ -59,7 +59,7 @@ public class Toast implements IToast {
 		int feedbackMessageLevel;
 
 		/**
-		 * Short level string. Same as toastr's method name that display messages.
+		 * Level string. Except for {@link ToastLevel#UNDEFINED}, it's same as toastr's method name that display messages.
 		 */
 		String level;
 
@@ -71,8 +71,8 @@ public class Toast implements IToast {
 		/**
 		 * Constractor
 		 *
-		 * @param level
-		 * @param isSupported
+		 * @param level level string
+		 * @param isSupported Whether it is toastr's method name to display the message
 		 */
 		ToastLevel(String level, int feedbackMessageLevel, boolean isSupported) {
 			this.feedbackMessageLevel = feedbackMessageLevel;
@@ -81,7 +81,9 @@ public class Toast implements IToast {
 		}
 
 		/**
-		 * Gets level string. Same as toastr's method name that display messages.
+		 * Gets level as string. Except for {@link ToastLevel#UNDEFINED}, it's same as toastr's method name that display messages.
+		 *
+		 * @return a level string
 		 */
 		public String getLevelString() {
 			return this.level;
@@ -89,6 +91,8 @@ public class Toast implements IToast {
 
 		/**
 		 * Gets whether toast can be displayed.
+		 *
+		 * @return true if toast can be displayed, otherwise false
 		 */
 		public boolean isSupported() {
 			return this.isSupported;
@@ -97,8 +101,8 @@ public class Toast implements IToast {
 		/**
 		 * Whether is less than argument's level.
 		 *
-		 * @param level
-		 * @return
+		 * @param level the level to be compared to this level
+		 * @return true if this level is less than argument's level, otherwise false
 		 */
 		public boolean lessThan(ToastLevel level) {
 			return this.feedbackMessageLevel < level.feedbackMessageLevel;
@@ -107,8 +111,8 @@ public class Toast implements IToast {
 		/**
 		 * Whether is greater than argument's level.
 		 *
-		 * @param level
-		 * @return
+		 * @param level the level to be compared to this level
+		 * @return true if this level is greater than argument's level, otherwise false
 		 */
 		public boolean greaterThan(ToastLevel level) {
 			return this.feedbackMessageLevel > level.feedbackMessageLevel;
@@ -118,8 +122,8 @@ public class Toast implements IToast {
 		 * Convert feedback message level to toast level.
 		 *
 		 * @param levelOfFeedbackMessage
-		 *            feedback message level
-		 * @return toast level
+		 *            the feedback message's level
+		 * @return the toast level
 		 */
 		public static ToastLevel fromFeedbackMessageLevel(int levelOfFeedbackMessage) {
 
@@ -136,8 +140,8 @@ public class Toast implements IToast {
 		 * Converts feedback message level to toast level.
 		 *
 		 * @param level
-		 *            feedback message level
-		 * @return toast level
+		 *            the feedback message's level
+		 * @return the toast level
 		 */
 		public static ToastLevel fromFeedbackMessageLevel(FeedbackMessageLevel level) {
 
@@ -202,7 +206,7 @@ public class Toast implements IToast {
 		FATAL(FeedbackMessage.FATAL),;
 
 		/**
-		 * FeedbackMessage's constant of message level.
+		 * {@link FeedbackMessage}'s constant of message level.
 		 */
 		int level;
 
@@ -218,7 +222,7 @@ public class Toast implements IToast {
 		/**
 		 * Gets message level as int.
 		 *
-		 * @return
+		 * @return the {@link FeedbackMessage}'s level int value
 		 */
 		public int toInteger() {
 			return level;
@@ -227,8 +231,8 @@ public class Toast implements IToast {
 		/**
 		 * Converts toast level to feedback message level.
 		 *
-		 * @param level
-		 * @return
+		 * @param toastLevel the toast level
+		 * @return the feedback message's level
 		 */
 		public static FeedbackMessageLevel fromToastLevel(ToastLevel toastLevel) {
 
@@ -251,9 +255,9 @@ public class Toast implements IToast {
 	/**
 	 * Creates a toast.
 	 *
-	 * @param level
-	 * @param message
-	 * @return
+	 * @param level the toast level
+	 * @param message the string displayed on toast
+	 * @return a toast
 	 */
 	public static Toast create(ToastLevel level, String message) {
 		return new Toast(level, message);
@@ -262,18 +266,18 @@ public class Toast implements IToast {
 	/**
 	 * Creates a success toast.
 	 *
-	 * @param message
-	 * @return
+	 * @param message the string displayed on toast
+	 * @return a success level toast
 	 */
 	public static Toast success(String message) {
 		return new Toast(ToastLevel.SUCCESS, message);
 	}
 
 	/**
-	 * Creates a info toast.
+	 * Creates an information toast.
 	 *
-	 * @param message
-	 * @return
+	 * @param message the string displayed on toast
+	 * @return an information level toast
 	 */
 	public static Toast info(String message) {
 		return new Toast(ToastLevel.INFO, message);
@@ -282,8 +286,8 @@ public class Toast implements IToast {
 	/**
 	 * Creates a warning toast.
 	 *
-	 * @param message
-	 * @return
+	 * @param message the string displayed on toast
+	 * @return a warning level toast
 	 */
 	public static Toast warn(String message) {
 		return new Toast(ToastLevel.WARNING, message);
@@ -292,8 +296,8 @@ public class Toast implements IToast {
 	/**
 	 * Creates a error toast.
 	 *
-	 * @param message
-	 * @return
+	 * @param message the string displayed on toast
+	 * @return a error level toast
 	 */
 	public static Toast error(String message) {
 		return new Toast(ToastLevel.ERROR, message);
@@ -302,7 +306,7 @@ public class Toast implements IToast {
 	/**
 	 * Remove current toasts without using animation.
 	 *
-	 * @param response
+	 * @param response the response object
 	 */
 	public static void remove(final IHeaderResponse response) {
 		response.render(JavaScriptHeaderItem.forScript("toastr.remove();", null));
@@ -311,7 +315,7 @@ public class Toast implements IToast {
 	/**
 	 * Remove current toasts without using animation.
 	 *
-	 * @param response
+	 * @param target the request target
 	 */
 	public static void remove(final AjaxRequestTarget target) {
 		target.appendJavaScript("toastr.remove();");
@@ -320,7 +324,7 @@ public class Toast implements IToast {
 	/**
 	 * Remove current toasts using animation.
 	 *
-	 * @param response
+	 * @param response the response object
 	 */
 	public static void clear(final IHeaderResponse response) {
 		response.render(JavaScriptHeaderItem.forScript("toastr.clear();", null));
@@ -329,7 +333,7 @@ public class Toast implements IToast {
 	/**
 	 * Remove current toasts using animation.
 	 *
-	 * @param response
+	 * @param target the request target
 	 */
 	public static void clear(final AjaxRequestTarget target) {
 		target.appendJavaScript("toastr.clear();");
@@ -358,8 +362,8 @@ public class Toast implements IToast {
 	/**
 	 * Constractor
 	 *
-	 * @param level
-	 * @param message
+	 * @param level the toast level
+	 * @param message the string displayed on toast
 	 */
 	public Toast(ToastLevel level, String message) {
 		this(level, message, null);
@@ -368,9 +372,9 @@ public class Toast implements IToast {
 	/**
 	 * Constractor
 	 *
-	 * @param level
-	 * @param message
-	 * @param title
+	 * @param level the toast level
+	 * @param message the string displayed on toast
+	 * @param title the string displayed on toast
 	 */
 	public Toast(ToastLevel level, String message, String title) {
 		this(level, message, title, null);
@@ -379,10 +383,10 @@ public class Toast implements IToast {
 	/**
 	 * Constractor
 	 *
-	 * @param level
-	 * @param message
-	 * @param title
-	 * @param options
+	 * @param level the toast level
+	 * @param message the string displayed on toast
+	 * @param title the string displayed on toast
+	 * @param options options for override global options
 	 */
 	public Toast(ToastLevel level, String message, String title, ToastOptions options) {
 		if (!level.isSupported()) {
@@ -399,8 +403,8 @@ public class Toast implements IToast {
 	/**
 	 * Sets title.
 	 *
-	 * @param title
-	 * @return
+	 * @param title the string displayed on toast
+	 * @return this
 	 */
 	public Toast withTitle(String title) {
 		this.title = Optional.ofNullable(title);
@@ -408,15 +412,15 @@ public class Toast implements IToast {
 	}
 
 	/**
-	 * Set title if the condition is true.
+	 * Sets title if the condition is true.
 	 *
-	 * @param canSet
-	 * @param titleFactory
-	 * @return
+	 * @param canSet the condition that the title can be set
+	 * @param titleFactory factory of title string
+	 * @return this
 	 */
 	public Toast withTitle(boolean canSet, SerializableSupplier<String> titleFactory) {
 		if (canSet) {
-			this.title = Optional.ofNullable(titleFactory.get());
+			withTitle(titleFactory.get());
 		}
 		return this;
 	}
@@ -424,7 +428,7 @@ public class Toast implements IToast {
 	/**
 	 * Gets title.
 	 *
-	 * @return
+	 * @return an {@code Optional} with a title string
 	 */
 	@Override
 	public Optional<String> getTitle() {
@@ -434,8 +438,8 @@ public class Toast implements IToast {
 	/**
 	 * Sets override options.
 	 *
-	 * @param options
-	 * @return
+	 * @param options the options to override global options
+	 * @return this
 	 */
 	public Toast withToastOptions(ToastOptions options) {
 		this.options = Optional.ofNullable(options);
@@ -445,9 +449,9 @@ public class Toast implements IToast {
 	/**
 	 * Sets override options if the condition is true.
 	 *
-	 * @param canSet
-	 * @param optionsFactory
-	 * @return
+	 * @param canSet the condition that the options can be set
+	 * @param optionsFactory factory of {@link ToastOptions}
+	 * @return this
 	 */
 	public Toast withToastOptions(boolean canSet, SerializableSupplier<ToastOptions> optionsFactory) {
 		if (canSet) {
@@ -459,7 +463,7 @@ public class Toast implements IToast {
 	/**
 	 * Gets options.
 	 *
-	 * @return
+	 * @return an {@code Optional} with a toast options
 	 */
 	@Override
 	public Optional<ToastOptions> getToastOptions() {
@@ -469,7 +473,7 @@ public class Toast implements IToast {
 	/**
 	 * Gets toast level.
 	 *
-	 * @return
+	 * @return the toast level
 	 */
 	@Override
 	public ToastLevel getToastLevel() {
@@ -479,7 +483,7 @@ public class Toast implements IToast {
 	/**
 	 * Gets message.
 	 *
-	 * @return
+	 * @return the toast message
 	 */
 	@Override
 	public String getMessage() {
@@ -487,34 +491,34 @@ public class Toast implements IToast {
 	}
 
 	/**
-	 * Replace \r\n and \r to &lt;br&gt; tag.
+	 * Replaces \r\n and \r to &lt;br&gt; tag.
 	 *
-	 * @param value
-	 * @return
+	 * @param value the target that to replace newline code with a br tag
+	 * @return a string that replaced a newline code with a br tag
 	 */
-	private static String replaceNewLineCodeToTag(String value) {
+	private static String replaceNewlineCodeToTag(String value) {
 		return value.replaceAll("\r\n", "\n").replaceAll("\r", "\n").replaceAll("\n", "<br/>");
 	}
 
 	/**
-	 * Creates script for display toast with consider level of feedback messages.
+	 * Creates script for displaying toast with consider level.
 	 *
-	 * @return
+	 * @return the script for displaying toast
 	 */
 	@Override
 	public String getScriptForDisplay() {
 		final StringBuilder script = new StringBuilder();
-		script.append("toastr.").append(level.getLevelString()).append("(\"").append(replaceNewLineCodeToTag(message))
+		script.append("toastr.").append(level.getLevelString()).append("(\"").append(replaceNewlineCodeToTag(message))
 				.append("\"");
 
-		// set title
+		// sets title
 		if (title.isPresent()) {
-			script.append(", \"").append(replaceNewLineCodeToTag(title.get())).append("\"");
+			script.append(", \"").append(replaceNewlineCodeToTag(title.get())).append("\"");
 		} else {
 			script.append(", \"\"");
 		}
 
-		// set override options
+		// sets override options
 		options.ifPresent(opt -> {
 			script.append(", ").append(opt.toJsonString());
 		});
@@ -525,28 +529,28 @@ public class Toast implements IToast {
 	}
 
 	/**
-	 * Show toast.
+	 * Shows toast.
 	 *
-	 * @param target
+	 * @param target the request target
 	 */
 	public void show(final AjaxRequestTarget target) {
 		target.appendJavaScript(getScriptForDisplay());
 	}
 
 	/**
-	 * Show toast.
+	 * Shows toast.
 	 *
-	 * @param responce
+	 * @param responce responce object
 	 */
 	public void show(final IHeaderResponse responce) {
 		responce.render(JavaScriptHeaderItem.forScript(getScriptForDisplay(), null));
 	}
 
 	/**
-	 * Show toast.<br>
+	 * Shows toast.<br>
 	 * This method need to add {@link ToastrBehavior} to any of component in page.
 	 *
-	 * @param component
+	 * @param component the reporting component
 	 */
 	public void show(final Component component) {
 		switch (level) {

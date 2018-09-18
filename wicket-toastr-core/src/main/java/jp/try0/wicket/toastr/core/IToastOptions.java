@@ -3,7 +3,7 @@ package jp.try0.wicket.toastr.core;
 import java.io.Serializable;
 
 /**
- * Toast options<br>
+ * Toast options interface.
  *
  *
  * @author Ryo Tsunoda
@@ -17,8 +17,6 @@ public interface IToastOptions extends Serializable {
 	public final static String DEFAULT_MESSAGE_CLASS = "toast-message";
 	public final static String DEFAULT_CLOSE_CLASS = "toast-close-button";
 	public final static String DEFAULT_PROGRESS_CLASS = "toast-progress";
-
-
 
 	/**
 	 * Option keys
@@ -64,241 +62,293 @@ public interface IToastOptions extends Serializable {
 		public final static String TOAST_CLASS = "toastClass";
 	}
 
-	public static interface IAppearMethod extends Serializable {
+	/**
+	 * Animation method when displaying toasts.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
+	public static interface IAppearAnimationMethod extends Serializable {
 	}
 
-	public static interface IDisappearMethod extends Serializable {
+	/**
+	 * Animation method when hiding toasts.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
+	public static interface IDisappearAnimationMethod extends Serializable {
 	}
 
+	/**
+	 * Animation easing.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
 	public static interface IEasing extends Serializable {
 	}
 
+	/**
+	 * Icon css class.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
 	public static interface IIconClass extends Serializable {
 	}
 
+	/**
+	 * Toast position css class.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
 	public static interface IPositionClass extends Serializable {
 	}
 
 	/**
-	 * Get closeButton
+	 * Gets closeButton.
 	 *
-	 * @return
+	 * @return closeButton option value
 	 */
 	public Boolean isEnableCloseButton();
+
 	/**
-	 * Get closeClass
+	 * Gets closeClass.
 	 *
-	 * @return
+	 * @return closeClass option value
 	 */
 	public String getCloseClass();
+
 	/**
-	 * Get closeDuration
+	 * Gets closeDuration.
 	 *
-	 * @return
+	 * @return closeDuration option value
 	 */
 	public Integer getCloseDureation();
 
 	/**
-	 * Get closeEasing
+	 * Gets closeEasing.
 	 *
-	 * @return
+	 * @return closeEasing option value
 	 */
 	public IEasing getCloseEasing();
 
 	/**
-	 * Get closeHtml
+	 * Gets closeHtml.
 	 *
-	 * @return
+	 * @return closeHtml option value
 	 */
 	public String getCloseHtml();
+
 	/**
-	 * Get closeMethod
+	 * Gets closeMethod.
 	 *
-	 * @return
+	 * @return closeMethod option value
 	 */
-	public IDisappearMethod getCloseMethod();
+	public IDisappearAnimationMethod getCloseMethod();
+
 	/**
-	 * Get closeOnHover
+	 * Gets closeOnHover.
 	 *
-	 * @return
+	 * @return closeOnHover option value
 	 */
 	public Boolean isCloseOnHover();
 
 	/**
-	 * Get containerId
+	 * Gets containerId.
 	 *
-	 * @return
+	 * @return containerId option value
 	 */
 	public String getContainerId();
+
 	/**
-	 * Get debug
+	 * Gets debug.
 	 *
-	 * @return
+	 * @return debug option value
 	 */
 	public Boolean isDebug();
+
 	/**
-	 * Get escapeHtml
+	 * Gets escapeHtml.
 	 *
-	 * @return
+	 * @return escapeHtml option value
 	 */
 	public Boolean needEscapeHtml();
 
 	/**
-	 * Get extendedTimeOut
+	 * Gets extendedTimeOut.
 	 *
-	 * @return
+	 * @return extendedTimeOut option value
 	 */
 	public Integer getExtendedTimeOut();
+
 	/**
-	 * Get hideDuration
+	 * Gets hideDuration.
 	 *
-	 * @return
+	 * @return hideDuration option value
 	 */
 	public Integer getHideDuration();
+
 	/**
-	 * Get hideEasing
+	 * Gets hideEasing.
 	 *
-	 * @return
+	 * @return hideEasing option value
 	 */
 	public IEasing getHideEasing();
+
 	/**
-	 * Get hideMethod
+	 * Gets hideMethod.
 	 *
-	 * @return
+	 * @return hideMethod option value
 	 */
-	public IDisappearMethod getHideMethod();
+	public IDisappearAnimationMethod getHideMethod();
+
 	/**
-	 * Get iconClass
+	 * Gets iconClass.
 	 *
-	 * @return
+	 * @return iconClass option value
 	 */
 	public IIconClass getIconClass();
+
 	/**
-	 * Get messageClass
+	 * Gets messageClass.
 	 *
-	 * @return
+	 * @return messageClass option value
 	 */
 	public String getMessageClass();
+
 	/**
-	 * Get newestOnTop
+	 * Gets newestOnTop.
 	 *
-	 * @return
+	 * @return newestOnTop option value
 	 */
 	public Boolean isNewestOnTop();
 
 	/**
-	 * Get onclick
+	 * Gets onclick.
 	 *
-	 * @return
+	 * @return onclick option value
 	 */
 	public String getOnClickFunction();
 
 	/**
-	 * Get onCloseClick
+	 * Gets onCloseClick.
 	 *
-	 * @return
+	 * @return onCloseClick option value
 	 */
 	public String getOnCloseClickFunction();
+
 	/**
-	 * Get onHidden
+	 * Gets onHidden.
 	 *
-	 * @return
+	 * @return onHidden option value
 	 */
 	public String getOnHiddenFunction();
+
 	/**
-	 * Get onShown
+	 * Gets onShown.
 	 *
-	 * @return
+	 * @return onShown option value
 	 */
 	public String getOnShownFunction();
 
 	/**
-	 * Get positionClass
+	 * Gets positionClass.
 	 *
-	 * @return
+	 * @return positionClass option value
 	 */
 	public IPositionClass getPositionClass();
+
 	/**
-	 * Get preventDuplicates
+	 * Gets preventDuplicates.
 	 *
-	 * @return
+	 * @return preventDuplicates option value
 	 */
 	public Boolean needPreventDuplicates();
+
 	/**
-	 * Get progressBar
+	 * Gets progressBar.
 	 *
-	 * @return
+	 * @return progressBar option value
 	 */
 	public Boolean isEnableProgressBar();
 
 	/**
-	 * Get progressClass
+	 * Gets progressClass.
 	 *
-	 * @return
+	 * @return progressClass option value
 	 */
 	public String getProgressClass();
-	/**
-	 * Get rtl
-	 *
-	 * @return
-	 */
-	public Boolean isRightToLeft();
-	/**
-	 * Get showDuration
-	 *
-	 * @return
-	 */
-	public Integer getShowDuration();
-	/**
-	 * Get showEasing
-	 *
-	 * @return
-	 */
-	public IEasing getShowEasing();
-	/**
-	 * Get showMethod
-	 *
-	 * @return
-	 */
-	public IAppearMethod getShowMethod();
 
 	/**
-	 * Get tapToDismiss
+	 * Gets rtl.
 	 *
-	 * @return
+	 * @return rtl option value
+	 */
+	public Boolean isRightToLeft();
+
+	/**
+	 * Gets showDuration.
+	 *
+	 * @return showDuration option value
+	 */
+	public Integer getShowDuration();
+
+	/**
+	 * Gets showEasing.
+	 *
+	 * @return showEasing option value
+	 */
+	public IEasing getShowEasing();
+
+	/**
+	 * Gets showMethod.
+	 *
+	 * @return showMethod option value
+	 */
+	public IAppearAnimationMethod getShowMethod();
+
+	/**
+	 * Gets tapToDismiss.
+	 *
+	 * @return tapToDismiss option value
 	 */
 	public Boolean isTapToDismiss();
 
 	/**
-	 * Get target
+	 * Gets target.
 	 *
-	 * @return
+	 * @return target option value
 	 */
 	public String getTarget();
 
 	/**
-	 * Get timeOut
+	 * Gets timeOut.
 	 *
-	 * @return
+	 * @return timeOut option value
 	 */
 	public Integer getTimeOut();
+
 	/**
-	 * Get titleClass
+	 * Gets titleClass.
 	 *
-	 * @return
+	 * @return titleClass option value
 	 */
 	public String getTitleClass();
+
 	/**
-	 * Get toastClass
+	 * Gets toastClass.
 	 *
-	 * @return
+	 * @return toastClass option value
 	 */
 	public String getToastClass();
 
 	/**
-	 * Gets Options as json string.
+	 * Gets options as json string.
 	 *
-	 * @return
+	 * @return json string
 	 */
 	public String toJsonString();
 
@@ -306,8 +356,9 @@ public interface IToastOptions extends Serializable {
 	 * Gets new overwritten options.<br>
 	 * If the value of the argument's option is exists, overwrite the option value.
 	 *
-	 * @param options
-	 * @return
+	 * @param options overwrite options
+	 * @return overwritten options
 	 */
 	public IToastOptions overwrite(IToastOptions options);
+
 }

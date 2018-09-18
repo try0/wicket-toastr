@@ -6,7 +6,7 @@ import java.util.Optional;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 
 /**
- * Toast interface
+ * Toast interface.
  *
  * @author Ryo Tsunoda
  *
