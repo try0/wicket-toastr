@@ -3,20 +3,30 @@ package jp.try0.wicket.toastr.core.config;
 import java.io.Serializable;
 import java.util.Optional;
 
+import com.google.common.base.Strings;
+
 import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
 
 /**
- * Font Awsome Icon unicodes.
+ * Font Awsome icon unicodes.<br>
+ * Holds the escaped icon unicode for each level.
+ * <pre>
+ * new ToastrFontAwesomeIcons(
+ *     "\\f058", // fa-check-circle
+ *     "\\f05a", // fa-info-circle
+ *     "\\f071", // fa-exclamation-triangle
+ *     "\\f057"  // fa-times-circle
+ * )
+ * </pre>
  *
  * @author Ryo Tsunoda
  *
  */
 public class ToastrFontAwesomeIcons implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 
 	private String successIconUnicode;
 	private String infoIconUnicode;
@@ -26,10 +36,10 @@ public class ToastrFontAwesomeIcons implements Serializable {
 	/**
 	 * Constractor
 	 *
-	 * @param successIconUnicode
-	 * @param infoIconUnicode
-	 * @param warningIconUnicode
-	 * @param errorIconUnicode
+	 * @param successIconUnicode the escaped icon unicode
+	 * @param infoIconUnicode the escaped icon unicode
+	 * @param warningIconUnicode the escaped icon unicode
+	 * @param errorIconUnicode the escaped icon unicode
 	 */
 	public ToastrFontAwesomeIcons(String successIconUnicode, String infoIconUnicode, String warningIconUnicode,
 			String errorIconUnicode) {
@@ -40,12 +50,12 @@ public class ToastrFontAwesomeIcons implements Serializable {
 	}
 
 	/**
-	 * Get content.
+	 * Gets the escaped unicode for apply to the content of the pseudo-element.
 	 *
-	 * @param level
-	 * @return
+	 * @param level the toast level
+	 * @return the content of the pseudo-element
 	 */
-	public String getContent(ToastLevel level) {
+	public String getEscapedUnicode(ToastLevel level) {
 		switch (level) {
 		case ERROR:
 			return errorIconUnicode;
@@ -62,10 +72,9 @@ public class ToastrFontAwesomeIcons implements Serializable {
 	}
 
 	/**
-	 * Get the style to adapt the Font Awsome icons.
+	 * Gets the style to adapt the Font Awesome icons.
 	 *
-	 * @param icons
-	 * @return
+	 * @return the style for displaying icons
 	 */
 	public String getStyleForAdaptIconContent() {
 
@@ -73,7 +82,7 @@ public class ToastrFontAwesomeIcons implements Serializable {
 		final String containerId;
 		if (globalOptions.isPresent()) {
 			String tmpContainerId = globalOptions.get().getContainerId();
-			if (com.google.common.base.Strings.isNullOrEmpty(tmpContainerId)) {
+			if (Strings.isNullOrEmpty(tmpContainerId)) {
 				containerId = ToastOptions.DEFAULT_CONTAINER_ID;
 			} else {
 				containerId = tmpContainerId;
@@ -103,12 +112,11 @@ public class ToastrFontAwesomeIcons implements Serializable {
 				continue;
 			}
 
-
 			sb.append("#").append(containerId).append(">.").append(iconClassName).append(":not(.rtl):before{content:\"")
-			.append(getContent(level)).append("\";}");
+					.append(getEscapedUnicode(level)).append("\";}");
 
 			sb.append("#").append(containerId).append(">.").append(iconClassName).append(".rtl:after{content:\"")
-			.append(getContent(level)).append("\";}");
+					.append(getEscapedUnicode(level)).append("\";}");
 		}
 
 		return sb.toString();

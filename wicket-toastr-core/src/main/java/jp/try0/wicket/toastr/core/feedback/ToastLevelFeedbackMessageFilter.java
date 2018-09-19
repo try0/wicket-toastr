@@ -15,7 +15,7 @@ import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 
 /**
- * Filter for accepting feedback messages with toast level.
+ * Filter to accepts feedback messages with toast level.
  *
  * @author Ryo Tsunoda
  *
@@ -24,10 +24,10 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Create filter that accept less than argument's level.
+	 * Creates filter that accepts less than argument's level.
 	 *
-	 * @param level
-	 * @return
+	 * @param level the level that compare to each levels
+	 * @return the filter that accepts less than argument's level
 	 */
 	public static ToastLevelFeedbackMessageFilter lessThan(ToastLevel level) {
 
@@ -43,10 +43,10 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	}
 
 	/**
-	 * Create filter that accept less than argument's level or equals one.
+	 * Creates filter that accepts less than argument's level or equals one.
 	 *
-	 * @param level
-	 * @return
+	 * @param level the level that compare to each levels
+	 * @return the filter that accepts less than or equals argument's level
 	 */
 	public static ToastLevelFeedbackMessageFilter lessThanOrEqual(ToastLevel level) {
 
@@ -62,10 +62,10 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	}
 
 	/**
-	 * Create filter that accept greater than argument's level.
+	 * Creates filter that accepts greater than argument's level.
 	 *
-	 * @param level
-	 * @return
+	 * @param level the level that compare to each levels
+	 * @return the filter that accepts greater than argument's level
 	 */
 	public static ToastLevelFeedbackMessageFilter greaterThan(ToastLevel level) {
 
@@ -81,10 +81,10 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	}
 
 	/**
-	 * Create filter that accept greater than argument's level or equals one.
+	 * Creates filter that accepts greater than argument's level or equals one.
 	 *
-	 * @param level
-	 * @return
+	 * @param level the level that compares to each levels
+	 * @return the filter that accepts greater than or equals argument's level
 	 */
 	public static ToastLevelFeedbackMessageFilter greaterThanOrEqual(ToastLevel level) {
 
@@ -100,20 +100,20 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	}
 
 	/**
-	 * Create filter that accept argument's levels.
+	 * Creates filter that accepts argument's levels.
 	 *
-	 * @param level
-	 * @return
+	 * @param accepts the levels to accepts
+	 * @return the filter that accepts argument's level
 	 */
 	public static ToastLevelFeedbackMessageFilter accepts(ToastLevel ...accepts) {
 		return new ToastLevelFeedbackMessageFilter(accepts);
 	}
 
 	/**
-	 * Create filter that ignore argument's levels.
+	 * Creates filter that ignores argument's levels.
 	 *
-	 * @param level
-	 * @return
+	 * @param ignores the levels to ignores
+	 * @return the filter that ignores argument's level
 	 */
 	public static ToastLevelFeedbackMessageFilter ignores(ToastLevel ...ignores) {
 
@@ -133,7 +133,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 
 
 	/**
-	 * Accepts toast levels
+	 * Levels to accepts
 	 */
 	private final EnumSet<ToastLevel> accepts = EnumSet.noneOf(ToastLevel.class);
 
@@ -142,7 +142,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	/**
 	 * Constractor
 	 *
-	 * @param accepts
+	 * @param accepts the levels to accepts
 	 */
 	public ToastLevelFeedbackMessageFilter(ToastLevel... accepts) {
 		for (ToastLevel level : accepts) {
@@ -153,7 +153,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	/**
 	 * Constractor
 	 *
-	 * @param accepts
+	 * @param accepts the levels to accepts
 	 */
 	public ToastLevelFeedbackMessageFilter(Collection<ToastLevel> accepts) {
 		for (ToastLevel level : accepts) {

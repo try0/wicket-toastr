@@ -25,14 +25,14 @@ public class ToastrFontAwesomeSettings {
 	private final ToastrFontAwesomeIcons icons;
 
 	/**
-	 * Tweak icon style resource reference
+	 * Css reference that tweak icon style
 	 */
-	private final ResourceReference tweakCssResourceReference;
+	private final ResourceReference tweakCssReference;
 
 	/**
 	 * Constractor
 	 *
-	 * @param icons Font Awesome icons
+	 * @param icons Font Awesome icon
 	 */
 	public ToastrFontAwesomeSettings(ToastrFontAwesomeIcons icons) {
 		this(icons, FONT_AWESOME_5_FREE, TweakFontAwesomeIconCssResourceReference.INSTANCE);
@@ -42,20 +42,20 @@ public class ToastrFontAwesomeSettings {
 	 * Constractor
 	 *
 	 * @param icons Font Awesome icons
-	 * @param linkTag
-	 * @param tweakCssResourceReference Tweak icon style resource reference
+	 * @param linkTag Font Awesome css link tag
+	 * @param tweakCssReference Tweak icon style resource reference
 	 */
 	public ToastrFontAwesomeSettings(ToastrFontAwesomeIcons icons, String linkTag,
-			ResourceReference tweakCssResourceReference) {
+			ResourceReference tweakCssReference) {
 		this.icons = Args.notNull(icons, "icons");
 		this.linkTag = Args.notNull(linkTag, "linkTag");
-		this.tweakCssResourceReference = Args.notNull(tweakCssResourceReference, "tweakCssResourceReference");
+		this.tweakCssReference = Args.notNull(tweakCssReference, "tweakCssReference");
 	}
 
 	/**
 	 * Gets icons.
 	 *
-	 * @return
+	 * @return icon unicodes
 	 */
 	public ToastrFontAwesomeIcons getIcons() {
 		return icons;
@@ -64,7 +64,7 @@ public class ToastrFontAwesomeSettings {
 	/**
 	 * Gets Font Awesome css link tag.
 	 *
-	 * @return
+	 * @return the string of css link tag
 	 */
 	public String getFontAwesomeCssLinkTag() {
 		return linkTag;
@@ -73,10 +73,10 @@ public class ToastrFontAwesomeSettings {
 	/**
 	 * Gets tweak icon style.
 	 *
-	 * @return
+	 * @return tweak icon style reference
 	 */
-	public ResourceReference getTweakCssResourceReference() {
-		return tweakCssResourceReference;
+	public ResourceReference getTweakCssReference() {
+		return tweakCssReference;
 	}
 
 }

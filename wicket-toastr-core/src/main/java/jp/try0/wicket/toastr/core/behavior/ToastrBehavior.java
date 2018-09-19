@@ -14,6 +14,7 @@ import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.util.lang.Args;
@@ -169,7 +170,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			response.render(JavaScriptHeaderItem.forScript(getScriptForSettingOptions(options), null));
 		});
 
-		ToastrSettings.get().getFontAwsomeSettings().ifPresent(faSettings -> {
+		ToastrSettings.get().getFontAwesomeSettings().ifPresent(faSettings -> {
 			response.render(new HeaderItem() {
 				private static final long serialVersionUID = 1L;
 
@@ -183,14 +184,14 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 					return Arrays.asList(faSettings.getFontAwesomeCssLinkTag());
 				}
 			});
-			response.render(CssHeaderItem.forReference(faSettings.getTweakCssResourceReference(), null));
+			response.render(CssHeaderItem.forReference(faSettings.getTweakCssReference(), null));
 			response.render(CssHeaderItem
 					.forCSS(faSettings.getIcons().getStyleForAdaptIconContent(), null));
 		});
 
 		if (!feedbackMessagesModel.getObject().isEmpty()) {
 			// notification script
-			response.render(JavaScriptHeaderItem.forScript(getScriptForDisplay(), null));
+			response.render(OnDomReadyHeaderItem.forScript(getScriptForDisplay()));
 		}
 
 		// clear cache messages

@@ -14,7 +14,7 @@ import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 
 /**
- * Toastr settings
+ * Toastr settings. This class has configs for using toastr.
  *
  * @author Ryo Tsunoda
  *
@@ -22,7 +22,7 @@ import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 public class ToastrSettings {
 
 	/**
-	 * Builder
+	 * Settings builder.
 	 *
 	 * @author Ryo Tsunoda
 	 *
@@ -32,8 +32,8 @@ public class ToastrSettings {
 		/**
 		 * Create builder.
 		 *
-		 * @param application
-		 * @return
+		 * @param application the current application
+		 * @return initializer
 		 */
 		public static ToastrSettingsInitializer create(final Application application) {
 			return new ToastrSettingsInitializer(application);
@@ -55,7 +55,7 @@ public class ToastrSettings {
 		private IFeedbackMessageFilter filter;
 
 		/**
-		 * Need append behavior to pages
+		 * Need append behavior to new pages
 		 */
 		private boolean needAutoAppendToastrBehavior;
 
@@ -67,12 +67,12 @@ public class ToastrSettings {
 		/**
 		 * Font Awesome icon settings
 		 */
-		private ToastrFontAwesomeSettings fontAwsomeSettings;
+		private ToastrFontAwesomeSettings fontAwesomeSettings;
 
 		/**
 		 * Constractor
 		 *
-		 * @param application
+		 * @param application the current application
 		 */
 		public ToastrSettingsInitializer(Application application) {
 			this.application = Args.notNull(application, "application");
@@ -81,8 +81,8 @@ public class ToastrSettings {
 		/**
 		 * Sets toastr global options.
 		 *
-		 * @param globalOptions
-		 * @return
+		 * @param globalOptions global options
+		 * @return this
 		 */
 		public ToastrSettingsInitializer setGlobalOptions(ToastOptions globalOptions) {
 			this.globalOptions = globalOptions;
@@ -90,10 +90,10 @@ public class ToastrSettings {
 		}
 
 		/**
-		 * Set filter.
+		 * Sets filter.
 		 *
-		 * @param icons
-		 * @return
+		 * @param filter the filter to apply
+		 * @return this
 		 */
 		public ToastrSettingsInitializer setMessageFilter(IFeedbackMessageFilter filter) {
 			this.filter = filter;
@@ -103,8 +103,8 @@ public class ToastrSettings {
 		/**
 		 * Sets need auto append {@link ToastrBehavior} to new {@link Page}.
 		 *
-		 * @param needAutoAppendToastrBehavior
-		 * @return
+		 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
+		 * @return this
 		 */
 		public ToastrSettingsInitializer setAutoAppendBehavior(boolean needAutoAppendToastrBehavior) {
 			this.needAutoAppendToastrBehavior = needAutoAppendToastrBehavior;
@@ -114,8 +114,8 @@ public class ToastrSettings {
 		/**
 		 * Sets {@link ToastrBehavior} factory.
 		 *
-		 * @param toastrBehaviorFactory
-		 * @return
+		 * @param toastrBehaviorFactory factory of {@link ToastrBehavior}
+		 * @return this
 		 */
 		public ToastrSettingsInitializer setToastrBehaviorFactory(Supplier<ToastrBehavior> toastrBehaviorFactory) {
 			this.toastrBehaviorFactory = toastrBehaviorFactory;
@@ -123,24 +123,22 @@ public class ToastrSettings {
 		}
 
 		/**
-		 * Set icons.
+		 * Set Font Awesome icons settings.
 		 *
-		 * @param icons
-		 * @return
+		 * @param fontAwesomeSettings setting for icons
+		 * @return this
 		 */
-		public ToastrSettingsInitializer setFontAwesomeSettings(ToastrFontAwesomeSettings fontAwsomeSettings) {
-			this.fontAwsomeSettings = fontAwsomeSettings;
+		public ToastrSettingsInitializer setFontAwesomeSettings(ToastrFontAwesomeSettings fontAwesomeSettings) {
+			this.fontAwesomeSettings = fontAwesomeSettings;
 			return this;
 		}
 
 		/**
 		 * Initialize toastr settings.
-		 *
-		 * @param defaultOptions
 		 */
 		public void initialize() {
 			ToastrSettings.initialize(application, needAutoAppendToastrBehavior, globalOptions, filter,
-					toastrBehaviorFactory, fontAwsomeSettings);
+					toastrBehaviorFactory, fontAwesomeSettings);
 		}
 
 	}
@@ -152,7 +150,7 @@ public class ToastrSettings {
 	};
 
 	/**
-	 * Default toastr behavior factory.
+	 * Default {@link ToastrBehavior} factory.
 	 */
 	private final static Supplier<ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = () -> {
 		if (ToastrSettings.get().getMessageFilter().isPresent()) {
@@ -163,17 +161,17 @@ public class ToastrSettings {
 	};
 
 	/**
-	 * Create setting builder.
+	 * Creates settings builder.
 	 *
-	 * @param application
-	 * @return
+	 * @param application the current application
+	 * @return initializer
 	 */
 	public static ToastrSettingsInitializer createInitializer(final Application application) {
 		return ToastrSettingsInitializer.create(application);
 	}
 
 	/**
-	 * Set up default values.
+	 * Sets up default values.
 	 */
 	public static ToastrSettings initialize() {
 
@@ -187,10 +185,10 @@ public class ToastrSettings {
 	}
 
 	/**
-	 * Set up default values.
+	 * Sets up default values.
 	 *
-	 * @param application
-	 * @param needAutoAppendToastrBehavior
+	 * @param application the current application
+	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior) {
 		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY, null);
@@ -200,9 +198,9 @@ public class ToastrSettings {
 	 * Set up default values.
 	 *
 	 * @param application
-	 * @param needAutoAppendToastrBehavior
-	 * @param globalOptions
-	 * @return
+	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
+	 * @param globalOptions toastr global options
+	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
 			ToastOptions globalOptions) {
@@ -213,13 +211,17 @@ public class ToastrSettings {
 	/**
 	 * Set up default values.
 	 *
-	 * @param application
-	 * @param globalOptions
-	 * @param needAutoAppendToastrBehavior
+	 * @param application the current application
+	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
+	 * @param globalOptions toastr global options
+	 * @param filter the filter to apply
+	 * @param toastrBehaviorFactory the factory of {@link ToastrBehavior}
+	 * @param fontAwesomeSettings Font Awesome icons settings
+	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
 			ToastOptions globalOptions, IFeedbackMessageFilter filter, Supplier<ToastrBehavior> toastrBehaviorFactory,
-			ToastrFontAwesomeSettings fontAwsomeSettings) {
+			ToastrFontAwesomeSettings fontAwesomeSettings) {
 
 		if (application.getMetaData(META_DATA_KEY) != null) {
 			throw new UnsupportedOperationException(
@@ -230,7 +232,7 @@ public class ToastrSettings {
 			application.getComponentInstantiationListeners().add(new ToastrBehaviorAutoAppender());
 		}
 
-		ToastrSettings settings = new ToastrSettings(globalOptions, filter, toastrBehaviorFactory, fontAwsomeSettings);
+		ToastrSettings settings = new ToastrSettings(globalOptions, filter, toastrBehaviorFactory, fontAwesomeSettings);
 
 		application.setMetaData(META_DATA_KEY, settings);
 
@@ -238,9 +240,10 @@ public class ToastrSettings {
 	}
 
 	/**
-	 * Get TastrSettings.
+	 * Gets instance of toastr settings.<br>
+	 * If settings has already been initialized, returns it, otherwise first initialize setting and returns it.
 	 *
-	 * @return
+	 * @return toastr settings
 	 */
 	public static ToastrSettings get() {
 		if (!Application.exists()) {
@@ -268,9 +271,9 @@ public class ToastrSettings {
 	private final Optional<IFeedbackMessageFilter> filter;
 
 	/**
-	 * Font Awsome Icons
+	 * Font Awesome icon settings
 	 */
-	private final Optional<ToastrFontAwesomeSettings> fontAwsomeSettings;
+	private final Optional<ToastrFontAwesomeSettings> fontAwesomeSettings;
 
 	/**
 	 * {@link ToastrBehavior} factory
@@ -284,40 +287,39 @@ public class ToastrSettings {
 		this.globalOptions = Optional.empty();
 		this.filter = Optional.empty();
 		this.toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
-		this.fontAwsomeSettings = Optional.empty();
+		this.fontAwesomeSettings = Optional.empty();
 	}
 
 	/**
 	 * Constractor
 	 *
-	 * @param globalOptions
-	 * @param filter
-	 * @param toastrBehaviorFactory
-	 * @param fontAwsomeSettings
+	 * @param globalOptions toastr global options
+	 * @param filter the filter to apply
+	 * @param toastrBehaviorFactory the factory of {@link ToastrBehavior}
+	 * @param fontAwsomeSettings Font Awesome icons settings
 	 */
 	private ToastrSettings(ToastOptions globalOptions, IFeedbackMessageFilter filter,
 			Supplier<ToastrBehavior> toastrBehaviorFactory,
-			ToastrFontAwesomeSettings fontAwsomeSettings) {
+			ToastrFontAwesomeSettings fontAwesomeSettings) {
 		this.globalOptions = Optional.ofNullable(globalOptions);
 		this.filter = Optional.ofNullable(filter);
 		this.toastrBehaviorFactory = Args.notNull(toastrBehaviorFactory, "toastrBehaviorFactory");
-		this.fontAwsomeSettings = Optional.ofNullable(fontAwsomeSettings);
-
+		this.fontAwesomeSettings = Optional.ofNullable(fontAwesomeSettings);
 	}
 
 	/**
 	 * Gets default toastr options.
 	 *
-	 * @return
+	 * @return toastr options
 	 */
 	public Optional<IToastOptions> getGlobalOptions() {
 		return globalOptions;
 	}
 
 	/**
-	 * Gets wether has global options.
+	 * Gets whether has global options.
 	 *
-	 * @return
+	 * @return true if settings has global options, otherwise false
 	 */
 	public boolean hasGlobalOptions() {
 		return globalOptions.isPresent();
@@ -326,16 +328,16 @@ public class ToastrSettings {
 	/**
 	 * Gets filter.
 	 *
-	 * @return
+	 * @return the filter to apply
 	 */
 	public Optional<IFeedbackMessageFilter> getMessageFilter() {
 		return filter;
 	}
 
 	/**
-	 * Gets wether has feedback message filter.
+	 * Gets whether has feedback message filter.
 	 *
-	 * @return
+	 * @return true if settings has filter, otherwise false
 	 */
 	public boolean hasMessageFilter() {
 		return filter.isPresent();
@@ -344,16 +346,16 @@ public class ToastrSettings {
 	/**
 	 * Gets icon settings.
 	 *
-	 * @return
+	 * @return {@link Optional} with icon settings
 	 */
-	public Optional<ToastrFontAwesomeSettings> getFontAwsomeSettings() {
-		return fontAwsomeSettings;
+	public Optional<ToastrFontAwesomeSettings> getFontAwesomeSettings() {
+		return fontAwesomeSettings;
 	}
 
 	/**
 	 * Gets {@link ToastrBehavior} factory.
 	 *
-	 * @return
+	 * @return the {@link ToastrBehavior} factory
 	 */
 	public Supplier<ToastrBehavior> getToastrBehaviorFactory() {
 		return toastrBehaviorFactory;
