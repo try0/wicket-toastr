@@ -267,6 +267,16 @@ public class HomePage extends WebPage {
 					};
 
 				});
+				add(new SubmitLink("linkShow2") {
+
+					@Override
+					public void onSubmit() {
+						super.onSubmit();
+						toast.getObject().show(this);
+						toast.getObject().show(this);
+					}
+
+				});
 				add(new AjaxSubmitLink("ajaxLinkRemove") {
 
 					@Override

@@ -17,8 +17,8 @@ i {
 }
 
 footer {
-padding-top: 20px;
-height: 100px;
+	padding-top: 20px;
+	height: 100px;
 }
 </style>
 
@@ -201,7 +201,7 @@ height: 100px;
 								</div>
 								<!-- Escape Message -->
 								<div class="col-sm-3" data-toggle="tooltip"
-									title="Whether or not to display the message from the right.">
+									title="Whether or not to escaped the message.">
 									<label class="text-primary">EscapeHtml</label><br>
 									<wicket:container wicket:id="switchEscapeHtml"></wicket:container>
 								</div>
@@ -244,6 +244,10 @@ height: 100px;
 					title="Display a toast with AjaxSubmitLink.">
 					<i class="fas fa-comment-alt"></i>Show
 				</button>
+				<button wicket:id="linkShow2" class="btn" data-toggle="tooltip"
+					title="Display a toast x2 with SubmitLink.">
+					<i class="fas fa-comment-alt"></i>Show x2
+				</button>
 				<button wicket:id="ajaxLinkRemove" class="btn" data-toggle="tooltip"
 					title="Hide toasts without animation.">
 					<i class="fas fa-trash-alt"></i>Remove
@@ -257,7 +261,6 @@ height: 100px;
 		</form>
 	</div>
 
-<footer>
-</footer>
+	<footer> </footer>
 </body>
 </html>
