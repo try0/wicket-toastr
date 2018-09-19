@@ -205,7 +205,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * @param messageFilter The filter to apply
 	 * @return The model of {@link FeedbackMessage}s that applied filter
 	 */
-	protected IModel<List<FeedbackMessage>> newFeedbackMessagesModel(final Component pageResolvingComponent,
+	protected FeedbackMessagesModel newFeedbackMessagesModel(final Component pageResolvingComponent,
 			final IFeedbackMessageFilter messageFilter) {
 		return new FeedbackMessagesModel(pageResolvingComponent.getPage(), messageFilter);
 	}
