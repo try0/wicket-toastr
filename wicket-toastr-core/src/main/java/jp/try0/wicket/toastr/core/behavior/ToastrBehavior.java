@@ -1,8 +1,12 @@
 package jp.try0.wicket.toastr.core.behavior;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -23,6 +27,7 @@ import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
+import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
 
 /**
@@ -34,6 +39,118 @@ import jp.try0.wicket.toastr.core.config.ToastrSettings;
  */
 public class ToastrBehavior extends ToastrResourcesBehavior {
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Combiner that combines messages for each toast level.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
+	public static class ToastMessageCombiner implements Serializable {
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Void action.
+		 */
+		public static final ToastMessageCombiner VOID_COMBINER = new ToastMessageCombiner() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Stream<IToast> combine(Stream<IToast> toastStream) {
+				return toastStream;
+			}
+		};
+
+		/**
+		 * Default delimiter string.
+		 */
+		public static final String DEFAULT_DELIMITER = "<br>";
+
+		/**
+		 * Suffix of each message
+		 */
+		private String suffix = "";
+
+		/**
+		 * Delimiter
+		 */
+		private String delimiter = DEFAULT_DELIMITER;
+
+
+		/**
+		 * Constractor
+		 */
+		public ToastMessageCombiner() {
+		}
+
+		/**
+		 * Gets suffix of each message.
+		 *
+		 * @return the suffix
+		 */
+		public String getSuffix() {
+			return suffix;
+		}
+
+		/**
+		 * Sets suffix of each message.
+		 *
+		 * @param suffix
+		 */
+		public void setSuffix(String suffix) {
+			this.suffix = suffix;
+		}
+
+		/**
+		 * Gets delimiter.
+		 *
+		 * @return the delimiter
+		 */
+		public String getDelimiter() {
+			return delimiter;
+		}
+
+		/**
+		 * Sets delimiter.
+		 *
+		 * @param delimiter
+		 */
+		public void setDelimiter(String delimiter) {
+			this.delimiter = delimiter;
+		}
+
+		/**
+		 * Combines messages for each toast level.
+		 *
+		 * @param toastStream the target
+		 * @return the stream that combined messages for each toast level
+		 */
+		public Stream<IToast> combine(Stream<IToast> toastStream) {
+
+			Map<ToastLevel, List<IToast>> groupByLevel =
+					toastStream.collect(Collectors.groupingBy(IToast::getToastLevel));
+
+			return groupByLevel.entrySet().stream()
+					.map(es -> es.getValue().stream()
+							.reduce((joined, t) -> {
+								String concatMessage = getSuffix() + joined.getMessage() + getDelimiter() + getSuffix() + t.getMessage();
+								Toast newToast = Toast.create(joined.getToastLevel(), concatMessage);
+
+								// combine toast options
+								if (t.getToastOptions().isPresent()) {
+									if (joined.getToastOptions().isPresent()) {
+										ToastOptions overwritten = joined.getToastOptions().get().overwrite(t.getToastOptions().get());
+										newToast.withToastOptions(overwritten);
+									} else {
+										newToast.withToastOptions(t.getToastOptions().get());
+									}
+								}
+								return newToast;
+							}))
+					.map(optToast -> optToast.get());
+		}
+
+	}
 
 	/**
 	 * Model that returns empty list of {@link FeedbackMessage}
@@ -84,6 +201,13 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * Message filter
 	 */
 	private IFeedbackMessageFilter messageFilter = IFeedbackMessageFilter.ALL;
+
+	/**
+	 * Message combiner
+	 */
+	private ToastMessageCombiner messageCombiner = ToastMessageCombiner.VOID_COMBINER;
+
+
 
 	/**
 	 * Constractor
@@ -199,6 +323,15 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	}
 
 	/**
+	 * Sets combiner that combines messages for each toast level.
+	 *
+	 * @param messageCombiner the message combiner
+	 */
+	public void setMessageCombiner(ToastMessageCombiner messageCombiner) {
+		this.messageCombiner = Args.notNull(messageCombiner, "messageCombiner");
+	}
+
+	/**
 	 * Creates a {@link FeedbackMessage}s model.
 	 *
 	 * @param pageResolvingComponent The component for retrieving page instance
@@ -218,30 +351,25 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	protected String getScriptForDisplay() {
 
 		List<FeedbackMessage> feedbackMessages = feedbackMessagesModel.getObject();
-
 		if (feedbackMessages.isEmpty()) {
 			return "";
 		}
 
-		StringBuilder scripts = new StringBuilder();
-		for (FeedbackMessage feedbackMessage : feedbackMessages) {
+		Stream<IToast> toastStream = messageCombiner.combine(toToastStream(feedbackMessages));
 
-			ToastLevel toastLevel = ToastLevel.fromFeedbackMessageLevel(feedbackMessage.getLevel());
-
-			if (!toastLevel.isSupported()) {
-				continue;
-			}
-
-			IToast toast = getToast(feedbackMessage);
+		final StringBuilder scripts = new StringBuilder();
+		toastStream.forEachOrdered(toast -> {
 			// create script
-			final String scriptForDisplay = getScriptForDisplay(toast);
-			scripts.append(scriptForDisplay);
-
-			// mark rendered
-			markRendered(feedbackMessage);
-
-		}
+			scripts.append(getScriptForDisplay(toast));
+		});
 		return scripts.toString();
+	}
+
+	private Stream<IToast> toToastStream(List<FeedbackMessage> feedbackMessages) {
+		return feedbackMessages.stream()
+				.filter(fm -> ToastLevel.fromFeedbackMessageLevel(fm.getLevel()).isSupported())
+				.peek(fm -> markRendered(fm))
+				.map(fm ->  getToast(fm));
 	}
 
 	/**
