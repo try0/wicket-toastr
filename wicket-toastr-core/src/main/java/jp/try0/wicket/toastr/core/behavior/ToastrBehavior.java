@@ -25,7 +25,8 @@ import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.config.ToastrSettings;
 
 /**
- * Toastr behavior
+ * Toastr behavior.<br>
+ * This Behavior provides the function to create Toasts from FeedbackMessages.
  *
  * @author Ryo Tsunoda
  *
@@ -56,7 +57,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		}
 
 		/**
-		 * Always return results of {@link Collections#emptyList()}
+		 * Always returns result of {@link Collections#emptyList()}
 		 */
 		@Override
 		public final List<FeedbackMessage> getObject() {
@@ -74,7 +75,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	}
 
 	/**
-	 * Model of feedback messages
+	 * Model of {@link FeedbackMessage}s
 	 */
 	private IModel<List<FeedbackMessage>> feedbackMessagesModel = EmptyFeedbackMessagesModel.INSTANCE;
 
@@ -93,7 +94,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	/**
 	 * Constractor
 	 *
-	 * @param messageFilter
+	 * @param messageFilter The filter to apply
 	 */
 	public ToastrBehavior(IFeedbackMessageFilter messageFilter) {
 		super();
@@ -164,11 +165,13 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		super.renderHead(component, response);
 
 		ToastrSettings.get().getGlobalOptions().ifPresent(options -> {
-			// toastr option setting
+			// toastr global options setting
 			response.render(JavaScriptHeaderItem.forScript(getScriptForSettingOptions(options), null));
 		});
+
 		ToastrSettings.get().getFontAwsomeSettings().ifPresent(faSettings -> {
 			response.render(new HeaderItem() {
+				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void render(Response response) {
@@ -190,29 +193,26 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			response.render(JavaScriptHeaderItem.forScript(getScriptForDisplay(), null));
 		}
 
-
-		response.getResponse().write("");
-
 		// clear cache messages
 		feedbackMessagesModel.detach();
 	}
 
 	/**
-	 * Creates a {@link FeedbackMessagesModel}
+	 * Creates a {@link FeedbackMessage}s model.
 	 *
-	 * @param component
-	 * @param messageFilter
-	 * @return {@link FeedbackMessagesModel}
+	 * @param pageResolvingComponent The component for retrieving page instance
+	 * @param messageFilter The filter to apply
+	 * @return The model of {@link FeedbackMessage}s that applied filter
 	 */
-	protected IModel<List<FeedbackMessage>> newFeedbackMessagesModel(Component component,
-			IFeedbackMessageFilter messageFilter) {
-		return new FeedbackMessagesModel(component.getPage(), messageFilter);
+	protected IModel<List<FeedbackMessage>> newFeedbackMessagesModel(final Component pageResolvingComponent,
+			final IFeedbackMessageFilter messageFilter) {
+		return new FeedbackMessagesModel(pageResolvingComponent.getPage(), messageFilter);
 	}
 
 	/**
-	 * Gets script for display toast with consider level of feedback messages.
+	 * Gets script for displaying toasts with consider level of feedback messages.
 	 *
-	 * @return script for display toast
+	 * @return script for displaying toasts
 	 */
 	protected String getScriptForDisplay() {
 
@@ -222,7 +222,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			return "";
 		}
 
-		StringBuilder scriptReady = new StringBuilder("$(function(){");
+		StringBuilder scripts = new StringBuilder();
 		for (FeedbackMessage feedbackMessage : feedbackMessages) {
 
 			ToastLevel toastLevel = ToastLevel.fromFeedbackMessageLevel(feedbackMessage.getLevel());
@@ -234,24 +234,22 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			IToast toast = getToast(feedbackMessage);
 			// create script
 			final String scriptForDisplay = getScriptForDisplay(toast);
-			scriptReady.append(scriptForDisplay);
+			scripts.append(scriptForDisplay);
 
 			// mark rendered
 			markRendered(feedbackMessage);
 
 		}
-		scriptReady.append("});");
-		return scriptReady.toString();
+		return scripts.toString();
 	}
 
 	/**
-	 * Gets a toast.
+	 * Gets a toast that created from {@link FeedbackMessage}.
 	 *
-	 * @param feedbackMessage
-	 * @param toastLevel
-	 * @return
+	 * @param feedbackMessage The material for creates a toast
+	 * @return The toast object
 	 */
-	protected IToast getToast(FeedbackMessage feedbackMessage) {
+	protected IToast getToast(final FeedbackMessage feedbackMessage) {
 		if (feedbackMessage.getMessage() instanceof IToast) {
 			// use feedback message
 			return (IToast) feedbackMessage.getMessage();
@@ -263,29 +261,31 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	}
 
 	/**
-	 * Gets script for set toastr options.
+	 * Gets script for setting toastr options.
 	 *
-	 * @return
+	 * @param options the option to specify toast styles, behaviors...
+	 * @return script for setting toastr options
 	 */
-	protected String getScriptForSettingOptions(IToastOptions options) {
+	protected String getScriptForSettingOptions(final IToastOptions options) {
 		return "toastr.options =" + options.toJsonString() + ";";
 	}
 
 	/**
-	 * Gets script for display toast.
+	 * Gets script for displaying toast.
 	 *
-	 * @param toast
-	 * @return
+	 * @param toast the target to display
+	 * @return script for displaying toast
 	 */
-	protected String getScriptForDisplay(IToast toast) {
+	protected String getScriptForDisplay(final IToast toast) {
 		return toast.getScriptForDisplay().toString();
 	}
 
 	/**
-	 * Sets whether already rendered.
+	 * Marks argument's message as rendered.
+	 *
+	 * @param feedbackMessage the target to mark as already rendered
 	 */
-	protected void markRendered(FeedbackMessage feedbackMessage) {
-		// mark rendered
+	protected void markRendered(final FeedbackMessage feedbackMessage) {
 		feedbackMessage.markRendered();
 	}
 

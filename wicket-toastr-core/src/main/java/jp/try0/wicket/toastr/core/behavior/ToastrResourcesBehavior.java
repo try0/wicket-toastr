@@ -10,7 +10,8 @@ import jp.try0.wicket.toastr.core.resource.css.ToastrCssResourceReference;
 import jp.try0.wicket.toastr.core.resource.js.ToastrJavaScriptResourceReference;
 
 /**
- * Toastr resource behavior
+ * Toastr resource behavior.<br>
+ * This behavior provides the function to append toastr's resources.
  *
  * @author Ryo Tsunoda
  *
