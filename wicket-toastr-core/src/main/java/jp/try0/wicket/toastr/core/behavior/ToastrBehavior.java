@@ -41,7 +41,8 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Combiner that combines messages for each toast level.
+	 * Combiner that combines messages for each toast level.<br>
+	 * This class works when there are multiple messages for the level.
 	 *
 	 * @author Ryo Tsunoda
 	 *
@@ -66,6 +67,14 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		 */
 		public static final String DEFAULT_DELIMITER = "<br>";
 
+		// dummy to append suffix. this toast's level has no meaning.
+		private static final Toast IDENTITY = Toast.success("");
+
+		/**
+		 * Prefix of each message
+		 */
+		private String prefix = "";
+
 		/**
 		 * Suffix of each message
 		 */
@@ -76,11 +85,28 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		 */
 		private String delimiter = DEFAULT_DELIMITER;
 
-
 		/**
 		 * Constractor
 		 */
 		public ToastMessageCombiner() {
+		}
+
+		/**
+		 * Gets prefix of each message.
+		 *
+		 * @return the prefix
+		 */
+		public String getPrefix() {
+			return prefix;
+		}
+
+		/**
+		 * Sets prefix of each message.
+		 *
+		 * @param prefix
+		 */
+		public void setPrefix(String prefix) {
+			this.prefix = prefix;
 		}
 
 		/**
@@ -127,27 +153,68 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		 */
 		public Stream<IToast> combine(Stream<IToast> toastStream) {
 
-			Map<ToastLevel, List<IToast>> groupByLevel =
-					toastStream.collect(Collectors.groupingBy(IToast::getToastLevel));
+			Map<ToastLevel, List<IToast>> groupByLevel = toastStream
+					.collect(Collectors.groupingBy(IToast::getToastLevel));
 
 			return groupByLevel.entrySet().stream()
-					.map(es -> es.getValue().stream()
-							.reduce((joined, t) -> {
-								String concatMessage = getSuffix() + joined.getMessage() + getDelimiter() + getSuffix() + t.getMessage();
-								Toast newToast = Toast.create(joined.getToastLevel(), concatMessage);
+					.filter(es -> !es.getValue().isEmpty())
+					.map(es -> es.getValue())
+					.map(toasts -> {
+						if (toasts.size() == 1) {
 
-								// combine toast options
-								if (t.getToastOptions().isPresent()) {
-									if (joined.getToastOptions().isPresent()) {
-										ToastOptions overwritten = joined.getToastOptions().get().overwrite(t.getToastOptions().get());
-										newToast.withToastOptions(overwritten);
-									} else {
-										newToast.withToastOptions(t.getToastOptions().get());
-									}
-								}
-								return newToast;
-							}))
-					.map(optToast -> optToast.get());
+							return toasts.get(0);
+
+						} else {
+
+							return toasts.stream()
+									.reduce(IDENTITY, (joined, t) -> {
+										return combine(joined, t);
+									});
+						}
+					});
+		}
+
+		/**
+		 * Combines toasts.
+		 *
+		 * @param combined the combined toast
+		 * @param target the uncombined toast
+		 * @return the toast that combine combined and target
+		 */
+		public IToast combine(IToast combined, IToast target) {
+
+			String decoratedMessage = decorateMessage(target.getMessage(), getPrefix(), getSuffix(), getDelimiter());
+			String concatenatedMessage = combined.getMessage() + decoratedMessage;
+			Toast newToast = Toast.create(target.getToastLevel(), concatenatedMessage);
+
+			// combine toast options
+			if (target.getToastOptions().isPresent()) {
+				if (combined.getToastOptions().isPresent()) {
+
+					ToastOptions optionsOfJoined = combined.getToastOptions().get();
+					ToastOptions optionsOfTarget = target.getToastOptions().get();
+
+					ToastOptions overwritten = optionsOfJoined.overwrite(optionsOfTarget);
+					newToast.withToastOptions(overwritten);
+				} else {
+					newToast.withToastOptions(target.getToastOptions().get());
+				}
+			}
+
+			return newToast;
+		}
+
+		/**
+		 * Decorates message.
+		 *
+		 * @param message
+		 * @param prefix
+		 * @param suffix
+		 * @param delimiter
+		 * @return
+		 */
+		protected String decorateMessage(String message, String prefix, String suffix, String delimiter) {
+			return prefix + message + suffix + delimiter;
 		}
 
 	}
@@ -206,8 +273,6 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * Message combiner
 	 */
 	private ToastMessageCombiner messageCombiner = ToastMessageCombiner.VOID_COMBINER;
-
-
 
 	/**
 	 * Constractor
@@ -323,6 +388,15 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	}
 
 	/**
+	 * Sets filter to apply.
+	 *
+	 * @param messageFilter the message filter
+	 */
+	public void setMessageFilter(IFeedbackMessageFilter messageFilter) {
+		this.messageFilter = Args.notNull(messageFilter, "messageFilter");
+	}
+
+	/**
 	 * Sets combiner that combines messages for each toast level.
 	 *
 	 * @param messageCombiner the message combiner
@@ -369,7 +443,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		return feedbackMessages.stream()
 				.filter(fm -> ToastLevel.fromFeedbackMessageLevel(fm.getLevel()).isSupported())
 				.peek(fm -> markRendered(fm))
-				.map(fm ->  getToast(fm));
+				.map(fm -> getToast(fm));
 	}
 
 	/**
