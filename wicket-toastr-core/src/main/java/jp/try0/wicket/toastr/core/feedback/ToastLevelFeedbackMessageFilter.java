@@ -172,8 +172,9 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 		if (messageObject instanceof IToast) {
 			IToast toast = (IToast) messageObject;
 			return accepts.contains(toast.getToastLevel());
+		} else {
+			return accepts.contains(ToastLevel.fromFeedbackMessageLevel(message.getLevel()));
 		}
-		return false;
 	}
 
 }
