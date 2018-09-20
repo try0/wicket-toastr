@@ -352,12 +352,12 @@ public class Toast implements IToast {
 	/**
 	 * Toast title
 	 */
-	private Optional<String> title;
+	private String title;
 
 	/**
 	 * Options for override global options
 	 */
-	private Optional<ToastOptions> options;
+	private ToastOptions options;
 
 	/**
 	 * Constractor
@@ -395,8 +395,8 @@ public class Toast implements IToast {
 
 		this.level = Args.notNull(level, "level");
 		this.message = Args.notNull(message, "message");
-		this.title = Optional.ofNullable(title);
-		this.options = Optional.ofNullable(options);
+		this.title = title;
+		this.options = options;
 
 	}
 
@@ -407,7 +407,7 @@ public class Toast implements IToast {
 	 * @return this
 	 */
 	public Toast withTitle(String title) {
-		this.title = Optional.ofNullable(title);
+		this.title = Args.notNull(title, "title");
 		return this;
 	}
 
@@ -432,7 +432,7 @@ public class Toast implements IToast {
 	 */
 	@Override
 	public Optional<String> getTitle() {
-		return title;
+		return Optional.ofNullable(title);
 	}
 
 	/**
@@ -442,7 +442,7 @@ public class Toast implements IToast {
 	 * @return this
 	 */
 	public Toast withToastOptions(ToastOptions options) {
-		this.options = Optional.ofNullable(options);
+		this.options = options;
 		return this;
 	}
 
@@ -455,7 +455,7 @@ public class Toast implements IToast {
 	 */
 	public Toast withToastOptions(boolean canSet, SerializableSupplier<ToastOptions> optionsFactory) {
 		if (canSet) {
-			this.options = Optional.ofNullable(optionsFactory.get());
+			this.options = optionsFactory.get();
 		}
 		return this;
 	}
@@ -467,7 +467,7 @@ public class Toast implements IToast {
 	 */
 	@Override
 	public Optional<ToastOptions> getToastOptions() {
-		return this.options;
+		return Optional.ofNullable(options);
 	}
 
 	/**
@@ -512,14 +512,14 @@ public class Toast implements IToast {
 				.append("\"");
 
 		// sets title
-		if (title.isPresent()) {
-			script.append(", \"").append(replaceNewlineCodeToTag(title.get())).append("\"");
+		if (getTitle().isPresent()) {
+			script.append(", \"").append(replaceNewlineCodeToTag(getTitle().get())).append("\"");
 		} else {
 			script.append(", \"\"");
 		}
 
 		// sets override options
-		options.ifPresent(opt -> {
+		getToastOptions().ifPresent(opt -> {
 			script.append(", ").append(opt.toJsonString());
 		});
 
