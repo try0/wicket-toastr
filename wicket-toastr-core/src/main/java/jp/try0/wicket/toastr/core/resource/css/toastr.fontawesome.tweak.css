@@ -12,7 +12,7 @@
 	color: #FFF;
 	padding-right: 0.5em;
 	margin: auto 0.5em auto -1.5em;
-	top: calc(50% - 12px);
+	top: calc(50% - 9px);
 }
 
 #toast-container>.toast:after {
@@ -26,5 +26,5 @@
 	padding-left: 0.5em;
 	margin: auto 0.5em auto -1.5em;
 	right: 0px;
-	top: calc(50% - 12px);
+	top: calc(50% - 9px);
 }
