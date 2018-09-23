@@ -17,29 +17,19 @@
 	<parent>
 		<artifactId>wicket-toastr-parent</artifactId>
 		<groupId>jp.try0.wicket</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>wicket-toastr-samples</artifactId>
 	<packaging>war</packaging>
 
-	<!-- TODO project name -->
-	<name>quickstart</name>
-	<!-- <organization> <name>company name</name> <url>company url</url> </organization> -->
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+	<name>wicket-toastr-samples</name>
+
 	<properties>
 		<jetty9.version>9.4.7.v20170914</jetty9.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<junit.version>4.12</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- allowed values: R7, 1.0, 1.5, 2.0 or none -->
-		<wtp.version>none</wtp.version>
 	</properties>
 	<dependencies>
 
@@ -47,7 +37,7 @@
 		<dependency>
 			<groupId>jp.try0.wicket</groupId>
 			<artifactId>wicket-toastr-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 
@@ -93,9 +83,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- uncomment if WebSocket support is needed <dependency> <groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>javax-websocket-server-impl</artifactId> <version>${jetty9.version}</version>
-			<scope>test</scope> </dependency> -->
 	</dependencies>
 	<build>
 		<resources>
@@ -154,27 +141,6 @@
 					<jettyXml>${project.basedir}/src/test/jetty/jetty.xml,${project.basedir}/src/test/jetty/jetty-ssl.xml,${project.basedir}/src/test/jetty/jetty-http.xml,${project.basedir}/src/test/jetty/jetty-https.xml</jettyXml>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.10</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<wtpversion>${wtp.version}</wtpversion>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>Apache Nexus</id>
-			<url>https://repository.apache.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-			</snapshots>
-		</repository>
-	</repositories>
 </project>
