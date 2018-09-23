@@ -57,6 +57,7 @@ public class HomePage extends WebPage {
 
 	private Tab selected = Tab.OPTIONS;
 	private Form<?> form;
+	private ExternalLink linkToSource;
 
 
 	private IModel<String> modelToSource = () -> {
@@ -65,10 +66,15 @@ public class HomePage extends WebPage {
 				.collect(Collectors.joining("/"));
 
 		return GIT_HUB_PROJECT_ROOT
-				+ "/tree/master/wicket-toastr-samples/src/main/java/"
-				+ packageOfSample;
+				+ "/tree/master/wicket-toastr-samples/src/main/java"
+				+ "/" + packageOfSample;
 	};
 
+	/**
+	 * Constractor
+	 */
+	public HomePage() {
+	}
 
 	/**
 	 * Constractor
@@ -150,7 +156,8 @@ public class HomePage extends WebPage {
 								switchTargetPanel.setOutputMarkupId(true);
 								form.addOrReplace(switchTargetPanel);
 								target.add(form);
-
+								target.add(linkToSource);
+								target.appendJavaScript("$('[data-toggle=\"tooltip\"]').tooltip();");
 							}
 						});
 
@@ -166,6 +173,10 @@ public class HomePage extends WebPage {
 			}
 		});
 
-		add(new ExternalLink("toSource", modelToSource));
+		add(linkToSource = new ExternalLink("toSource", modelToSource) {
+			{
+				setOutputMarkupId(true);
+			}
+		});
 	}
 }

@@ -46,7 +46,7 @@ public class FilterSamplePanel extends Panel {
 		final ToastrBehavior behavior = new ToastrBehavior();
 		behavior.setMessageFilter(msg -> {
 			ToastLevel lv = ToastLevel.fromFeedbackMessageLevel(msg.getLevel());
-			return accepts.contains(lv);
+				return accepts.contains(lv);
 		});
 		add(behavior);
 
