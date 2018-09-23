@@ -436,7 +436,6 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 */
 	private Stream<IToast> toToastStream(List<FeedbackMessage> feedbackMessages) {
 		return feedbackMessages.stream()
-				.filter(fm -> !fm.isRendered())
 				.filter(fm -> ToastLevel.fromFeedbackMessageLevel(fm.getLevel()).isSupported())
 				.peek(fm -> markRendered(fm))
 				.map(fm -> getToast(fm));

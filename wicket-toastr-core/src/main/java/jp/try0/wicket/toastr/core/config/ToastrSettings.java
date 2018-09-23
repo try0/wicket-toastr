@@ -47,17 +47,17 @@ public class ToastrSettings {
 		/**
 		 * Global options
 		 */
-		private ToastOptions globalOptions;
+		private ToastOptions globalOptions = null;
 
 		/**
 		 * Message Filter
 		 */
-		private IFeedbackMessageFilter filter;
+		private IFeedbackMessageFilter filter = IFeedbackMessageFilter.ALL;
 
 		/**
 		 * Need append behavior to new pages
 		 */
-		private boolean needAutoAppendToastrBehavior;
+		private boolean needAutoAppendToastrBehavior = false;
 
 		/**
 		 * {@link ToastrBehavior} factory
@@ -67,7 +67,7 @@ public class ToastrSettings {
 		/**
 		 * Font Awesome icon settings
 		 */
-		private ToastrFontAwesomeSettings fontAwesomeSettings;
+		private ToastrFontAwesomeSettings fontAwesomeSettings = null;
 
 		/**
 		 * Constractor
@@ -180,7 +180,7 @@ public class ToastrSettings {
 		}
 
 		final Application application = Application.get();
-		boolean needAutoAppendToastrBehavior = true;
+		boolean needAutoAppendToastrBehavior = false;
 		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY, null);
 	}
 
