@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,7 +66,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		/**
 		 * Default delimiter string.
 		 */
-		public static final String DEFAULT_DELIMITER = "<br>";
+		public static final String DEFAULT_SUFFIX = "<br>";
 
 		// dummy to append suffix. this toast's level has no meaning.
 		private static final Toast IDENTITY = Toast.success("");
@@ -78,12 +79,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		/**
 		 * Suffix of each message
 		 */
-		private String suffix = "";
-
-		/**
-		 * Delimiter
-		 */
-		private String delimiter = DEFAULT_DELIMITER;
+		private String suffix = DEFAULT_SUFFIX;
 
 		/**
 		 * Constractor
@@ -128,24 +124,6 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		}
 
 		/**
-		 * Gets delimiter.
-		 *
-		 * @return the delimiter
-		 */
-		public String getDelimiter() {
-			return delimiter;
-		}
-
-		/**
-		 * Sets delimiter.
-		 *
-		 * @param delimiter
-		 */
-		public void setDelimiter(String delimiter) {
-			this.delimiter = delimiter;
-		}
-
-		/**
 		 * Combines messages for each toast level.
 		 *
 		 * @param toastStream the target
@@ -183,9 +161,15 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		 */
 		public IToast combine(IToast combined, IToast target) {
 
-			String decoratedMessage = decorateMessage(target.getMessage(), getPrefix(), getSuffix(), getDelimiter());
+			// combine messages
+			String decoratedMessage = decorateMessage(target.getMessage(), getPrefix(), getSuffix());
 			String concatenatedMessage = combined.getMessage() + decoratedMessage;
 			Toast newToast = Toast.create(target.getToastLevel(), concatenatedMessage);
+
+			Optional<String> title = selectTitle(combined, target);
+			if (title.isPresent()) {
+				newToast.withTitle(title.get());
+			}
 
 			// combine toast options
 			if (target.getToastOptions().isPresent()) {
@@ -204,6 +188,10 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			return newToast;
 		}
 
+		public Optional<String> selectTitle(IToast combined, IToast target) {
+			return target.getTitle();
+		}
+
 		/**
 		 * Decorates message.
 		 *
@@ -213,8 +201,8 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		 * @param delimiter
 		 * @return
 		 */
-		protected String decorateMessage(String message, String prefix, String suffix, String delimiter) {
-			return prefix + message + suffix + delimiter;
+		protected String decorateMessage(String message, String prefix, String suffix) {
+			return prefix + message + suffix;
 		}
 
 	}
@@ -360,6 +348,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		});
 
 		ToastrSettings.get().getFontAwesomeSettings().ifPresent(faSettings -> {
+			// toastr FontAwesome icons setting
 			response.render(new HeaderItem() {
 				private static final long serialVersionUID = 1L;
 
@@ -406,7 +395,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	}
 
 	/**
-	 * Creates a {@link FeedbackMessage}s model.
+	 * Creates a {@link FeedbackMessagesModel}.
 	 *
 	 * @param pageResolvingComponent The component for retrieving page instance
 	 * @param messageFilter The filter to apply
@@ -439,8 +428,15 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		return scripts.toString();
 	}
 
+	/**
+	 * Converts to stream.
+	 *
+	 * @param feedbackMessages the feedback messages
+	 * @return the stream of toast that to display
+	 */
 	private Stream<IToast> toToastStream(List<FeedbackMessage> feedbackMessages) {
 		return feedbackMessages.stream()
+				.filter(fm -> !fm.isRendered())
 				.filter(fm -> ToastLevel.fromFeedbackMessageLevel(fm.getLevel()).isSupported())
 				.peek(fm -> markRendered(fm))
 				.map(fm -> getToast(fm));
