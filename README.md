@@ -23,8 +23,7 @@ TODO
 ```
 
 ## Initialize Settings
-You can set default values.
-Please call this method or one of several overload methods, in the application initialize process(Application#init).
+You can set default values, in the application initialize process(Application#init).
 ```java
 ToastrSettings.createInitializer(this)
 .setAutoAppendBehavior(true)
@@ -39,13 +38,10 @@ add ToastrBehavior to any of components in page
 ```java
 add(new ToastrBehavior());
 ```
-or set "true" to second argument on initialize settings
-
+or set "true" to setAutoAppendBehavior on initialize settings
 ```java
-// arg1: Application
-// ★arg2: Whether to always add toastr behavior to new pages
-// arg3: Toastr default options
-ToastrSettings.initialize(this, true, options);
+ToastrSettings.createInitializer(this)
+.setAutoAppendBehavior(true)
 ```
 
 Component#success, Session#success  
