@@ -61,12 +61,12 @@ public class HomePage extends WebPage {
 
 	private IModel<String> modelToSource = () -> {
 
-		String sourcePath = Arrays.stream(selected.clazz.getName().split("\\."))
+		String packageOfSample = Arrays.stream(selected.clazz.getPackage().getName().split("\\."))
 				.collect(Collectors.joining("/"));
 
 		return GIT_HUB_PROJECT_ROOT
 				+ "/tree/master/wicket-toastr-samples/src/main/java/"
-				+ sourcePath;
+				+ packageOfSample;
 	};
 
 
