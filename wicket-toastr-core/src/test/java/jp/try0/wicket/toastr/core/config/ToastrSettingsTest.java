@@ -39,7 +39,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 		final ToastrBehavior behavior = new ToastrBehavior();
 		ToastrSettings.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
-				.setToastrBehaviorFactory(() -> {
+				.setToastrBehaviorFactory(filter -> {
 					return behavior;
 				})
 				.initialize();

@@ -1,6 +1,7 @@
 package jp.try0.wicket.toastr.core.config;
 
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.apache.wicket.Application;
@@ -62,7 +63,7 @@ public class ToastrSettings {
 		/**
 		 * {@link ToastrBehavior} factory
 		 */
-		private Supplier<ToastrBehavior> toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
+		private Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
 
 		/**
 		 * Font Awesome icon settings
@@ -117,7 +118,7 @@ public class ToastrSettings {
 		 * @param toastrBehaviorFactory factory of {@link ToastrBehavior}
 		 * @return this
 		 */
-		public ToastrSettingsInitializer setToastrBehaviorFactory(Supplier<ToastrBehavior> toastrBehaviorFactory) {
+		public ToastrSettingsInitializer setToastrBehaviorFactory(Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory) {
 			this.toastrBehaviorFactory = toastrBehaviorFactory;
 			return this;
 		}
@@ -152,9 +153,9 @@ public class ToastrSettings {
 	/**
 	 * Default {@link ToastrBehavior} factory.
 	 */
-	private final static Supplier<ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = () -> {
-		if (ToastrSettings.get().getMessageFilter().isPresent()) {
-			return new ToastrBehavior(ToastrSettings.get().getMessageFilter().get());
+	private final static Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = filter -> {
+		if (filter.isPresent()) {
+			return new ToastrBehavior(filter.get());
 		} else {
 			return new ToastrBehavior();
 		}
@@ -220,7 +221,7 @@ public class ToastrSettings {
 	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
-			ToastOptions globalOptions, IFeedbackMessageFilter filter, Supplier<ToastrBehavior> toastrBehaviorFactory,
+			ToastOptions globalOptions, IFeedbackMessageFilter filter, Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
 			ToastrFontAwesomeSettings fontAwesomeSettings) {
 
 		if (application.getMetaData(META_DATA_KEY) != null) {
@@ -278,7 +279,7 @@ public class ToastrSettings {
 	/**
 	 * {@link ToastrBehavior} factory
 	 */
-	private final Supplier<ToastrBehavior> toastrBehaviorFactory;
+	private final Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory;
 
 	/**
 	 * Constractor
@@ -299,7 +300,7 @@ public class ToastrSettings {
 	 * @param fontAwsomeSettings Font Awesome icons settings
 	 */
 	private ToastrSettings(ToastOptions globalOptions, IFeedbackMessageFilter filter,
-			Supplier<ToastrBehavior> toastrBehaviorFactory,
+			Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
 			ToastrFontAwesomeSettings fontAwesomeSettings) {
 		this.globalOptions = Optional.ofNullable(globalOptions);
 		this.filter = Optional.ofNullable(filter);
@@ -358,7 +359,7 @@ public class ToastrSettings {
 	 * @return the {@link ToastrBehavior} factory
 	 */
 	public Supplier<ToastrBehavior> getToastrBehaviorFactory() {
-		return toastrBehaviorFactory;
+		return () -> toastrBehaviorFactory.apply(getMessageFilter());
 	}
 
 }
