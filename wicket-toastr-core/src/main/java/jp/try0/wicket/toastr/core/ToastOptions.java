@@ -633,8 +633,8 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * Sets debug option value.
 	 *
-	 * @param isDebug
-	 * @return
+	 * @param isDebug option value
+	 * @return this
 	 */
 	public ToastOptions setIsDebug(Boolean isDebug) {
 		this.isDebug = isDebug;

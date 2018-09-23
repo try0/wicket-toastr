@@ -5,7 +5,6 @@ import org.apache.wicket.request.resource.CssResourceReference;
 /**
  * Reference of tweak css for using FontAwesome icons.<br>
  *
- * @see http://plnkr.co/edit/6W9URNyyp2ItO4aUWzBB?p=preview
  * @author Ryo Tsunoda
  *
  */

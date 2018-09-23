@@ -16,21 +16,21 @@ public interface IToast extends Serializable {
 	/**
 	 * Gets toast level.
 	 *
-	 * @return
+	 * @return the toast level
 	 */
 	public ToastLevel getToastLevel();
 
 	/**
 	 * Gets toast message.
 	 *
-	 * @return
+	 * @return the toast message
 	 */
 	public String getMessage();
 
 	/**
 	 * Gets toast title.
 	 *
-	 * @return
+	 * @return the toast title
 	 */
 	public default Optional<String> getTitle() {
 		return Optional.empty();
@@ -39,7 +39,7 @@ public interface IToast extends Serializable {
 	/**
 	 * Gets toast options that override global options.
 	 *
-	 * @return
+	 * @return toast options
 	 */
 	public default Optional<ToastOptions> getToastOptions() {
 		return Optional.empty();
@@ -48,7 +48,7 @@ public interface IToast extends Serializable {
 	/**
 	 * Gets script for display toast.
 	 *
-	 * @return
+	 * @return the script for display toast
 	 */
 	public CharSequence getScriptForDisplay();
 

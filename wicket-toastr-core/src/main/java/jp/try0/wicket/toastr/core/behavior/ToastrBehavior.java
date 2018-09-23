@@ -99,7 +99,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		/**
 		 * Sets prefix of each message.
 		 *
-		 * @param prefix
+		 * @param prefix the prefix
 		 */
 		public void setPrefix(String prefix) {
 			this.prefix = prefix;
@@ -117,7 +117,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		/**
 		 * Sets suffix of each message.
 		 *
-		 * @param suffix
+		 * @param suffix the suffix
 		 */
 		public void setSuffix(String suffix) {
 			this.suffix = suffix;
@@ -195,11 +195,10 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		/**
 		 * Decorates message.
 		 *
-		 * @param message
-		 * @param prefix
-		 * @param suffix
-		 * @param delimiter
-		 * @return
+		 * @param message the toast message
+		 * @param prefix the message prefix
+		 * @param suffix the message suffix
+		 * @return decorated message
 		 */
 		protected String decorateMessage(String message, String prefix, String suffix) {
 			return prefix + message + suffix;

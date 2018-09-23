@@ -173,6 +173,8 @@ public class ToastrSettings {
 
 	/**
 	 * Sets up default values.
+	 *
+	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize() {
 
@@ -190,6 +192,8 @@ public class ToastrSettings {
 	 *
 	 * @param application the current application
 	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
+	 *
+	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior) {
 		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY, null);
@@ -198,7 +202,7 @@ public class ToastrSettings {
 	/**
 	 * Set up default values.
 	 *
-	 * @param application
+	 * @param application the current application
 	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
 	 * @param globalOptions toastr global options
 	 * @return toastr settings
