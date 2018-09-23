@@ -35,24 +35,23 @@ public class WicketApplication extends WebApplication {
 
 		getApplicationSettings().setFeedbackMessageCleanupFilter(msg -> true);
 
-//		IFeedbackMessageFilter filter = new ToastLevelFeedbackMessageFilter(ToastLevel.SUCCESS,
-//				ToastLevel.INFO, ToastLevel.WARNING);
-//
-//		// toastr configuration
+
+		// toastr configuration
 //		ToastrSettings.createInitializer(this)
 //				.setAutoAppendBehavior(true)
-//				//		.setFontAwesomeSettings(new ToastrFontAwesomeSettings(new ToastrFontAwesomeIcons(
-//				//				"\\f058", // fa-check-circle
-//				//				"\\f05a", // fa-info-circle
-//				//				"\\f071", // fa-exclamation-triangle
-//				//				"\\f057"  // fa-times-circle
-//				//		)))
-//				.setMessageFilter(filter)
-//				.setToastrBehaviorFactory(() -> {
+//				.setFontAwesomeSettings(new ToastrFontAwesomeSettings(
+//						new ToastrFontAwesomeIcons(
+//								"\\f058", // fa-check-circle
+//								"\\f05a", // fa-info-circle
+//								"\\f071", // fa-exclamation-triangle
+//								"\\f057"  // fa-times-circle
+//				)))
+//				.setMessageFilter(new ToastLevelFeedbackMessageFilter(
+//						ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING))
+//				.setToastrBehaviorFactory(filter -> {
 //					ToastrBehavior behavior = new ToastrBehavior();
 //
-//					behavior.setMessageFilter(filter);
-//
+//					behavior.setMessageFilter(filter.get());
 //					ToastMessageCombiner combiner = new ToastMessageCombiner();
 //					combiner.setPrefix("・");
 //					behavior.setMessageCombiner(combiner);
