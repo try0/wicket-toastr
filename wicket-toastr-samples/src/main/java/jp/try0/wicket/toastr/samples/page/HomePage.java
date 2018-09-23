@@ -1,39 +1,31 @@
 package jp.try0.wicket.toastr.samples.page;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.NumberTextField;
-import org.apache.wicket.markup.html.form.SubmitLink;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.util.value.IValueMap;
-import org.apache.wicket.util.value.ValueMap;
-
-import com.google.common.base.Strings;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapExternalLink;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapRadioChoice;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.radio.BooleanRadioGroup;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarExternalLink;
-import jp.try0.wicket.toastr.core.Toast;
-import jp.try0.wicket.toastr.core.Toast.ToastLevel;
-import jp.try0.wicket.toastr.core.ToastOptions;
-import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.Easing;
-import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
-import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
+import jp.try0.wicket.toastr.samples.panel.combine.CombineSamplePanel;
+import jp.try0.wicket.toastr.samples.panel.filter.FilterSamplePanel;
+import jp.try0.wicket.toastr.samples.panel.options.OptionsSamplePanel;
 
 /**
  * Home page
@@ -44,6 +36,40 @@ import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
 public class HomePage extends WebPage {
 	private static final long serialVersionUID = 1L;
 
+	private static final String GIT_HUB_PROJECT_ROOT = "https://github.com/try0/wicket-toastr";
+
+	private static final String SAMPLE_PANEL_ID = "samplePanel";
+
+	static enum Tab {
+		OPTIONS("Options", OptionsSamplePanel.class),
+		COMBINE("Combine", CombineSamplePanel.class),
+		FILTER("Filter", FilterSamplePanel.class),
+		;
+
+		String tabName;
+		Class<? extends Panel> clazz;
+
+		Tab(String tabName, Class<? extends Panel> clazz) {
+			this.tabName = tabName;
+			this.clazz = clazz;
+		}
+	}
+
+	private Tab selected = Tab.OPTIONS;
+	private Form<?> form;
+
+
+	private IModel<String> modelToSource = () -> {
+
+		String sourcePath = Arrays.stream(selected.clazz.getName().split("\\."))
+				.collect(Collectors.joining("/"));
+
+		return GIT_HUB_PROJECT_ROOT
+				+ "/tree/master/wicket-toastr-samples/src/main/java/"
+				+ sourcePath;
+	};
+
+
 	/**
 	 * Constractor
 	 *
@@ -51,9 +77,14 @@ public class HomePage extends WebPage {
 	 */
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
+	}
 
-		success("Success feedback message");
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+
 		info("Information feedback message");
+		success("Success feedback message");
 		warn("Warning feedback message");
 		error("Error feedback message");
 
@@ -63,7 +94,7 @@ public class HomePage extends WebPage {
 				setBrandName(Model.of("Wicket Toastr Samples"));
 
 				addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
-						new NavbarExternalLink(Model.of("https://github.com/try0/wicket-toastr")) {
+						new NavbarExternalLink(Model.of(GIT_HUB_PROJECT_ROOT)) {
 							{
 								setLabel(Model.of("<i class=\"fab fa-github\" style=\"font-size:1.5em;\"></i>"));
 								setTarget(BootstrapExternalLink.Target.blank);
@@ -79,225 +110,62 @@ public class HomePage extends WebPage {
 			}
 		});
 
-		add(new BootstrapForm<Void>("form") {
-			{
-				// Toast positions
-				IModel<PositionClass> toastPosition = new Model<PositionClass>(PositionClass.TOP_RIGHT);
-				add(new BootstrapRadioChoice<PositionClass>("rdoPosition", toastPosition,
-						Arrays.asList(PositionClass.values())));
+		add(form = new BootstrapForm<Void>("form") {
 
-				// Methods
-				IModel<ShowMethod> showMethod = new Model<ShowMethod>(ShowMethod.FADE_IN);
-				add(new BootstrapRadioChoice<ShowMethod>("rdoShowMethod", showMethod,
-						Arrays.asList(ShowMethod.values())));
+			@Override
+			protected void onInitialize() {
+				super.onInitialize();
 
-				IModel<HideMethod> hideMethod = new Model<HideMethod>(HideMethod.FADE_OUT);
-				add(new BootstrapRadioChoice<HideMethod>("rdoHideMethod", hideMethod,
-						Arrays.asList(HideMethod.values())));
-
-				IModel<CloseMethod> closeMethod = new Model<CloseMethod>(CloseMethod.FADE_OUT);
-				add(new BootstrapRadioChoice<CloseMethod>("rdoCloseMethod", closeMethod,
-						Arrays.asList(CloseMethod.values())));
-
-				// Easing
-				IModel<Easing> showEasing = new Model<Easing>(Easing.SWING);
-				add(new BootstrapRadioChoice<Easing>("rdoShowEasing", showEasing,
-						Arrays.asList(Easing.values())));
-
-				IModel<Easing> hideEasing = new Model<Easing>(Easing.SWING);
-				add(new BootstrapRadioChoice<Easing>("rdoHideEasing", hideEasing,
-						Arrays.asList(Easing.values())));
-
-				IModel<Easing> closeEasing = new Model<Easing>(Easing.SWING);
-				add(new BootstrapRadioChoice<Easing>("rdoCloseEasing", closeEasing,
-						Arrays.asList(Easing.values())));
-
-				// Progress Bar
-				IModel<Boolean> progressBar = new Model<>(false);
-				add(new BooleanRadioGroup("switchProgressBar", progressBar));
-
-				// Right to left
-				IModel<Boolean> rtl = new Model<>(false);
-				add(new BooleanRadioGroup("switchRtl", rtl));
-
-				// Callbacks
-				IModel<Boolean> onShown = new Model<>(false);
-				add(new BooleanRadioGroup("switchOnShown", onShown));
-
-				IModel<Boolean> onHidden = new Model<>(false);
-				add(new BooleanRadioGroup("switchOnHidden", onHidden));
-
-				IModel<Boolean> onClick = new Model<>(false);
-				add(new BooleanRadioGroup("switchOnClick", onClick));
-
-				IModel<Boolean> onCloseClick = new Model<>(false);
-				add(new BooleanRadioGroup("switchOnCloseClick", onCloseClick));
-
-				// Display sequence
-				IModel<Boolean> newestOnTop = new Model<>(false);
-				add(new BooleanRadioGroup("switchNewestOnTop", newestOnTop));
-
-				// Prevent duplicates
-				IModel<Boolean> preventDuplicates = new Model<>(false);
-				add(new BooleanRadioGroup("switchPreventDuplicates", preventDuplicates));
-
-				// show duration
-				IModel<Integer> showDuration = new Model<Integer>(1000);
-				add(new NumberTextField<Integer>("txtShowDuration", showDuration));
-
-				// hide duration
-				IModel<Integer> hideDuration = new Model<Integer>(500);
-				add(new NumberTextField<Integer>("txtHideDuration", hideDuration));
-
-				// close duration
-				IModel<Integer> closeDuration = new Model<Integer>(500);
-				add(new NumberTextField<Integer>("txtCloseDuration", closeDuration));
-
-				// Time out
-				IModel<Integer> timeOut = new Model<Integer>(5000);
-				add(new NumberTextField<Integer>("txtTimeOut", timeOut));
-
-				// Extended time out
-				IModel<Integer> extendedTimeOut = new Model<Integer>(1000);
-				add(new NumberTextField<Integer>("txtExtendedTimeOut", extendedTimeOut));
-
-				// Extended time out
-				IModel<Boolean> escapeHtml = new Model<>(true);
-				add(new BooleanRadioGroup("switchEscapeHtml", escapeHtml));
-
-				// Toast levels
-				IModel<ToastLevel> toastLevel = new Model<ToastLevel>(ToastLevel.INFO);
-				List<ToastLevel> levels = Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING,
-						ToastLevel.ERROR);
-				add(new BootstrapRadioChoice<ToastLevel>("rdoLevel", toastLevel, levels) {
+				add(new ListView<Tab>("tabs", Arrays.asList(Tab.values())) {
 
 					@Override
-					protected IValueMap getAdditionalAttributesForLabel(int index, ToastLevel choice) {
-						IValueMap vm = super.getAdditionalAttributes(index, choice);
+					protected void populateItem(ListItem<Tab> item) {
 
-						if (vm == null) {
-							vm = new ValueMap();
-						}
-						String classNames = vm.getKey("class");
-
-						switch (choice) {
-						case ERROR:
-							classNames += " text-danger";
-							break;
-						case INFO:
-							classNames += " text-info";
-							break;
-						case SUCCESS:
-							classNames += " text-success";
-							break;
-						case WARNING:
-							classNames += " text-warning";
-							break;
-
+						if (item.getModelObject() == selected) {
+							item.add(new AttributeAppender("class", "active"));
 						}
 
-						vm.put("class", classNames);
+						item.add(new Label("tabName", item.getModelObject().tabName));
+						item.add(new AjaxEventBehavior("click") {
 
-						return vm;
+							@Override
+							protected void onEvent(AjaxRequestTarget target) {
+								Panel switchTargetPanel = null;
+								switch (item.getModelObject()) {
+								case COMBINE:
+									selected = Tab.COMBINE;
+									switchTargetPanel = new CombineSamplePanel(SAMPLE_PANEL_ID);
+									break;
+								case FILTER:
+									selected = Tab.FILTER;
+									switchTargetPanel = new FilterSamplePanel(SAMPLE_PANEL_ID);
+									break;
+								case OPTIONS:
+									selected = Tab.OPTIONS;
+									switchTargetPanel = new OptionsSamplePanel(SAMPLE_PANEL_ID);
+									break;
+								default:
+									break;
+								}
+								switchTargetPanel.setOutputMarkupId(true);
+								form.addOrReplace(switchTargetPanel);
+								target.add(form);
+
+							}
+						});
+
 					}
 				});
 
-				// Toast title
-				IModel<String> title = new Model<String>("");
-				add(new TextField<>("txtTitle", title));
-
-				// Toast Message
-				IModel<String> message = new Model<String>("toast");
-				add(new TextArea<String>("txtMessage", message) {
+				add(new OptionsSamplePanel(SAMPLE_PANEL_ID) {
 					{
-						setRequired(true);
+						setOutputMarkupId(true);
 					}
-				});
-
-				// ToastOptions
-				IModel<ToastOptions> options = () -> {
-					ToastOptions opts = ToastOptions.create()
-							.setPositionClass(toastPosition.getObject())
-							.setShowMethod(showMethod.getObject())
-							.setHideMethod(hideMethod.getObject())
-							.setCloseMethod(closeMethod.getObject())
-							.setShowEasing(showEasing.getObject())
-							.setHideEasing(hideEasing.getObject())
-							.setCloseEasing(closeEasing.getObject())
-							.setShowDuration(showDuration.getObject())
-							.setHideDuration(hideDuration.getObject())
-							.setIsNewestOnTop(newestOnTop.getObject())
-							.setIsEnableProgressBar(progressBar.getObject())
-							.setIsRightToLeft(rtl.getObject())
-							.setNeedEscapeHtml(escapeHtml.getObject())
-							.setTimeOut(timeOut.getObject())
-							.setExtendedTimeOut(extendedTimeOut.getObject())
-							.setNeedPreventDuplicates(preventDuplicates.getObject())
-							.setOnShownFunction(onShown.getObject() ? "function() {alert('fired onShown');}" : "false")
-							.setOnHiddenFunction(onHidden.getObject() ? "function() {alert('fired onHidden');}" : "false")
-							.setOnClickFunction(onClick.getObject() ? "function() {alert('fired onclick');}" : "false")
-							.setIsEnableCloseButton(onCloseClick.getObject()).setOnCloseClickFunction(
-									onCloseClick.getObject() ? "function() {alert('fired onCloseClick');}" : "false");
-					return opts;
-				};
-
-				// Toast
-				IModel<Toast> toast = () -> {
-					return Toast.create(toastLevel.getObject(), message.getObject())
-							.withTitle(!Strings.isNullOrEmpty(title.getObject()), title::getObject)
-							.withToastOptions(options.getObject());
-				};
-
-				// Links
-				add(new SubmitLink("linkShow") {
-
-					@Override
-					public void onSubmit() {
-						super.onSubmit();
-						toast.getObject().show(this);
-					}
-
-				});
-				add(new AjaxSubmitLink("ajaxLinkShow") {
-
-					@Override
-					protected void onSubmit(AjaxRequestTarget target) {
-						super.onSubmit(target);
-						toast.getObject().show(target);
-					};
-
-				});
-				add(new SubmitLink("linkShow2") {
-
-					@Override
-					public void onSubmit() {
-						super.onSubmit();
-						toast.getObject().show(this);
-						toast.getObject().show(this);
-					}
-
-				});
-				add(new AjaxSubmitLink("ajaxLinkRemove") {
-
-					@Override
-					protected void onSubmit(AjaxRequestTarget target) {
-						super.onSubmit(target);
-						Toast.remove(target);
-					};
-
-				});
-				add(new AjaxSubmitLink("ajaxLinkClear") {
-
-					@Override
-					protected void onSubmit(AjaxRequestTarget target) {
-						super.onSubmit(target);
-						Toast.clear(target);
-					};
-
 				});
 
 			}
 		});
 
+		add(new ExternalLink("toSource", modelToSource));
 	}
 }

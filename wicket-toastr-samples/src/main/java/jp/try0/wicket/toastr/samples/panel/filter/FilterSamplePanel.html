@@ -1,0 +1,25 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+	<div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<wicket:container wicket:id="pnlBasic"></wicket:container>
+
+
+				<label>Accepts</label>
+				<div wicket:id="levels" class="row">
+					<div class="col-sm-12">
+						<div wicket:id="chkLevel"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<button wicket:id="linkShow" class="btn" data-toggle="tooltip"
+			title="Display a toast with SubmitLink.">
+			<i class="fas fa-comment-alt"></i>Show
+		</button>
+
+	</div>
+</wicket:panel>

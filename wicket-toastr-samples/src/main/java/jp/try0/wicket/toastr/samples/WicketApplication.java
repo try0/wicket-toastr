@@ -6,9 +6,6 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.RequestCycleSettings.RenderStrategy;
 
 import de.agilecoders.wicket.core.Bootstrap;
-import jp.try0.wicket.toastr.core.config.ToastrFontAwesomeIcons;
-import jp.try0.wicket.toastr.core.config.ToastrFontAwesomeSettings;
-import jp.try0.wicket.toastr.core.config.ToastrSettings;
 import jp.try0.wicket.toastr.samples.page.HomePage;
 
 /**
@@ -17,14 +14,12 @@ import jp.try0.wicket.toastr.samples.page.HomePage;
  *
  * @see jp.try0.wicket.toastr.samples.Start#main(String[])
  */
-public class WicketApplication extends WebApplication
-{
+public class WicketApplication extends WebApplication {
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Class<? extends WebPage> getHomePage()
-	{
+	public Class<? extends WebPage> getHomePage() {
 		return HomePage.class;
 	}
 
@@ -32,23 +27,39 @@ public class WicketApplication extends WebApplication
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void init()
-	{
+	public void init() {
 		super.init();
 
 		getMarkupSettings().setStripWicketTags(true);
 		getRequestCycleSettings().setRenderStrategy(RenderStrategy.ONE_PASS_RENDER);
 
-		// toastr configuration
-		ToastrSettings.createInitializer(this)
-		.setAutoAppendBehavior(true)
-//		.setFontAwesomeSettings(new ToastrFontAwesomeSettings(new ToastrFontAwesomeIcons(
-//				"\\f058", // fa-check-circle
-//				"\\f05a", // fa-info-circle
-//				"\\f071", // fa-exclamation-triangle
-//				"\\f057"  // fa-times-circle
-//		)))
-		.initialize();
+		getApplicationSettings().setFeedbackMessageCleanupFilter(msg -> true);
+
+//		IFeedbackMessageFilter filter = new ToastLevelFeedbackMessageFilter(ToastLevel.SUCCESS,
+//				ToastLevel.INFO, ToastLevel.WARNING);
+//
+//		// toastr configuration
+//		ToastrSettings.createInitializer(this)
+//				.setAutoAppendBehavior(true)
+//				//		.setFontAwesomeSettings(new ToastrFontAwesomeSettings(new ToastrFontAwesomeIcons(
+//				//				"\\f058", // fa-check-circle
+//				//				"\\f05a", // fa-info-circle
+//				//				"\\f071", // fa-exclamation-triangle
+//				//				"\\f057"  // fa-times-circle
+//				//		)))
+//				.setMessageFilter(filter)
+//				.setToastrBehaviorFactory(() -> {
+//					ToastrBehavior behavior = new ToastrBehavior();
+//
+//					behavior.setMessageFilter(filter);
+//
+//					ToastMessageCombiner combiner = new ToastMessageCombiner();
+//					combiner.setPrefix("・");
+//					behavior.setMessageCombiner(combiner);
+//
+//					return behavior;
+//				})
+//				.initialize();
 
 		Bootstrap.install(this);
 	}

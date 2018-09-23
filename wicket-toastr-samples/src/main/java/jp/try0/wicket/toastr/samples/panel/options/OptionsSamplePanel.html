@@ -1,0 +1,205 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+	<div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<wicket:container wicket:id="pnlBasic"></wicket:container>
+
+				<!-- Toast Options  -->
+
+				<div class="panel panel-default" style="margin-top:10px;">
+					<div class="panel-body">
+						<div class="row">
+
+							<!-- Toast Show Method -->
+							<div class="col-sm-2" data-toggle="tooltip"
+								title="Show animation type.">
+								<label class="text-primary">ShowMethod</label>
+								<wicket:container wicket:id="rdoShowMethod"></wicket:container>
+							</div>
+
+							<!-- Toast Hide Method -->
+							<div class="col-sm-2" data-toggle="tooltip"
+								title="Hide animation type.">
+								<label class="text-primary">HideMethod</label>
+								<wicket:container wicket:id="rdoHideMethod"></wicket:container>
+							</div>
+
+							<!-- Toast Close Method -->
+							<div class="col-sm-2" data-toggle="tooltip"
+								title="Close animation type.">
+								<label class="text-primary">CloseMethod</label>
+								<wicket:container wicket:id="rdoCloseMethod"></wicket:container>
+							</div>
+
+							<!-- Toast Show Easing -->
+							<div class="col-sm-2" data-toggle="tooltip"
+								title="Animation's easing when showing toast.">
+								<label class="text-primary">ShowEasing</label>
+								<wicket:container wicket:id="rdoShowEasing"></wicket:container>
+							</div>
+
+							<!-- Toast Hide Easing -->
+							<div class="col-sm-2" data-toggle="tooltip"
+								title="Animation's easing when hiding toast.">
+								<label class="text-primary">HideEasing</label>
+								<wicket:container wicket:id="rdoHideEasing"></wicket:container>
+							</div>
+
+							<!-- Toast Close Easing -->
+							<div class="col-sm-2" data-toggle="tooltip"
+								title="Animation's easing when closing toast.">
+								<label class="text-primary">CloseEasing</label>
+								<wicket:container wicket:id="rdoCloseEasing"></wicket:container>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<!-- Show Duration -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="The time it takes for the toast to be completely displayed.">
+								<label class="text-primary">ShowDuration</label> <input
+									wicket:id="txtShowDuration" type="number" class="form-control"
+									placeholder="Duration">
+							</div>
+							<!-- Hide Duration -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="The time it takes for the toast to be completely hidden.">
+								<label class="text-primary">HideDuration</label> <input
+									wicket:id="txtHideDuration" type="number" class="form-control"
+									placeholder="Duration">
+							</div>
+							<!-- Close Duration  -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="The time it takes for the toast to be completely closed.">
+								<label class="text-primary">CloseDuration</label> <input
+									wicket:id="txtCloseDuration" type="number" class="form-control"
+									placeholder="Duration">
+							</div>
+						</div>
+
+						<div class="row">
+
+							<!-- Toast Progress Bar -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="Whether or not to display a progress bar.">
+								<label class="text-primary">ProgressBar</label><br>
+								<wicket:container wicket:id="switchProgressBar"></wicket:container>
+							</div>
+
+							<!-- Toast Right To Left -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="Whether or not to display the message from the right.">
+								<label class="text-primary">RithtToLeft</label><br>
+								<wicket:container wicket:id="switchRtl"></wicket:container>
+							</div>
+
+							<!-- Toast Display Sequence -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="Whether or not to display a new message on top.">
+								<label class="text-primary">NewestOnTop</label><br>
+								<wicket:container wicket:id="switchNewestOnTop"></wicket:container>
+							</div>
+
+							<!-- Toast Prevent Duplicates -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="Whether or not to display duplicate toast. Determine duplication with message.">
+								<label class="text-primary">PreventDuplicates</label><br>
+								<wicket:container wicket:id="switchPreventDuplicates"></wicket:container>
+							</div>
+						</div>
+
+						<div class="row">
+							<!-- Toast Positions -->
+							<div class="col-sm-6" data-toggle="tooltip"
+								title="Toast positions.">
+								<label class="text-primary">Positions</label>
+								<wicket:container wicket:id="rdoPosition"></wicket:container>
+							</div>
+							<div class="col-sm-6" data-toggle="tooltip"
+								title="Toast callback functions.">
+
+								<!-- Toast Callback Functions -->
+								<table class="table">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col" class="text-primary">Callbacks</th>
+											<th scope="col">alert</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">onShown</th>
+											<td><wicket:container wicket:id="switchOnShown"></wicket:container>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">onHidden</th>
+											<td><wicket:container wicket:id="switchOnHidden"></wicket:container></td>
+										</tr>
+										<tr>
+											<th scope="row">onclick</th>
+											<td><wicket:container wicket:id="switchOnClick"></wicket:container></td>
+										</tr>
+										<tr>
+											<th scope="row">onCloseClick</th>
+											<td><wicket:container wicket:id="switchOnCloseClick"></wicket:container></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+						<div class="row">
+							<!-- Toast Time Out  -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="How long the toast will display without user interaction.">
+								<label class="text-primary">TimeOut</label> <input
+									wicket:id="txtTimeOut" type="number" class="form-control"
+									placeholder="Title">
+							</div>
+							<!-- Toast Extended Time Out   -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="How long the toast will display after a user hovers over it.">
+								<label class="text-primary">ExtendedTimeOut</label> <input
+									wicket:id="txtExtendedTimeOut" type="number"
+									class="form-control" placeholder="Title">
+							</div>
+							<!-- Escape Message -->
+							<div class="col-sm-3" data-toggle="tooltip"
+								title="Whether or not to escaped the message.">
+								<label class="text-primary">EscapeHtml</label><br>
+								<wicket:container wicket:id="switchEscapeHtml"></wicket:container>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- 	<div wicket:id="errors"></div> -->
+
+		<div>
+			<button wicket:id="linkShow" class="btn" data-toggle="tooltip"
+				title="Display a toast with SubmitLink.">
+				<i class="fas fa-comment-alt"></i>Show
+			</button>
+			<button wicket:id="ajaxLinkShow" class="btn" data-toggle="tooltip"
+				title="Display a toast with AjaxSubmitLink.">
+				<i class="fas fa-comment-alt"></i>Show
+			</button>
+			<button wicket:id="ajaxLinkRemove" class="btn" data-toggle="tooltip"
+				title="Hide toasts without animation.">
+				<i class="fas fa-trash-alt"></i>Remove
+			</button>
+			<button wicket:id="ajaxLinkClear" class="btn" data-toggle="tooltip"
+				title="Hide toasts with animation.">
+				<i class="fas fa-trash-alt"></i>Clear
+			</button>
+		</div>
+
+	</div>
+</wicket:panel>

@@ -1,0 +1,27 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+	<div class="row">
+		<div class="col-sm-3">
+			<!-- Toast Levels -->
+			<div data-toggle="tooltip" title="Toast type.">
+				<label class="text-primary">Levels</label>
+				<wicket:container wicket:id="rdoLevel"></wicket:container>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<!-- Toast Title  -->
+			<div data-toggle="tooltip" title="Title to show on toast.">
+				<label class="text-primary">Title</label> <input
+					wicket:id="txtTitle" type="text" class="form-control"
+					placeholder="Title">
+			</div>
+
+			<!-- Toast Message  -->
+			<div data-toggle="tooltip" title="Message to show on toast.">
+				<label class="text-primary">Message</label>
+				<textarea wicket:id="txtMessage" rows="2" placeholder="Message"
+					class="form-control"></textarea>
+			</div>
+		</div>
+	</div>
+</wicket:panel>
