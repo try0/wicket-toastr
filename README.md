@@ -26,10 +26,11 @@ TODO
 You can set default values.
 Please call this method or one of several overload methods, in the application initialize process(Application#init).
 ```java
-// arg1: Application
-// arg2: Whether to always add toastr behavior to new pages
-// arg3: Toastr default options
-ToastrSettings.initialize(this, true, options);
+ToastrSettings.createInitializer(this)
+.setAutoAppendBehavior(true)
+.setMessageFilter(filter)
+.setToastrBehaviorFactory(factory)
+.initialize();
 ```
 
 ## Display toast with ToastrBehavior
