@@ -1,5 +1,7 @@
 # wicket-toastr
 
+[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr)
+
 [Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.
 
 Just add behavior to component, you can display toast.
@@ -7,14 +9,17 @@ This behavior use wicket feedback message system.
 Also, you can display toast manually without use feedback message.
 
 
-## Demo
-Deployed wicket-toastr-samples module.  
-[demo](https://try0.jp/app/wicket-toastr-samples/)
-
 ## Version
 |  |toastr  |wicket  |
 |--:|--:|--:|
 |1.0.0  |2.1.4  |8.x  |
+
+
+## Demo
+Deployed wicket-toastr-samples module.  
+[demo](https://try0.jp/app/wicket-toastr-samples/)
+
+
 
 
 ## Maven
