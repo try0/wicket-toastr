@@ -1,6 +1,10 @@
 # wicket-toastr
 
-[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr)
+|build  |coverage  |
+|:--|:--|
+|[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr)|[![codecov](https://codecov.io/gh/try0/wicket-toastr/branch/master/graph/badge.svg)](https://codecov.io/gh/try0/wicket-toastr)|
+
+
 
 [Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.
 
@@ -12,7 +16,7 @@ Also, you can display toast manually without use feedback message.
 ## Version
 |  |toastr  |wicket  |
 |--:|--:|--:|
-|1.0.0  |2.1.4  |8.x  |
+|1.0.0-SNAPSHOT  |2.1.4  |8.x  |
 
 
 ## Demo
