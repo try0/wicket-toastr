@@ -2,13 +2,18 @@ package jp.try0.wicket.toastr.samples.panel.options;
 
 import java.util.Arrays;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
+import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.feedback.FeedbackMessagesModel;
+import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.danekja.java.misc.serializable.SerializableComparator;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapRadioChoice;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.radio.BooleanRadioGroup;
@@ -45,7 +50,17 @@ public class OptionsSamplePanel extends Panel {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		add(new ToastrBehavior());
+		add(new ToastrBehavior() {
+			@Override
+			protected FeedbackMessagesModel newFeedbackMessagesModel(Component pageResolvingComponent,
+					IFeedbackMessageFilter messageFilter) {
+				FeedbackMessagesModel mdl = super.newFeedbackMessagesModel(pageResolvingComponent, messageFilter);
+				SerializableComparator<FeedbackMessage> comparator =
+						(m1, m2) -> Integer.compare(m1.getLevel(), m2.getLevel());
+				mdl.setSortingComparator(comparator);
+				return mdl;
+			}
+		});
 
 		// Toast positions
 		IModel<PositionClass> toastPosition = new Model<PositionClass>(PositionClass.TOP_RIGHT);
