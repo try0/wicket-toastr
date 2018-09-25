@@ -61,6 +61,16 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			public Stream<IToast> combine(Stream<IToast> toastStream) {
 				return toastStream;
 			}
+
+			@Override
+			public String getPrefix() {
+				return "";
+			}
+
+			@Override
+			public String getSuffix() {
+				return "";
+			}
 		};
 
 		/**
@@ -138,17 +148,10 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 					.filter(es -> !es.getValue().isEmpty())
 					.map(es -> es.getValue())
 					.map(toasts -> {
-						if (toasts.size() == 1) {
-
-							return toasts.get(0);
-
-						} else {
-
-							return toasts.stream()
-									.reduce(IDENTITY, (joined, t) -> {
-										return combine(joined, t);
-									});
-						}
+						return toasts.stream()
+								.reduce(IDENTITY, (joined, t) -> {
+									return combine(joined, t);
+								});
 					});
 		}
 
@@ -164,31 +167,50 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			// combine messages
 			String decoratedMessage = decorateMessage(target.getMessage(), getPrefix(), getSuffix());
 			String concatenatedMessage = combined.getMessage() + decoratedMessage;
-			Toast newToast = Toast.create(target.getToastLevel(), concatenatedMessage);
+			final Toast newToast = Toast.create(target.getToastLevel(), concatenatedMessage);
 
-			Optional<String> title = selectTitle(combined, target);
-			if (title.isPresent()) {
-				newToast.withTitle(title.get());
-			}
+			// select toast title
+			Optional<String> title = decideTitle(combined, target);
+			title.ifPresent(val -> newToast.withTitle(val));
 
 			// combine toast options
-			if (target.getToastOptions().isPresent()) {
-				if (combined.getToastOptions().isPresent()) {
-
-					ToastOptions optionsOfJoined = combined.getToastOptions().get();
-					ToastOptions optionsOfTarget = target.getToastOptions().get();
-
-					ToastOptions overwritten = optionsOfJoined.overwrite(optionsOfTarget);
-					newToast.withToastOptions(overwritten);
-				} else {
-					newToast.withToastOptions(target.getToastOptions().get());
-				}
-			}
+			Optional<ToastOptions> options = decideToastOptions(combined, target);
+			options.ifPresent(val -> newToast.withToastOptions(val));
 
 			return newToast;
 		}
 
-		public Optional<String> selectTitle(IToast combined, IToast target) {
+		/**
+		 * Decides toast options.
+		 *
+		 * @param combined the combined toast
+		 * @param target the uncombined toast
+		 * @return the options to apply
+		 */
+		protected Optional<ToastOptions> decideToastOptions(IToast combined, IToast target) {
+			if (target.getToastOptions().isPresent()) {
+				if (combined.getToastOptions().isPresent()) {
+
+					ToastOptions optionsOfCombined = combined.getToastOptions().get();
+					ToastOptions optionsOfTarget = target.getToastOptions().get();
+
+					return Optional.of(optionsOfCombined.overwrite(optionsOfTarget));
+				} else {
+					return target.getToastOptions();
+				}
+			}
+
+			return Optional.empty();
+		}
+
+		/**
+		 * Decides toast title.
+		 *
+		 * @param combined the combined toast
+		 * @param target the uncombined toast
+		 * @return the title to display
+		 */
+		protected Optional<String> decideTitle(IToast combined, IToast target) {
 			return target.getTitle();
 		}
 
