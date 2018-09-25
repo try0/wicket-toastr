@@ -1,8 +1,8 @@
 # wicket-toastr
 
-|build  |coverage  |
-|:--|:--|
-|[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr)|[![codecov](https://codecov.io/gh/try0/wicket-toastr/branch/master/graph/badge.svg)](https://codecov.io/gh/try0/wicket-toastr)|
+|build  |coverage  |repository  |
+|:--|:--|:--|
+|[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr)|[![codecov](https://codecov.io/gh/try0/wicket-toastr/branch/master/graph/badge.svg)](https://codecov.io/gh/try0/wicket-toastr)|[![Maven Central](https://img.shields.io/maven-central/v/jp.try0.wicket/wicket-toastr-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22jp.try0.wicket%22%20AND%20a:%22wicket-toastr-core%22)|
 
 
 
@@ -16,7 +16,18 @@ Also, you can display toast manually without use feedback message.
 ## Version
 |  |toastr  |wicket  |
 |--:|--:|--:|
-|1.0.0-SNAPSHOT  |2.1.4  |8.x  |
+|1.0.0  |2.1.4  |8.x  |
+
+
+
+## Maven
+```
+<dependency>
+    <groupId>jp.try0.wicket</groupId>
+    <artifactId>wicket-toastr-core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 
 ## Demo
@@ -24,12 +35,6 @@ Deployed wicket-toastr-samples module.
 [demo](https://try0.jp/app/wicket-toastr-samples/)
 
 
-
-
-## Maven
-```
-TODO
-```
 
 ## Initialize Settings
 You can set default values, in the application initialize process(Application#init).
@@ -41,13 +46,14 @@ ToastrSettings.createInitializer(this)
 .initialize();
 ```
 
+
 ## Display toast with ToastrBehavior
 
 add ToastrBehavior to any of components in page
 ```java
 add(new ToastrBehavior());
 ```
-or set "true" to setAutoAppendBehavior on initialize settings
+or set true to setAutoAppendBehavior on initialize settings
 ```java
 ToastrSettings.createInitializer(this)
 .setAutoAppendBehavior(true)
@@ -71,7 +77,6 @@ Component#fatal, Session#fatal
 <img alt="toast_error" src="https://user-images.githubusercontent.com/17096601/45070135-dcfa9880-b10a-11e8-8b32-9f1741bb2925.png" width="350px">
 
 ## Display toast manually
-
 In this case, need instance of class that implemented IHeaderResponse or AjaxRequestTarget.
 
 ```java
