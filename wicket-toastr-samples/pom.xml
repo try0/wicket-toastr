@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>jp.try0.wicket</groupId>
 		<artifactId>wicket-toastr-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -25,29 +25,19 @@
 	<name>wicket-toastr-samples</name>
 	<packaging>war</packaging>
 
-
-
 	<properties>
 		<jetty9.version>9.4.7.v20170914</jetty9.version>
 		<slf4j.version>1.7.25</slf4j.version>
-		<junit.version>4.12</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<dependencies>
 
 		<!-- WICKET TOASTR DEPENDENCIES -->
 		<dependency>
 			<groupId>jp.try0.wicket</groupId>
 			<artifactId>wicket-toastr-core</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-
-
-		<!-- WICKET DEPENDENCIES -->
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-core</artifactId>
-			<version>${wicket.version}</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -61,14 +51,6 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
-		</dependency>
-
-		<!-- JUNIT DEPENDENCY FOR TESTING -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- JETTY DEPENDENCIES FOR TESTING -->
