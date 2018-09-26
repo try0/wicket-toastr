@@ -16,7 +16,7 @@ Also, you can display toast manually without use feedback message.
 ## Version
 |  |toastr  |wicket  |
 |--:|--:|--:|
-|1.0.0  |2.1.4  |8.x  |
+|1.0.1  |2.1.4  |8.x  |
 
 
 
@@ -25,7 +25,7 @@ Also, you can display toast manually without use feedback message.
 <dependency>
     <groupId>jp.try0.wicket</groupId>
     <artifactId>wicket-toastr-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
