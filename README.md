@@ -21,7 +21,7 @@ Also, you can display toast manually without use feedback message.
 
 
 ## Maven
-```
+```xml
 <dependency>
     <groupId>jp.try0.wicket</groupId>
     <artifactId>wicket-toastr-core</artifactId>
