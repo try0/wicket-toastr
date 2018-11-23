@@ -27,7 +27,7 @@ public class ToastrResourcesBehavior extends Behavior {
 		super.renderHead(component, response);
 
 		// toastr css
-		response.render(CssHeaderItem.forReference(ToastrCssResourceReference.INSTANCE));
+		response.render(CssHeaderItem.forReference(ToastrCssResourceReference.ToastrCssResourceReferenceHolder.INSTANCE));
 		// toastr js
 		response.render(JavaScriptHeaderItem.forReference(ToastrJavaScriptResourceReference.INSTANCE));
 

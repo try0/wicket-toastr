@@ -11,11 +11,14 @@ import org.apache.wicket.request.resource.CssResourceReference;
 public class ToastrCssResourceReference extends CssResourceReference {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Reference of toastr css
-	 */
-	public static final ToastrCssResourceReference INSTANCE =
-			new ToastrCssResourceReference();
+	public static class ToastrCssResourceReferenceHolder {
+		/**
+		 * Reference of toastr css
+		 */
+		public static final ToastrCssResourceReference INSTANCE =
+				new ToastrCssResourceReference();
+	}
+
 
 	/**
 	 * Constractor
