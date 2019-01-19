@@ -1,8 +1,9 @@
 # wicket-toastr
 
-|build  |coverage  |repository  |
-|:--|:--|:--|
-|[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr)|[![codecov](https://codecov.io/gh/try0/wicket-toastr/branch/master/graph/badge.svg)](https://codecov.io/gh/try0/wicket-toastr)|[![Maven Central](https://img.shields.io/maven-central/v/jp.try0.wicket/wicket-toastr-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22jp.try0.wicket%22%20AND%20a:%22wicket-toastr-core%22)|
+
+[![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr) 
+[![codecov](https://codecov.io/gh/try0/wicket-toastr/branch/master/graph/badge.svg)](https://codecov.io/gh/try0/wicket-toastr) 
+[![Maven Central](https://img.shields.io/maven-central/v/jp.try0.wicket/wicket-toastr-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22jp.try0.wicket%22%20AND%20a:%22wicket-toastr-core%22)
 
 
 
@@ -16,7 +17,7 @@ Also, you can display toast manually without use feedback message.
 ## Version
 |  |toastr  |wicket  |
 |--:|--:|--:|
-|1.0.1  |2.1.4  |8.x  |
+|1.0.2  |2.1.4  |8.x  |
 
 
 
@@ -25,7 +26,7 @@ Also, you can display toast manually without use feedback message.
 <dependency>
     <groupId>jp.try0.wicket</groupId>
     <artifactId>wicket-toastr-core</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
