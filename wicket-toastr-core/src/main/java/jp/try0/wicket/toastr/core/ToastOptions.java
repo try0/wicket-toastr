@@ -36,7 +36,8 @@ public class ToastOptions implements IToastOptions {
 		/**
 		 * Whether or not to squeeze with double quotes. Default is true.
 		 *
-		 * @return true if an option value needs squeeze with double quotes, otherwise false
+		 * @return true if an option value needs squeeze with double quotes, otherwise
+		 *         false
 		 */
 		boolean squeezeWithDoubleQuotes() default true;
 
@@ -49,10 +50,7 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum ShowMethod implements IAppearAnimationMethod {
-		SHOW("show"),
-		FADE_IN("fadeIn"),
-		SLIDE_DOWN("slideDown"),
-		;
+		SHOW("show"), FADE_IN("fadeIn"), SLIDE_DOWN("slideDown"),;
 
 		/**
 		 * Method name
@@ -84,10 +82,7 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum HideMethod implements IDisappearAnimationMethod {
-		HIDE("hide"),
-		FADE_OUT("fadeOut"),
-		SLIDE_UP("slideUp"),
-		;
+		HIDE("hide"), FADE_OUT("fadeOut"), SLIDE_UP("slideUp"),;
 
 		/**
 		 * Method name
@@ -119,10 +114,7 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum CloseMethod implements IDisappearAnimationMethod {
-		HIDE("hide"),
-		FADE_OUT("fadeOut"),
-		SLIDE_UP("slideUp"),
-		;
+		HIDE("hide"), FADE_OUT("fadeOut"), SLIDE_UP("slideUp"),;
 
 		/**
 		 * Method name
@@ -154,9 +146,7 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum Easing implements IEasing {
-		SWING("swing"),
-		LINEAR("linear"),
-		;
+		SWING("swing"), LINEAR("linear"),;
 
 		String easing;
 
@@ -177,15 +167,10 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum PositionClass implements IPositionClass {
-		TOP_RIGHT("toast-top-right"),
-		BOTTOM_RIGHT("toast-bottom-right"),
-		BOTTOM_LEFT("toast-bottom-left"),
-		TOP_LEFT("toast-top-left"),
-		TOP_FULL_WIDTH("toast-top-full-width"),
-		BOTTOM_FULL_WIDTH("toast-bottom-full-width"),
-		TOP_CENTER("toast-top-center"),
-		BOTTOM_CENTER("toast-bottom-center"),
-		;
+		TOP_RIGHT("toast-top-right"), BOTTOM_RIGHT("toast-bottom-right"), BOTTOM_LEFT("toast-bottom-left"),
+		TOP_LEFT("toast-top-left"), TOP_FULL_WIDTH("toast-top-full-width"),
+		BOTTOM_FULL_WIDTH("toast-bottom-full-width"), TOP_CENTER("toast-top-center"),
+		BOTTOM_CENTER("toast-bottom-center"),;
 
 		/**
 		 * Position class name
@@ -350,11 +335,11 @@ public class ToastOptions implements IToastOptions {
 	@ToastOption(value = OptionKeys.ICON_CLASS)
 	private IIconClass iconClass = null;
 
-//	/**
-//	 * iconClasses
-//	 */
-//	@ToastOption(value = OptionKeys.ICON_CLASSES)
-//	private Map<String, IIconClass> iconClasses = null;
+	// /**
+	// * iconClasses
+	// */
+	// @ToastOption(value = OptionKeys.ICON_CLASSES)
+	// private Map<String, IIconClass> iconClasses = null;
 
 	/**
 	 * messageClass
@@ -1032,7 +1017,7 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * Sets tapToDismiss option value.
 	 *
-	 * @param isTapToDismiss  option value
+	 * @param isTapToDismiss option value
 	 * @return this
 	 */
 	public ToastOptions setIsTapToDismiss(Boolean isTapToDismiss) {
@@ -1087,7 +1072,7 @@ public class ToastOptions implements IToastOptions {
 	}
 
 	/**
-	 * Sets titleClass  option value.
+	 * Sets titleClass option value.
 	 *
 	 * @param titleClass option value
 	 * @return this
@@ -1160,41 +1145,213 @@ public class ToastOptions implements IToastOptions {
 	@Override
 	public ToastOptions overwrite(IToastOptions options) {
 
-		return ToastOptions.create()
-		.setIsEnableCloseButton(options.isEnableCloseButton() == null ? this.isEnableCloseButton : options.isEnableCloseButton())
-		.setCloseClass(options. getCloseClass() == null ? this.closeClass : options.getCloseClass())
-		.setCloseDureation(options. getCloseDureation() == null ? this.closeDureation : options.getCloseDureation())
-		.setCloseEasing(options. getCloseEasing() == null ? this.closeEasing : options.getCloseEasing())
-		.setCloseHtml(options. getCloseHtml() == null ? this.closeHtml : options.getCloseHtml())
-		.setCloseMethod(options. getCloseMethod() == null ? this.closeMethod : options.getCloseMethod())
-		.setIsCloseOnHover(options. isCloseOnHover() == null ? this.isCloseOnHover : options.isCloseOnHover())
-		.setContainerId(options. getContainerId() == null ? this.containerId : options.getContainerId())
-		.setIsDebug(options. isDebug() == null ? this.isDebug : options.isDebug())
-		.setNeedEscapeHtml(options. needEscapeHtml() == null ? this.needEscapeHtml:options.needEscapeHtml())
-		.setExtendedTimeOut(options. getExtendedTimeOut() == null ? this.extendedTimeOut:options.getExtendedTimeOut())
-		.setHideDuration(options. getHideDuration() == null ? this.hideDuration:options.getHideDuration())
-		.setHideEasing(options. getHideEasing() == null ? this.hideEasing:options.getHideEasing())
-		.setHideMethod(options. getHideMethod() == null ? this.hideMethod:options.getHideMethod())
-		.setIconClass(options. getIconClass() == null ? this.iconClass:options.getIconClass())
-		.setMessageClass(options. getMessageClass() == null ? this.messageClass:options.getMessageClass())
-		.setIsNewestOnTop(options. isNewestOnTop() == null ? this.isNewestOnTop:options.isNewestOnTop())
-		.setOnClickFunction(options. getOnClickFunction() == null ? this.onClickFunction:options.getOnClickFunction())
-		.setOnCloseClickFunction(options. getOnCloseClickFunction() == null ? this.onCloseClickFunction:options.getOnCloseClickFunction())
-		.setOnHiddenFunction(options. getOnHiddenFunction() == null ? this.onHiddenFunction:options.getOnHiddenFunction())
-		.setOnShownFunction(options. getOnShownFunction() == null ? this.onShownFunction:options.getOnShownFunction())
-		.setPositionClass(options. getPositionClass() == null ? this.positionClass:options.getPositionClass())
-		.setNeedPreventDuplicates(options. needPreventDuplicates() == null ? this.needPreventDuplicates:options.needPreventDuplicates())
-		.setIsEnableProgressBar(options. isEnableProgressBar() == null ? this.isEnableProgressBar:options.isEnableProgressBar())
-		.setProgressClass(options. getProgressClass() == null ? this.progressClass:options.getProgressClass())
-		.setIsRightToLeft(options. isRightToLeft() == null ? this.isRightToLeft:options.isRightToLeft())
-		.setShowDuration(options. getShowDuration() == null ? this.showDuration:options.getShowDuration())
-		.setShowEasing(options. getShowEasing() == null ? this.showEasing:options.getShowEasing())
-		.setShowMethod(options. getShowMethod() == null ? this.showMethod:options.getShowMethod())
-		.setIsTapToDismiss(options. isTapToDismiss() == null ? this.isTapToDismiss:options.isTapToDismiss())
-		.setTarget(options. getTarget() == null ? this.target:options.getTarget())
-		.setTimeOut(options. getTimeOut() == null ? this.timeOut:options.getTimeOut())
-		.setTitleClass(options. getTitleClass() == null ? this.titleClass:options.getTitleClass())
-		.setToastClass(options. getToastClass() == null ? this.toastClass:options.getToastClass());
+		ToastOptions newOptions = ToastOptions.create();
+
+		if (options.isEnableCloseButton() == null) {
+			newOptions.setIsEnableCloseButton(this.isEnableCloseButton);
+		} else {
+			newOptions.setIsEnableCloseButton(options.isEnableCloseButton());
+		}
+
+		if (options.getCloseClass() == null) {
+			newOptions.setCloseClass(this.closeClass);
+		} else {
+			newOptions.setCloseClass(options.getCloseClass());
+		}
+
+		if (options.getCloseDureation() == null) {
+			newOptions.setCloseDureation(this.closeDureation);
+		} else {
+			newOptions.setCloseDureation(options.getCloseDureation());
+		}
+
+		if (options.getCloseEasing() == null) {
+			newOptions.setCloseEasing(this.closeEasing);
+		} else {
+			newOptions.setCloseEasing(options.getCloseEasing());
+		}
+
+		if (options.getCloseHtml() == null) {
+			newOptions.setCloseHtml(this.closeHtml);
+		} else {
+			newOptions.setCloseHtml(options.getCloseHtml());
+		}
+
+		if (options.getCloseMethod() == null) {
+			newOptions.setCloseMethod(this.closeMethod);
+		} else {
+			newOptions.setCloseMethod(options.getCloseMethod());
+		}
+
+		if (options.isCloseOnHover() == null) {
+			newOptions.setIsCloseOnHover(this.isCloseOnHover);
+		} else {
+			newOptions.setIsCloseOnHover(options.isCloseOnHover());
+		}
+
+		if (options.getContainerId() == null) {
+			newOptions.setContainerId(this.containerId);
+		} else {
+			newOptions.setContainerId(options.getContainerId());
+		}
+
+		if (options.isDebug() == null) {
+			newOptions.setIsDebug(this.isDebug);
+		} else {
+			newOptions.setIsDebug(options.isDebug());
+		}
+
+		if (options.needEscapeHtml() == null) {
+			newOptions.setNeedEscapeHtml(this.needEscapeHtml);
+		} else {
+			newOptions.setNeedEscapeHtml(options.needEscapeHtml());
+		}
+
+		if (options.getExtendedTimeOut() == null) {
+			newOptions.setExtendedTimeOut(this.extendedTimeOut);
+		} else {
+			newOptions.setExtendedTimeOut(options.getExtendedTimeOut());
+		}
+
+		if (options.getHideDuration() == null) {
+			newOptions.setHideDuration(this.hideDuration);
+		} else {
+			newOptions.setHideDuration(options.getHideDuration());
+		}
+
+		if (options.getHideEasing() == null) {
+			newOptions.setHideEasing(this.hideEasing);
+		} else {
+			newOptions.setHideEasing(options.getHideEasing());
+		}
+
+		if (options.getHideMethod() == null) {
+			newOptions.setHideMethod(this.hideMethod);
+		} else {
+			newOptions.setHideMethod(options.getHideMethod());
+		}
+
+		if (options.getIconClass() == null) {
+			newOptions.setIconClass(this.iconClass);
+		} else {
+			newOptions.setIconClass(options.getIconClass());
+		}
+
+		if (options.getMessageClass() == null) {
+			newOptions.setMessageClass(this.messageClass);
+		} else {
+			newOptions.setMessageClass(options.getMessageClass());
+		}
+
+		if (options.isNewestOnTop() == null) {
+			newOptions.setIsNewestOnTop(this.isNewestOnTop);
+		} else {
+			newOptions.setIsNewestOnTop(options.isNewestOnTop());
+		}
+
+		if (options.getOnClickFunction() == null) {
+			newOptions.setOnClickFunction(this.onClickFunction);
+		} else {
+			newOptions.setOnClickFunction(options.getOnClickFunction());
+		}
+
+		if (options.getOnCloseClickFunction() == null) {
+			newOptions.setOnCloseClickFunction(this.onCloseClickFunction);
+		} else {
+			newOptions.setOnCloseClickFunction(options.getOnCloseClickFunction());
+		}
+
+		if (options.getOnHiddenFunction() == null) {
+			newOptions.setOnHiddenFunction(this.onHiddenFunction);
+		} else {
+			newOptions.setOnHiddenFunction(options.getOnHiddenFunction());
+		}
+
+		if (options.getOnShownFunction() == null) {
+			newOptions.setOnShownFunction(this.onShownFunction);
+		} else {
+			newOptions.setOnShownFunction(options.getOnShownFunction());
+		}
+
+		if (options.getPositionClass() == null) {
+			newOptions.setPositionClass(this.positionClass);
+		} else {
+			newOptions.setPositionClass(options.getPositionClass());
+		}
+
+		if (options.needPreventDuplicates() == null) {
+			newOptions.setNeedPreventDuplicates(this.needPreventDuplicates);
+		} else {
+			newOptions.setNeedPreventDuplicates(options.needPreventDuplicates());
+		}
+
+		if (options.isEnableProgressBar() == null) {
+			newOptions.setIsEnableProgressBar(this.isEnableProgressBar);
+		} else {
+			newOptions.setIsEnableProgressBar(options.isEnableProgressBar());
+		}
+
+		if (options.getProgressClass() == null) {
+			newOptions.setProgressClass(this.progressClass);
+		} else {
+			newOptions.setProgressClass(options.getProgressClass());
+		}
+
+		if (options.isRightToLeft() == null) {
+			newOptions.setIsRightToLeft(this.isRightToLeft);
+		} else {
+			newOptions.setIsRightToLeft(options.isRightToLeft());
+		}
+
+		if (options.getShowDuration() == null) {
+			newOptions.setShowDuration(this.showDuration);
+		} else {
+			newOptions.setShowDuration(options.getShowDuration());
+		}
+
+		if (options.getShowEasing() == null) {
+			newOptions.setShowEasing(this.showEasing);
+		} else {
+			newOptions.setShowEasing(options.getShowEasing());
+		}
+
+		if (options.getShowMethod() == null) {
+			newOptions.setShowMethod(this.showMethod);
+		} else {
+			newOptions.setShowMethod(options.getShowMethod());
+		}
+
+		if (options.isTapToDismiss() == null) {
+			newOptions.setIsTapToDismiss(this.isTapToDismiss);
+		} else {
+			newOptions.setIsTapToDismiss(options.isTapToDismiss());
+		}
+
+		if (options.getTarget() == null) {
+			newOptions.setTarget(this.target);
+		} else {
+			newOptions.setTarget(options.getTarget());
+		}
+
+		if (options.getTimeOut() == null) {
+			newOptions.setTimeOut(this.timeOut);
+		} else {
+			newOptions.setTimeOut(options.getTimeOut());
+		}
+
+		if (options.getTitleClass() == null) {
+			newOptions.setTitleClass(this.titleClass);
+		} else {
+			newOptions.setTitleClass(options.getTitleClass());
+		}
+
+		if (options.getToastClass() == null) {
+			newOptions.setToastClass(this.toastClass);
+		} else {
+			newOptions.setToastClass(options.getToastClass());
+		}
+
+		return newOptions;
 	}
 
 }
