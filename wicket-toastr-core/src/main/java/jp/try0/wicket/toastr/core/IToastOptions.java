@@ -60,6 +60,10 @@ public interface IToastOptions extends Serializable {
 		public static final String TIME_OUT = "timeOut";
 		public static final String TITLE_CLASS = "titleClass";
 		public static final String TOAST_CLASS = "toastClass";
+
+		private OptionKeys() {
+			throw new IllegalStateException("No need create the instance.");
+		}
 	}
 
 	/**
