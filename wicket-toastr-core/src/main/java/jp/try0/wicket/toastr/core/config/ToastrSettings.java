@@ -118,7 +118,8 @@ public class ToastrSettings {
 		 * @param toastrBehaviorFactory factory of {@link ToastrBehavior}
 		 * @return this
 		 */
-		public ToastrSettingsInitializer setToastrBehaviorFactory(Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory) {
+		public ToastrSettingsInitializer setToastrBehaviorFactory(
+				Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory) {
 			this.toastrBehaviorFactory = toastrBehaviorFactory;
 			return this;
 		}
@@ -147,13 +148,13 @@ public class ToastrSettings {
 	/**
 	 * Key of {@link ToastrSettings} instance.
 	 */
-	private final static MetaDataKey<ToastrSettings> META_DATA_KEY = new MetaDataKey<ToastrSettings>() {
+	private static final MetaDataKey<ToastrSettings> META_DATA_KEY = new MetaDataKey<ToastrSettings>() {
 	};
 
 	/**
 	 * Default {@link ToastrBehavior} factory.
 	 */
-	private final static Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = filter -> {
+	private static final Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = filter -> {
 		if (filter.isPresent()) {
 			return new ToastrBehavior(filter.get());
 		} else {
@@ -225,7 +226,8 @@ public class ToastrSettings {
 	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
-			ToastOptions globalOptions, IFeedbackMessageFilter filter, Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
+			ToastOptions globalOptions, IFeedbackMessageFilter filter,
+			Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
 			ToastrFontAwesomeSettings fontAwesomeSettings) {
 
 		if (application.getMetaData(META_DATA_KEY) != null) {

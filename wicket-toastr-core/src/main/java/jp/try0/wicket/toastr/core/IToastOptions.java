@@ -11,12 +11,12 @@ import java.io.Serializable;
  */
 public interface IToastOptions extends Serializable {
 
-	public final static String DEFAULT_TOAST_CLASS = "toast";
-	public final static String DEFAULT_CONTAINER_ID = "toast-container";
-	public final static String DEFAULT_TITLE_CLASS = "toast-title";
-	public final static String DEFAULT_MESSAGE_CLASS = "toast-message";
-	public final static String DEFAULT_CLOSE_CLASS = "toast-close-button";
-	public final static String DEFAULT_PROGRESS_CLASS = "toast-progress";
+	public static final String DEFAULT_TOAST_CLASS = "toast";
+	public static final String DEFAULT_CONTAINER_ID = "toast-container";
+	public static final String DEFAULT_TITLE_CLASS = "toast-title";
+	public static final String DEFAULT_MESSAGE_CLASS = "toast-message";
+	public static final String DEFAULT_CLOSE_CLASS = "toast-close-button";
+	public static final String DEFAULT_PROGRESS_CLASS = "toast-progress";
 
 	/**
 	 * Option keys
@@ -25,41 +25,41 @@ public interface IToastOptions extends Serializable {
 	 *
 	 */
 	public static final class OptionKeys {
-		public final static String CLOSE_BUTTON = "closeButton";
-		public final static String CLOSE_CLASS = "closeClass";
-		public final static String CLOSE_DURATION = "closeDuration";
-		public final static String CLOSE_EASING = "closeEasing";
-		public final static String CLOSE_HTML = "closeHtml";
-		public final static String CLOSE_METHOD = "closeMethod";
-		public final static String CLOSE_ON_HOVER = "closeOnHover";
-		public final static String CONTAINER_ID = "containerId";
-		public final static String DEBUG = "debug";
-		public final static String ESCAPE_HTML = "escapeHtml";
-		public final static String EXTENDED_TIME_OUT = "extendedTimeOut";
-		public final static String HIDE_DURATION = "hideDuration";
-		public final static String HIDE_EASING = "hideEasing";
-		public final static String HIDE_METHOD = "hideMethod";
-		public final static String ICON_CLASS = "iconClass";
-		public final static String ICON_CLASSES = "iconClasses";
-		public final static String MESSAGE_CLASS = "messageClass";
-		public final static String NEWEST_ON_TOP = "newestOnTop";
-		public final static String ONCLICK = "onclick";
-		public final static String ON_CLOSE_CLICK = "onCloseClick";
-		public final static String ON_HIDDEN = "onHidden";
-		public final static String ON_SHOWN = "onShown";
-		public final static String POSITION_CLASS = "positionClass";
-		public final static String PREVENT_DUPLICATES = "preventDuplicates";
-		public final static String PROGRESS_BAR = "progressBar";
-		public final static String PROGRESS_CLASS = "progressClass";
-		public final static String RTL = "rtl";
-		public final static String SHOW_DURATION = "showDuration";
-		public final static String SHOW_EASING = "showEasing";
-		public final static String SHOW_METHOD = "showMethod";
-		public final static String TAP_TO_DISMISS = "tapToDismiss";
-		public final static String TARGET = "target";
-		public final static String TIME_OUT = "timeOut";
-		public final static String TITLE_CLASS = "titleClass";
-		public final static String TOAST_CLASS = "toastClass";
+		public static final String CLOSE_BUTTON = "closeButton";
+		public static final String CLOSE_CLASS = "closeClass";
+		public static final String CLOSE_DURATION = "closeDuration";
+		public static final String CLOSE_EASING = "closeEasing";
+		public static final String CLOSE_HTML = "closeHtml";
+		public static final String CLOSE_METHOD = "closeMethod";
+		public static final String CLOSE_ON_HOVER = "closeOnHover";
+		public static final String CONTAINER_ID = "containerId";
+		public static final String DEBUG = "debug";
+		public static final String ESCAPE_HTML = "escapeHtml";
+		public static final String EXTENDED_TIME_OUT = "extendedTimeOut";
+		public static final String HIDE_DURATION = "hideDuration";
+		public static final String HIDE_EASING = "hideEasing";
+		public static final String HIDE_METHOD = "hideMethod";
+		public static final String ICON_CLASS = "iconClass";
+		public static final String ICON_CLASSES = "iconClasses";
+		public static final String MESSAGE_CLASS = "messageClass";
+		public static final String NEWEST_ON_TOP = "newestOnTop";
+		public static final String ONCLICK = "onclick";
+		public static final String ON_CLOSE_CLICK = "onCloseClick";
+		public static final String ON_HIDDEN = "onHidden";
+		public static final String ON_SHOWN = "onShown";
+		public static final String POSITION_CLASS = "positionClass";
+		public static final String PREVENT_DUPLICATES = "preventDuplicates";
+		public static final String PROGRESS_BAR = "progressBar";
+		public static final String PROGRESS_CLASS = "progressClass";
+		public static final String RTL = "rtl";
+		public static final String SHOW_DURATION = "showDuration";
+		public static final String SHOW_EASING = "showEasing";
+		public static final String SHOW_METHOD = "showMethod";
+		public static final String TAP_TO_DISMISS = "tapToDismiss";
+		public static final String TARGET = "target";
+		public static final String TIME_OUT = "timeOut";
+		public static final String TITLE_CLASS = "titleClass";
+		public static final String TOAST_CLASS = "toastClass";
 	}
 
 	/**

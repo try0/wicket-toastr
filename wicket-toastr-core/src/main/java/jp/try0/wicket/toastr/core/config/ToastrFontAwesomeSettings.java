@@ -13,7 +13,7 @@ import jp.try0.wicket.toastr.core.resource.css.TweakFontAwesomeIconCssResourceRe
  */
 public class ToastrFontAwesomeSettings {
 
-	private final static String FONT_AWESOME_5_FREE = "<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">";
+	private static final String FONT_AWESOME_5_FREE = "<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">";
 
 	/**
 	 * Font Awesome css reference.

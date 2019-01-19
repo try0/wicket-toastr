@@ -240,7 +240,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		/**
 		 * Instance of EmptyFeedbackMessagesModel
 		 */
-		private final static EmptyFeedbackMessagesModel INSTANCE = new EmptyFeedbackMessagesModel();
+		private static final EmptyFeedbackMessagesModel INSTANCE = new EmptyFeedbackMessagesModel();
 
 		/**
 		 * noop
