@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -23,6 +23,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapForm;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarExternalLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.utilities.BackgroundColorBehavior.Color;
 import jp.try0.wicket.toastr.samples.panel.combine.CombineSamplePanel;
 import jp.try0.wicket.toastr.samples.panel.filter.FilterSamplePanel;
 import jp.try0.wicket.toastr.samples.panel.options.OptionsSamplePanel;
@@ -41,10 +42,9 @@ public class HomePage extends WebPage {
 	private static final String SAMPLE_PANEL_ID = "samplePanel";
 
 	static enum Tab {
-		OPTIONS("Options", OptionsSamplePanel.class),
-		COMBINE("Combine", CombineSamplePanel.class),
-		FILTER("Filter", FilterSamplePanel.class),
-		;
+		OPTIONS("Options", OptionsSamplePanel.class), COMBINE("Combine", CombineSamplePanel.class), FILTER("Filter",
+				FilterSamplePanel.class),
+				;
 
 		String tabName;
 		Class<? extends Panel> clazz;
@@ -58,7 +58,6 @@ public class HomePage extends WebPage {
 	private Tab selected = Tab.OPTIONS;
 	private Form<?> form;
 	private ExternalLink linkToSource;
-
 
 	private IModel<String> modelToSource = () -> {
 
@@ -94,27 +93,30 @@ public class HomePage extends WebPage {
 		warn("Warning feedback message");
 		error("Error feedback message");
 
-		add(new Navbar("navBar") {
-			{
-				// fluid();
-				setBrandName(Model.of("Wicket Toastr Samples"));
+		// Navigation
+		final Navbar navbar;
+		add(navbar = new Navbar("navBar"));
+		navbar.setInverted(true);
+		navbar.setBackgroundColor(Color.Dark);
+		navbar.setBrandName(Model.of("Wicket Toastr Samples"));
+		// add dummy
+		navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.LEFT,
+				new NavbarExternalLink(Model.of("#")).setVisible(false)));
 
-				addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
-						new NavbarExternalLink(Model.of(GIT_HUB_PROJECT_ROOT)) {
-							{
-								setLabel(Model.of("<i class=\"fab fa-github\" style=\"font-size:1.5em;\"></i>"));
-								setTarget(BootstrapExternalLink.Target.blank);
-							}
+		navbar.addComponents(NavbarComponents.transform(Navbar.ComponentPosition.RIGHT,
+				new NavbarExternalLink(Model.of(GIT_HUB_PROJECT_ROOT)) {
+					{
+						setLabel(Model.of("<i class=\"fab fa-github\" style=\"font-size:1.5em;\"></i>"));
+						setTarget(BootstrapExternalLink.Target.blank);
+					}
 
-							@Override
-							protected Component newLabel(String markupId) {
-								Component lbl = super.newLabel(markupId);
-								lbl.setEscapeModelStrings(false);
-								return lbl;
-							};
-						}));
-			}
-		});
+					@Override
+					protected Component newLabel(String markupId) {
+						Component lbl = super.newLabel(markupId);
+						lbl.setEscapeModelStrings(false);
+						return lbl;
+					};
+				}));
 
 		add(form = new BootstrapForm<Void>("form") {
 
@@ -127,15 +129,17 @@ public class HomePage extends WebPage {
 					@Override
 					protected void populateItem(ListItem<Tab> item) {
 
-						if (item.getModelObject() == selected) {
-							item.add(new AttributeAppender("class", "active"));
-						}
+						item.add(new AjaxLink<Void>("navLink") {
+							{
+								add(new Label("tabName", item.getModelObject().tabName));
 
-						item.add(new Label("tabName", item.getModelObject().tabName));
-						item.add(new AjaxEventBehavior("click") {
+								if (item.getModelObject() == selected) {
+									add(new AttributeAppender("class", " active "));
+								}
+							}
 
 							@Override
-							protected void onEvent(AjaxRequestTarget target) {
+							public void onClick(AjaxRequestTarget target) {
 								Panel switchTargetPanel = null;
 								switch (item.getModelObject()) {
 								case COMBINE:
@@ -159,6 +163,7 @@ public class HomePage extends WebPage {
 								target.add(linkToSource);
 								target.appendJavaScript("$('[data-toggle=\"tooltip\"]').tooltip();");
 							}
+
 						});
 
 					}

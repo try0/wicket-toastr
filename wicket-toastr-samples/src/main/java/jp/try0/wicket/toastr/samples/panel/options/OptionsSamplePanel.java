@@ -15,7 +15,9 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.danekja.java.misc.serializable.SerializableComparator;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons.Type;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapRadioChoice;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.radio.BooleanRadioChoiceRenderer;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.radio.BooleanRadioGroup;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.ToastOptions;
@@ -36,7 +38,6 @@ import jp.try0.wicket.toastr.samples.panel.ToastBasicPanel;
 public class OptionsSamplePanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * Constractor
 	 *
@@ -55,8 +56,8 @@ public class OptionsSamplePanel extends Panel {
 			protected FeedbackMessagesModel newFeedbackMessagesModel(Component pageResolvingComponent,
 					IFeedbackMessageFilter messageFilter) {
 				FeedbackMessagesModel mdl = super.newFeedbackMessagesModel(pageResolvingComponent, messageFilter);
-				SerializableComparator<FeedbackMessage> comparator =
-						(m1, m2) -> Integer.compare(m1.getLevel(), m2.getLevel());
+				SerializableComparator<FeedbackMessage> comparator = (m1, m2) -> Integer.compare(m1.getLevel(),
+						m2.getLevel());
 				mdl.setSortingComparator(comparator);
 				return mdl;
 			}
@@ -95,32 +96,64 @@ public class OptionsSamplePanel extends Panel {
 
 		// Progress Bar
 		IModel<Boolean> progressBar = new Model<>(false);
-		add(new BooleanRadioGroup("switchProgressBar", progressBar));
+		add(new BooleanRadioGroup("switchProgressBar", progressBar) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		// Right to left
 		IModel<Boolean> rtl = new Model<>(false);
-		add(new BooleanRadioGroup("switchRtl", rtl));
+		add(new BooleanRadioGroup("switchRtl", rtl) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		// Callbacks
 		IModel<Boolean> onShown = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnShown", onShown));
+		add(new BooleanRadioGroup("switchOnShown", onShown) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		IModel<Boolean> onHidden = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnHidden", onHidden));
+		add(new BooleanRadioGroup("switchOnHidden", onHidden) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		IModel<Boolean> onClick = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnClick", onClick));
+		add(new BooleanRadioGroup("switchOnClick", onClick) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		IModel<Boolean> onCloseClick = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnCloseClick", onCloseClick));
+		add(new BooleanRadioGroup("switchOnCloseClick", onCloseClick) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		// Display sequence
 		IModel<Boolean> newestOnTop = new Model<>(false);
-		add(new BooleanRadioGroup("switchNewestOnTop", newestOnTop));
+		add(new BooleanRadioGroup("switchNewestOnTop", newestOnTop) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		// Prevent duplicates
 		IModel<Boolean> preventDuplicates = new Model<>(false);
-		add(new BooleanRadioGroup("switchPreventDuplicates", preventDuplicates));
+		add(new BooleanRadioGroup("switchPreventDuplicates", preventDuplicates) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		// show duration
 		IModel<Integer> showDuration = new Model<Integer>(1000);
@@ -144,9 +177,11 @@ public class OptionsSamplePanel extends Panel {
 
 		// Extended time out
 		IModel<Boolean> escapeHtml = new Model<>(true);
-		add(new BooleanRadioGroup("switchEscapeHtml", escapeHtml));
-
-
+		add(new BooleanRadioGroup("switchEscapeHtml", escapeHtml) {
+			{
+				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
+			}
+		});
 
 		// ToastOptions
 		IModel<ToastOptions> options = () -> {
@@ -185,17 +220,17 @@ public class OptionsSamplePanel extends Panel {
 		};
 
 		// FeedbackPanel
-//		final FeedbackPanel fp;
-//		add(fp = new FeedbackPanel("errors") {
-//			{
-//				setOutputMarkupId(true);
-//
-//				if (ToastrSettings.get().getMessageFilter().isPresent()) {
-//					IFeedbackMessageFilter ignoreMessageLevel = ToastrSettings.get().getMessageFilter().get();
-//					setFilter(msg -> ignoreMessageLevel.negate().test(msg));
-//				}
-//			}
-//		});
+		//		final FeedbackPanel fp;
+		//		add(fp = new FeedbackPanel("errors") {
+		//			{
+		//				setOutputMarkupId(true);
+		//
+		//				if (ToastrSettings.get().getMessageFilter().isPresent()) {
+		//					IFeedbackMessageFilter ignoreMessageLevel = ToastrSettings.get().getMessageFilter().get();
+		//					setFilter(msg -> ignoreMessageLevel.negate().test(msg));
+		//				}
+		//			}
+		//		});
 
 		// Links
 		add(new SubmitLink("linkShow") {
@@ -213,7 +248,7 @@ public class OptionsSamplePanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
 				toast.getObject().show(target);
-//				target.add(fp);
+				//				target.add(fp);
 			};
 
 		});

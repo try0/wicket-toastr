@@ -26,7 +26,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<wicket-bootstrap.version>2.0.4</wicket-bootstrap.version>
+		<wicket-bootstrap.version>3.0.0-M7</wicket-bootstrap.version>
 		<wicket-toastr.version>1.0.2</wicket-toastr.version>
 		<jetty9.version>9.4.7.v20170914</jetty9.version>
 		<slf4j.version>1.7.25</slf4j.version>

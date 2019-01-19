@@ -2,12 +2,12 @@ package jp.try0.wicket.toastr.samples.panel.combine;
 
 import java.util.stream.Stream;
 
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapCheckbox;
 import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.ToastOptions;
@@ -41,7 +41,7 @@ public class CombineSamplePanel extends Panel {
 		add(pnlBasic = new ToastBasicPanel("pnlBasic"));
 
 		IModel<Boolean> needCombine = new Model<>(false);
-		add(new BootstrapCheckbox("chkCombine", needCombine, Model.of("Combine toasts")));
+		add(new CheckBox("chkCombine", needCombine));
 
 		add(new SubmitLink("linkShowx3") {
 

@@ -4,16 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 
 import com.google.common.collect.Sets;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.BootstrapCheckbox;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
@@ -46,15 +46,15 @@ public class FilterSamplePanel extends Panel {
 		final ToastrBehavior behavior = new ToastrBehavior();
 		behavior.setMessageFilter(msg -> {
 			ToastLevel lv = ToastLevel.fromFeedbackMessageLevel(msg.getLevel());
-				return accepts.contains(lv);
+			return accepts.contains(lv);
 		});
 		add(behavior);
 
 		final ToastBasicPanel pnlBasic;
 		add(pnlBasic = new ToastBasicPanel("pnlBasic"));
 
-		final List<ToastLevel> levels =
-				Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING, ToastLevel.ERROR);
+		final List<ToastLevel> levels = Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING,
+				ToastLevel.ERROR);
 		accepts.addAll(levels);
 		add(new ListView<ToastLevel>("levels", levels) {
 
@@ -75,7 +75,8 @@ public class FilterSamplePanel extends Panel {
 						}
 					}
 				};
-				item.add(new BootstrapCheckbox("chkLevel", isAccept, Model.of(item.getModelObject())));
+				item.add(new CheckBox("chkLevel", isAccept));
+				item.add(new Label("labelLevel", item.getModelObject()));
 
 			}
 		});
