@@ -16,7 +16,14 @@ import org.junit.jupiter.params.provider.EnumSource.Mode;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
+import jp.try0.wicket.toastr.core.ToastOptions.Easing;
+import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
+import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
+import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
+import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
+import jp.try0.wicket.toastr.core.config.ToastrSettings;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
 import jp.try0.wicket.toastr.core.test.ToastrTestPage;
 
@@ -200,12 +207,12 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 
 		final ToastOptions opt1 = ToastOptions.create().setCloseClass("cls");
 		Toast.success("msg1")
-		.withToastOptions(opt1)
-		.show(page);
+				.withToastOptions(opt1)
+				.show(page);
 		final ToastOptions opt2 = ToastOptions.create().setCloseDureation(1000);
 		Toast.success("msg2")
-		.withToastOptions(opt2)
-		.show(page);
+				.withToastOptions(opt2)
+				.show(page);
 
 		tester.startPage(page);
 
@@ -217,5 +224,62 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 		assertTrue(lastResponseString.contains("toastr.success(\"" + message + "\",\"\"," + options));
 	}
 
+	@Test
+	public void outputToastOptions() {
 
+		ToastrSettings.createInitializer(getWebApplication())
+				.setAutoAppendBehavior(true)
+				.initialize();
+
+		final WicketTester tester = getWicketTester();
+		ToastrTestPage page = new ToastrTestPage() {
+			{
+				add(new ToastrBehavior());
+			}
+		};
+		ToastOptions options = ToastOptions.create()
+				.setCloseClass("closeClass-base")
+				.setCloseDureation(0)
+				.setCloseEasing(Easing.LINEAR)
+				.setCloseHtml("closeHtml-base")
+				.setCloseMethod(CloseMethod.FADE_OUT)
+				.setContainerId("base")
+				.setExtendedTimeOut(0)
+				.setHideDuration(0)
+				.setHideEasing(Easing.LINEAR)
+				.setHideMethod(HideMethod.FADE_OUT)
+				.setIconClass(IconClass.ERROR)
+				.setIsCloseOnHover(false)
+				.setIsDebug(false)
+				.setIsEnableCloseButton(false)
+				.setIsEnableProgressBar(false)
+				.setIsNewestOnTop(false)
+				.setIsRightToLeft(false)
+				.setIsTapToDismiss(false)
+				.setMessageClass("messageClass-base")
+				.setNeedEscapeHtml(false)
+				.setNeedPreventDuplicates(false)
+				.setOnClickFunction("onClickFunction-base")
+				.setOnCloseClickFunction("onCloseClickFunction-base")
+				.setOnHiddenFunction("onHiddenFunction-base")
+				.setOnShownFunction("onShownFunction-base")
+				.setPositionClass(PositionClass.BOTTOM_CENTER)
+				.setProgressClass("progressClass-base")
+				.setShowDuration(0)
+				.setShowEasing(Easing.LINEAR)
+				.setShowMethod(ShowMethod.FADE_IN)
+				.setTarget("target-base")
+				.setTimeOut(0)
+				.setTitleClass("titleClass-base")
+				.setToastClass("toastClass-base");
+
+		Toast.success("toastOptions")
+				.withToastOptions(options)
+				.show(page);
+
+		tester.startPage(page);
+
+		final String lastResponseString = tester.getLastResponseAsString();
+		assertTrue(lastResponseString.contains("toastr.success(\"toastOptions\", \"\", " + options.toJsonString()));
+	}
 }

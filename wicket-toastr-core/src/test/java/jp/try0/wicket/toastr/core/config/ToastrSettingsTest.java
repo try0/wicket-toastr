@@ -7,6 +7,13 @@ import java.util.List;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
 
+import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
+import jp.try0.wicket.toastr.core.ToastOptions.Easing;
+import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
+import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
+import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
+import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
 import jp.try0.wicket.toastr.core.test.ToastrTestPage;
@@ -60,8 +67,8 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 						"\\f058", // fa-check-circle
 						"\\f05a", // fa-info-circle
 						"\\f071", // fa-exclamation-triangle
-						"\\f057"  // fa-times-circle
-		));
+						"\\f057" // fa-times-circle
+				));
 		ToastrSettings.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.setFontAwesomeSettings(fontAwesomeSettings)
@@ -74,6 +81,56 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 
 		assertTrue(lastResponseString.contains(fontAwesomeSettings.getFontAwesomeCssLinkTag()));
 		assertTrue(lastResponseString.contains(fontAwesomeSettings.getIcons().getStyleForAdaptIconContent()));
+
+	}
+
+	@Test
+	public void setGlobalOptions() {
+		ToastOptions globalOptions = ToastOptions.create()
+				.setCloseClass("closeClass-global")
+				.setCloseDureation(0)
+				.setCloseEasing(Easing.LINEAR)
+				.setCloseHtml("closeHtml-global")
+				.setCloseMethod(CloseMethod.FADE_OUT)
+				.setContainerId("global")
+				.setExtendedTimeOut(0)
+				.setHideDuration(0)
+				.setHideEasing(Easing.LINEAR)
+				.setHideMethod(HideMethod.FADE_OUT)
+				.setIconClass(IconClass.ERROR)
+				.setIsCloseOnHover(false)
+				.setIsDebug(false)
+				.setIsEnableCloseButton(false)
+				.setIsEnableProgressBar(false)
+				.setIsNewestOnTop(false)
+				.setIsRightToLeft(false)
+				.setIsTapToDismiss(false)
+				.setMessageClass("messageClass-global")
+				.setNeedEscapeHtml(false)
+				.setNeedPreventDuplicates(false)
+				.setOnClickFunction("onClickFunction-global")
+				.setOnCloseClickFunction("onCloseClickFunction-global")
+				.setOnHiddenFunction("onHiddenFunction-global")
+				.setOnShownFunction("onShownFunction-global")
+				.setPositionClass(PositionClass.BOTTOM_CENTER)
+				.setProgressClass("progressClass-global")
+				.setShowDuration(0)
+				.setShowEasing(Easing.LINEAR)
+				.setShowMethod(ShowMethod.FADE_IN)
+				.setTarget("target-global")
+				.setTimeOut(0)
+				.setTitleClass("titleClass-global")
+				.setToastClass("toastClass-global");
+		ToastrSettings.createInitializer(getWebApplication())
+				.setAutoAppendBehavior(true)
+				.setGlobalOptions(globalOptions)
+				.initialize();
+
+		final WicketTester tester = getWicketTester();
+		tester.startPage(ToastrTestPage.class);
+
+		final String lastResponseString = tester.getLastResponseAsString();
+		assertTrue(lastResponseString.contains(globalOptions.toJsonString()));
 
 	}
 
