@@ -9,7 +9,6 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.resource.JQueryResourceReference;
 
-
 /**
  * Reference of toastr javascript
  *
@@ -22,8 +21,16 @@ public class ToastrJavaScriptResourceReference extends JavaScriptResourceReferen
 	/**
 	 * Reference of toastr javascript
 	 */
-	public static final ToastrJavaScriptResourceReference INSTANCE =
-			new ToastrJavaScriptResourceReference();
+	private static final ToastrJavaScriptResourceReference INSTANCE = new ToastrJavaScriptResourceReference();
+
+	/**
+	 * Gets ToastrJavaScriptResourceReference instance.
+	 *
+	 * @return constant
+	 */
+	public static ToastrJavaScriptResourceReference getInstance() {
+		return INSTANCE;
+	}
 
 	/**
 	 * Constractor
@@ -41,12 +48,9 @@ public class ToastrJavaScriptResourceReference extends JavaScriptResourceReferen
 
 		// JQuery
 		final ResourceReference jQueryResourceReference;
-		if (Application.exists())
-		{
+		if (Application.exists()) {
 			jQueryResourceReference = Application.get().getJavaScriptLibrarySettings().getJQueryReference();
-		}
-		else
-		{
+		} else {
 			jQueryResourceReference = JQueryResourceReference.getV2();
 		}
 
