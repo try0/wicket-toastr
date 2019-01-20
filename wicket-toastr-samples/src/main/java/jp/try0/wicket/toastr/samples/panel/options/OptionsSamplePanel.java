@@ -47,7 +47,6 @@ public class OptionsSamplePanel extends Panel {
 		super(id);
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -99,64 +98,32 @@ public class OptionsSamplePanel extends Panel {
 
 		// Progress Bar
 		IModel<Boolean> progressBar = new Model<>(false);
-		add(new BooleanRadioGroup("switchProgressBar", progressBar) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchProgressBar", progressBar));
 
 		// Right to left
 		IModel<Boolean> rtl = new Model<>(false);
-		add(new BooleanRadioGroup("switchRtl", rtl) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchRtl", rtl));
 
 		// Callbacks
 		IModel<Boolean> onShown = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnShown", onShown) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchOnShown", onShown));
 
 		IModel<Boolean> onHidden = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnHidden", onHidden) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchOnHidden", onHidden));
 
 		IModel<Boolean> onClick = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnClick", onClick) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchOnClick", onClick));
 
 		IModel<Boolean> onCloseClick = new Model<>(false);
-		add(new BooleanRadioGroup("switchOnCloseClick", onCloseClick) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchOnCloseClick", onCloseClick));
 
 		// Display sequence
 		IModel<Boolean> newestOnTop = new Model<>(false);
-		add(new BooleanRadioGroup("switchNewestOnTop", newestOnTop) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchNewestOnTop", newestOnTop));
 
 		// Prevent duplicates
 		IModel<Boolean> preventDuplicates = new Model<>(false);
-		add(new BooleanRadioGroup("switchPreventDuplicates", preventDuplicates) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchPreventDuplicates", preventDuplicates));
 
 		// show duration
 		IModel<Integer> showDuration = new Model<>(1000);
@@ -180,11 +147,7 @@ public class OptionsSamplePanel extends Panel {
 
 		// Extended time out
 		IModel<Boolean> escapeHtml = new Model<>(true);
-		add(new BooleanRadioGroup("switchEscapeHtml", escapeHtml) {
-			{
-				setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, this));
-			}
-		});
+		add(newBooleanRadioGroup("switchEscapeHtml", escapeHtml));
 
 		// ToastOptions
 		IModel<ToastOptions> options = () -> {
@@ -221,7 +184,6 @@ public class OptionsSamplePanel extends Panel {
 			return pnlBasic.getToast()
 					.withToastOptions(options.getObject());
 		};
-
 
 		// Links
 		add(new SubmitLink("linkShow") {
@@ -261,5 +223,18 @@ public class OptionsSamplePanel extends Panel {
 			};
 
 		});
+	}
+
+	/**
+	 * Creates radio group
+	 *
+	 * @param id wicket:id
+	 * @param model selected state model
+	 * @return BooleanRadioGroup
+	 */
+	private BooleanRadioGroup newBooleanRadioGroup(String id, IModel<Boolean> model) {
+		BooleanRadioGroup radio = new BooleanRadioGroup(id, model);
+		radio.setChoiceRenderer(new BooleanRadioChoiceRenderer(Type.Secondary, radio));
+		return radio;
 	}
 }
