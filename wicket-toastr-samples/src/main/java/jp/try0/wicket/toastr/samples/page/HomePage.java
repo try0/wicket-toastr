@@ -41,10 +41,25 @@ public class HomePage extends WebPage {
 
 	private static final String SAMPLE_PANEL_ID = "samplePanel";
 
+	/**
+	 * Tab
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
 	static enum Tab {
-		OPTIONS("Options", OptionsSamplePanel.class), COMBINE("Combine", CombineSamplePanel.class), FILTER("Filter",
-				FilterSamplePanel.class),
-				;
+		/**
+		 * Options Tab
+		 */
+		OPTIONS("Options", OptionsSamplePanel.class),
+		/**
+		 * Combine Tab
+		 */
+		COMBINE("Combine", CombineSamplePanel.class),
+		/**
+		 * Filter Tab
+		 */
+		FILTER("Filter", FilterSamplePanel.class),;
 
 		String tabName;
 		Class<? extends Panel> clazz;
@@ -55,10 +70,24 @@ public class HomePage extends WebPage {
 		}
 	}
 
+	/**
+	 * Selected tab
+	 */
 	private Tab selected = Tab.OPTIONS;
+
+	/**
+	 * Form
+	 */
 	private Form<?> form;
+
+	/**
+	 * the link that navigate to source code
+	 */
 	private ExternalLink linkToSource;
 
+	/**
+	 *  the model that create url to github source code
+	 */
 	private IModel<String> modelToSource = () -> {
 
 		String packageOfSample = Arrays.stream(selected.clazz.getPackage().getName().split("\\."))
@@ -84,6 +113,9 @@ public class HomePage extends WebPage {
 		super(parameters);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -94,8 +126,8 @@ public class HomePage extends WebPage {
 		error("Error feedback message");
 
 		// Navigation
-		final Navbar navbar;
-		add(navbar = new Navbar("navBar"));
+		final Navbar navbar = new Navbar("navBar");
+		add(navbar);
 		navbar.setInverted(true);
 		navbar.setBackgroundColor(Color.Dark);
 		navbar.setBrandName(Model.of("Wicket Toastr Samples"));
@@ -118,7 +150,8 @@ public class HomePage extends WebPage {
 					};
 				}));
 
-		add(form = new BootstrapForm<Void>("form") {
+		// Main form
+		form = new BootstrapForm<Void>("form") {
 
 			@Override
 			protected void onInitialize() {
@@ -140,23 +173,24 @@ public class HomePage extends WebPage {
 
 							@Override
 							public void onClick(AjaxRequestTarget target) {
+
 								Panel switchTargetPanel = null;
 								switch (item.getModelObject()) {
 								case COMBINE:
-									selected = Tab.COMBINE;
 									switchTargetPanel = new CombineSamplePanel(SAMPLE_PANEL_ID);
 									break;
 								case FILTER:
-									selected = Tab.FILTER;
 									switchTargetPanel = new FilterSamplePanel(SAMPLE_PANEL_ID);
 									break;
 								case OPTIONS:
-									selected = Tab.OPTIONS;
 									switchTargetPanel = new OptionsSamplePanel(SAMPLE_PANEL_ID);
 									break;
 								default:
-									break;
+									return;
 								}
+
+								selected = item.getModelObject();
+
 								switchTargetPanel.setOutputMarkupId(true);
 								form.addOrReplace(switchTargetPanel);
 								target.add(form);
@@ -169,19 +203,14 @@ public class HomePage extends WebPage {
 					}
 				});
 
-				add(new OptionsSamplePanel(SAMPLE_PANEL_ID) {
-					{
-						setOutputMarkupId(true);
-					}
-				});
+				add(new OptionsSamplePanel(SAMPLE_PANEL_ID).setOutputMarkupId(true));
 
 			}
-		});
+		};
+		add(form);
 
-		add(linkToSource = new ExternalLink("toSource", modelToSource) {
-			{
-				setOutputMarkupId(true);
-			}
-		});
+		linkToSource = new ExternalLink("toSource", modelToSource);
+		linkToSource.setOutputMarkupId(true);
+		add(linkToSource);
 	}
 }

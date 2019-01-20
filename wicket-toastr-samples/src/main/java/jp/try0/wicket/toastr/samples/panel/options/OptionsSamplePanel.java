@@ -47,50 +47,53 @@ public class OptionsSamplePanel extends Panel {
 		super(id);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 
 		add(new ToastrBehavior() {
 			@Override
-			protected FeedbackMessagesModel newFeedbackMessagesModel(Component pageResolvingComponent,
-					IFeedbackMessageFilter messageFilter) {
-				FeedbackMessagesModel mdl = super.newFeedbackMessagesModel(pageResolvingComponent, messageFilter);
-				SerializableComparator<FeedbackMessage> comparator = (m1, m2) -> Integer.compare(m1.getLevel(),
-						m2.getLevel());
+			protected FeedbackMessagesModel newFeedbackMessagesModel(Component pageResolver, IFeedbackMessageFilter filter) {
+				FeedbackMessagesModel mdl = super.newFeedbackMessagesModel(pageResolver, filter);
+				SerializableComparator<FeedbackMessage> comparator =
+						(m1, m2) -> Integer.compare(m1.getLevel(), m2.getLevel());
 				mdl.setSortingComparator(comparator);
 				return mdl;
 			}
 		});
 
 		// Toast positions
-		IModel<PositionClass> toastPosition = new Model<PositionClass>(PositionClass.TOP_RIGHT);
+		IModel<PositionClass> toastPosition = new Model<>(PositionClass.TOP_RIGHT);
 		add(new BootstrapRadioChoice<PositionClass>("rdoPosition", toastPosition,
 				Arrays.asList(PositionClass.values())));
 
 		// Methods
-		IModel<ShowMethod> showMethod = new Model<ShowMethod>(ShowMethod.FADE_IN);
+		IModel<ShowMethod> showMethod = new Model<>(ShowMethod.FADE_IN);
 		add(new BootstrapRadioChoice<ShowMethod>("rdoShowMethod", showMethod,
 				Arrays.asList(ShowMethod.values())));
 
-		IModel<HideMethod> hideMethod = new Model<HideMethod>(HideMethod.FADE_OUT);
+		IModel<HideMethod> hideMethod = new Model<>(HideMethod.FADE_OUT);
 		add(new BootstrapRadioChoice<HideMethod>("rdoHideMethod", hideMethod,
 				Arrays.asList(HideMethod.values())));
 
-		IModel<CloseMethod> closeMethod = new Model<CloseMethod>(CloseMethod.FADE_OUT);
+		IModel<CloseMethod> closeMethod = new Model<>(CloseMethod.FADE_OUT);
 		add(new BootstrapRadioChoice<CloseMethod>("rdoCloseMethod", closeMethod,
 				Arrays.asList(CloseMethod.values())));
 
 		// Easing
-		IModel<Easing> showEasing = new Model<Easing>(Easing.SWING);
+		IModel<Easing> showEasing = new Model<>(Easing.SWING);
 		add(new BootstrapRadioChoice<Easing>("rdoShowEasing", showEasing,
 				Arrays.asList(Easing.values())));
 
-		IModel<Easing> hideEasing = new Model<Easing>(Easing.SWING);
+		IModel<Easing> hideEasing = new Model<>(Easing.SWING);
 		add(new BootstrapRadioChoice<Easing>("rdoHideEasing", hideEasing,
 				Arrays.asList(Easing.values())));
 
-		IModel<Easing> closeEasing = new Model<Easing>(Easing.SWING);
+		IModel<Easing> closeEasing = new Model<>(Easing.SWING);
 		add(new BootstrapRadioChoice<Easing>("rdoCloseEasing", closeEasing,
 				Arrays.asList(Easing.values())));
 
@@ -156,23 +159,23 @@ public class OptionsSamplePanel extends Panel {
 		});
 
 		// show duration
-		IModel<Integer> showDuration = new Model<Integer>(1000);
+		IModel<Integer> showDuration = new Model<>(1000);
 		add(new NumberTextField<Integer>("txtShowDuration", showDuration));
 
 		// hide duration
-		IModel<Integer> hideDuration = new Model<Integer>(500);
+		IModel<Integer> hideDuration = new Model<>(500);
 		add(new NumberTextField<Integer>("txtHideDuration", hideDuration));
 
 		// close duration
-		IModel<Integer> closeDuration = new Model<Integer>(500);
+		IModel<Integer> closeDuration = new Model<>(500);
 		add(new NumberTextField<Integer>("txtCloseDuration", closeDuration));
 
 		// Time out
-		IModel<Integer> timeOut = new Model<Integer>(5000);
+		IModel<Integer> timeOut = new Model<>(5000);
 		add(new NumberTextField<Integer>("txtTimeOut", timeOut));
 
 		// Extended time out
-		IModel<Integer> extendedTimeOut = new Model<Integer>(1000);
+		IModel<Integer> extendedTimeOut = new Model<>(1000);
 		add(new NumberTextField<Integer>("txtExtendedTimeOut", extendedTimeOut));
 
 		// Extended time out
@@ -219,18 +222,6 @@ public class OptionsSamplePanel extends Panel {
 					.withToastOptions(options.getObject());
 		};
 
-		// FeedbackPanel
-		//		final FeedbackPanel fp;
-		//		add(fp = new FeedbackPanel("errors") {
-		//			{
-		//				setOutputMarkupId(true);
-		//
-		//				if (ToastrSettings.get().getMessageFilter().isPresent()) {
-		//					IFeedbackMessageFilter ignoreMessageLevel = ToastrSettings.get().getMessageFilter().get();
-		//					setFilter(msg -> ignoreMessageLevel.negate().test(msg));
-		//				}
-		//			}
-		//		});
 
 		// Links
 		add(new SubmitLink("linkShow") {
@@ -248,7 +239,6 @@ public class OptionsSamplePanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
 				toast.getObject().show(target);
-				//				target.add(fp);
 			};
 
 		});

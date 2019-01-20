@@ -26,13 +26,20 @@ import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 public class ToastBasicPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * level
+	 */
+	private final IModel<ToastLevel> toastLevel = Model.of(ToastLevel.INFO);
 
-	private IModel<ToastLevel> toastLevel = new Model<ToastLevel>(ToastLevel.INFO);
+	/**
+	 * toast title
+	 */
+	private final IModel<String> title = Model.of("");
 
-	private IModel<String> title = new Model<String>("");
-
-	private IModel<String> message = new Model<String>("toast");
-
+	/**
+	 * toast message
+	 */
+	private final IModel<String> message = Model.of("toast");
 
 
 	/**
@@ -44,15 +51,16 @@ public class ToastBasicPanel extends Panel {
 		super(id);
 	}
 
-
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 
 		// Toast levels
-		List<ToastLevel> levels = Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING,
-				ToastLevel.ERROR);
+		List<ToastLevel> levels =
+				Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING, ToastLevel.ERROR);
 		add(new BootstrapRadioChoice<ToastLevel>("rdoLevel", toastLevel, levels) {
 
 			@Override
@@ -77,7 +85,8 @@ public class ToastBasicPanel extends Panel {
 				case WARNING:
 					classNames += " text-warning";
 					break;
-
+				default:
+					break;
 				}
 
 				vm.put("class", classNames);
@@ -90,11 +99,7 @@ public class ToastBasicPanel extends Panel {
 		add(new TextField<>("txtTitle", title));
 
 		// Toast Message
-		add(new TextArea<String>("txtMessage", message) {
-			{
-				setRequired(true);
-			}
-		});
+		add(new TextArea<String>("txtMessage", message).setRequired(true));
 	}
 
 	/**

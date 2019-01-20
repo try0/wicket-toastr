@@ -33,6 +33,10 @@ public class CombineSamplePanel extends Panel {
 		super(id);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();

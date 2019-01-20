@@ -28,7 +28,10 @@ import jp.try0.wicket.toastr.samples.panel.ToastBasicPanel;
 public class FilterSamplePanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
-	private Set<ToastLevel> accepts = Sets.newHashSet();
+	/**
+	 * Accepts levels
+	 */
+	private final Set<ToastLevel> accepts = Sets.newHashSet();
 
 	/**
 	 * Constractor
@@ -39,6 +42,10 @@ public class FilterSamplePanel extends Panel {
 		super(id);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -53,8 +60,8 @@ public class FilterSamplePanel extends Panel {
 		final ToastBasicPanel pnlBasic;
 		add(pnlBasic = new ToastBasicPanel("pnlBasic"));
 
-		final List<ToastLevel> levels = Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING,
-				ToastLevel.ERROR);
+		final List<ToastLevel> levels =
+				Arrays.asList(ToastLevel.SUCCESS, ToastLevel.INFO, ToastLevel.WARNING, ToastLevel.ERROR);
 		accepts.addAll(levels);
 		add(new ListView<ToastLevel>("levels", levels) {
 
