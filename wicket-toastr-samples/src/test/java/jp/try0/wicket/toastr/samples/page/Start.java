@@ -1,4 +1,4 @@
-package jp.try0.wicket.toastr.samples;
+package jp.try0.wicket.toastr.samples.page;
 
 import java.lang.management.ManagementFactory;
 
