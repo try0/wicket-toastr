@@ -512,8 +512,9 @@ public class Toast implements IToast {
 				.append("\"");
 
 		// sets title
-		if (getTitle().isPresent()) {
-			script.append(", \"").append(replaceNewlineCodeToTag(getTitle().get())).append("\"");
+		Optional<String> title = getTitle();
+		if (title.isPresent()) {
+			script.append(", \"").append(replaceNewlineCodeToTag(title.get())).append("\"");
 		} else {
 			script.append(", \"\"");
 		}
