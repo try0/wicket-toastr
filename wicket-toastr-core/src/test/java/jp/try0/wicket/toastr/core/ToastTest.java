@@ -10,6 +10,7 @@ import org.apache.wicket.markup.Markup;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -26,7 +27,6 @@ import jp.try0.wicket.toastr.core.test.ToastrTestPage;
  *
  */
 public class ToastTest extends AbstractToastrTest {
-
 
 	/**
 	 * {@link Toast#create(ToastLevel, String)}<br>
@@ -84,7 +84,6 @@ public class ToastTest extends AbstractToastrTest {
 			}
 
 		};
-
 
 		final WicketTester tester = getWicketTester();
 		tester.startComponentInPage(link);
@@ -150,6 +149,98 @@ public class ToastTest extends AbstractToastrTest {
 			} else {
 				fail();
 			}
+		}
+
+	}
+
+	/**
+	 * {@link Toast#clear(IHeaderResponse)}<br>
+	 * {@link Toast#clear(AjaxRequestTarget)}
+	 */
+	@Test
+	public void clearToast() {
+		// IHeaderResponse
+		{
+			ToastrTestPage page = new ToastrTestPage() {
+
+				@Override
+				public void renderHead(IHeaderResponse response) {
+					super.renderHead(response);
+					Toast.clear(response);
+				}
+			};
+
+			final WicketTester tester = getWicketTester();
+			tester.startPage(page);
+
+			final String lastResponseString = tester.getLastResponseAsString();
+			Assertions.assertTrue(lastResponseString.contains("toastr.clear()"));
+		}
+
+		// AjaxRequestTarget
+		{
+			ToastrTestPage page = new ToastrTestPage() {
+				@Override
+				protected void onClickAjaxLink(AjaxRequestTarget target) {
+					super.onClickAjaxLink(target);
+					Toast.clear(target);
+				}
+			};
+
+			final WicketTester tester = getWicketTester();
+			tester.startPage(page);
+
+			AjaxLink<?> link = page.getAjaxLink();
+			tester.clickLink(link);
+
+			final String lastResponseString = tester.getLastResponseAsString();
+			Assertions.assertTrue(lastResponseString.contains("toastr.clear()"));
+		}
+
+	}
+
+	/**
+	 * {@link Toast#remove(IHeaderResponse)}<br>
+	 * {@link Toast#remove(AjaxRequestTarget)}
+	 */
+	@Test
+	public void removeToast() {
+		// IHeaderResponse
+		{
+			ToastrTestPage page = new ToastrTestPage() {
+
+				@Override
+				public void renderHead(IHeaderResponse response) {
+					super.renderHead(response);
+					Toast.remove(response);
+				}
+			};
+
+			final WicketTester tester = getWicketTester();
+			tester.startPage(page);
+
+			final String lastResponseString = tester.getLastResponseAsString();
+			Assertions.assertTrue(lastResponseString.contains("toastr.remove()"));
+		}
+
+		// AjaxRequestTarget
+		{
+			ToastrTestPage page = new ToastrTestPage() {
+				@Override
+				protected void onClickAjaxLink(AjaxRequestTarget target) {
+					super.onClickAjaxLink(target);
+					Toast.remove(target);
+				}
+			};
+
+			final WicketTester tester = getWicketTester();
+			tester.startPage(page);
+
+			AjaxLink<?> link = page.getAjaxLink();
+			tester.clickLink(link);
+
+			final String lastResponseString = tester.getLastResponseAsString();
+			Assertions.assertTrue(lastResponseString.contains("toastr.remove()"));
 		}
 
 	}
