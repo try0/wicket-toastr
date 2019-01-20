@@ -195,8 +195,8 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			if (optTargetOptions.isPresent()) {
 				if (optCombinedOptions.isPresent()) {
 
-					ToastOptions optionsOfCombined = combined.getToastOptions().get();
-					ToastOptions optionsOfTarget = target.getToastOptions().get();
+					ToastOptions optionsOfCombined = optCombinedOptions.get();
+					ToastOptions optionsOfTarget = optTargetOptions.get();
 
 					return Optional.of(optionsOfCombined.overwrite(optionsOfTarget));
 				} else {
