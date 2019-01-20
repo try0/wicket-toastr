@@ -50,7 +50,18 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum ShowMethod implements IAppearAnimationMethod {
-		SHOW("show"), FADE_IN("fadeIn"), SLIDE_DOWN("slideDown"),;
+		/**
+		 * show
+		 */
+		SHOW("show"),
+		/**
+		 * fadeIn
+		 */
+		FADE_IN("fadeIn"),
+		/**
+		 * slideDown
+		 */
+		SLIDE_DOWN("slideDown"),;
 
 		/**
 		 * Method name
@@ -82,7 +93,18 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum HideMethod implements IDisappearAnimationMethod {
-		HIDE("hide"), FADE_OUT("fadeOut"), SLIDE_UP("slideUp"),;
+		/**
+		 * hide
+		 */
+		HIDE("hide"),
+		/**
+		 * fadeOut
+		 */
+		FADE_OUT("fadeOut"),
+		/**
+		 * slideUp
+		 */
+		SLIDE_UP("slideUp"),;
 
 		/**
 		 * Method name
@@ -114,7 +136,18 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum CloseMethod implements IDisappearAnimationMethod {
-		HIDE("hide"), FADE_OUT("fadeOut"), SLIDE_UP("slideUp"),;
+		/**
+		 * hide
+		 */
+		HIDE("hide"),
+		/**
+		 * fadeOut
+		 */
+		FADE_OUT("fadeOut"),
+		/**
+		 * slideUp
+		 */
+		SLIDE_UP("slideUp"),;
 
 		/**
 		 * Method name
@@ -146,14 +179,32 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum Easing implements IEasing {
-		SWING("swing"), LINEAR("linear"),;
+		/**
+		 * swing
+		 */
+		SWING("swing"),
+		/**
+		 * linear
+		 */
+		LINEAR("linear"),;
 
+		/**
+		 * easing type
+		 */
 		String easing;
 
+		/**
+		 * Constractor
+		 *
+		 * @param easing
+		 */
 		private Easing(String easing) {
 			this.easing = easing;
 		}
 
+		/**
+		 * Returns easing type string.
+		 */
 		@Override
 		public String toString() {
 			return easing;
@@ -167,9 +218,37 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum PositionClass implements IPositionClass {
-		TOP_RIGHT("toast-top-right"), BOTTOM_RIGHT("toast-bottom-right"), BOTTOM_LEFT("toast-bottom-left"),
-		TOP_LEFT("toast-top-left"), TOP_FULL_WIDTH("toast-top-full-width"),
-		BOTTOM_FULL_WIDTH("toast-bottom-full-width"), TOP_CENTER("toast-top-center"),
+		/**
+		 * toast-top-right
+		 */
+		TOP_RIGHT("toast-top-right"),
+		/**
+		 * toast-bottom-right
+		 */
+		BOTTOM_RIGHT("toast-bottom-right"),
+		/**
+		 * toast-bottom-left
+		 */
+		BOTTOM_LEFT("toast-bottom-left"),
+		/**
+		 * toast-top-left
+		 */
+		TOP_LEFT("toast-top-left"),
+		/**
+		 * toast-top-full-width
+		 */
+		TOP_FULL_WIDTH("toast-top-full-width"),
+		/**
+		 * toast-bottom-full-width
+		 */
+		BOTTOM_FULL_WIDTH("toast-bottom-full-width"),
+		/**
+		 * toast-top-center
+		 */
+		TOP_CENTER("toast-top-center"),
+		/**
+		 * toast-bottom-center
+		 */
 		BOTTOM_CENTER("toast-bottom-center"),;
 
 		/**
@@ -203,7 +282,22 @@ public class ToastOptions implements IToastOptions {
 	 *
 	 */
 	public static enum IconClass implements IIconClass {
-		ERROR("toast-error"), INFO("toast-info"), SUCCESS("toast-success"), WARNING("toast-warning");
+		/**
+		 * toast-error
+		 */
+		ERROR("toast-error"),
+		/**
+		 * toast-info
+		 */
+		INFO("toast-info"),
+		/**
+		 * toast-success
+		 */
+		SUCCESS("toast-success"),
+		/**
+		 * toast-warning
+		 */
+		WARNING("toast-warning");
 
 		/**
 		 * Icon class name
