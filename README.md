@@ -3,7 +3,8 @@
 
 [![Build Status](https://travis-ci.org/try0/wicket-toastr.svg?branch=master)](https://travis-ci.org/try0/wicket-toastr) 
 [![codecov](https://codecov.io/gh/try0/wicket-toastr/branch/master/graph/badge.svg)](https://codecov.io/gh/try0/wicket-toastr) 
-[![Maven Central](https://img.shields.io/maven-central/v/jp.try0.wicket/wicket-toastr-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22jp.try0.wicket%22%20AND%20a:%22wicket-toastr-core%22)
+[![Maven Central](https://img.shields.io/maven-central/v/jp.try0.wicket/wicket-toastr-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22jp.try0.wicket%22%20AND%20a:%22wicket-toastr-core%22) 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=try0_wicket-toastr&metric=alert_status)](https://sonarcloud.io/dashboard?id=try0_wicket-toastr)
 
 
 
