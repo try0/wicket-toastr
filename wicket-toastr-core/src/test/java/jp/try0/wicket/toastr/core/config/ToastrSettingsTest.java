@@ -3,7 +3,10 @@ package jp.try0.wicket.toastr.core.config;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
+import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +28,57 @@ import jp.try0.wicket.toastr.core.test.ToastrTestPage;
  *
  */
 public class ToastrSettingsTest extends AbstractToastrTest {
+
+	@Test
+	public void initializeSettings() {
+
+		boolean autoAppend = true;
+		ToastOptions options = ToastOptions.create();
+		IFeedbackMessageFilter filter = msg -> true;
+		Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> factory = optFilter -> new ToastrBehavior();
+		ToastrFontAwesomeSettings fontSettings = new ToastrFontAwesomeSettings(
+				new ToastrFontAwesomeIcons("", "", "", ""));
+
+		ToastrSettings.createInitializer(getWebApplication())
+				.setAutoAppendBehavior(autoAppend)
+				.setGlobalOptions(options)
+				.setMessageFilter(filter)
+				.setToastrBehaviorFactory(factory)
+				.setFontAwesomeSettings(fontSettings)
+				.initialize();
+
+		ToastrSettings settings = ToastrSettings.get();
+
+		assertEquals(settings.hasGlobalOptions(), true);
+		assertTrue(settings.getGlobalOptions().isPresent());
+		assertTrue(settings.hasMessageFilter());
+		assertTrue(settings.getFontAwesomeSettings().isPresent());
+		assertTrue(settings.getGlobalOptions().get() == options);
+		assertTrue(settings.getMessageFilter().get() == filter);
+		assertTrue(settings.getFontAwesomeSettings().get() == fontSettings);
+	}
+
+	@Test
+	public void initializeSimpleSettings() {
+
+		ToastrSettings.createInitializer(getWebApplication()).initialize();
+
+		ToastrSettings settings = ToastrSettings.get();
+
+		assertEquals(settings.hasGlobalOptions(), false);
+		assertFalse(settings.getGlobalOptions().isPresent());
+		assertTrue(settings.getMessageFilter().isPresent());
+		assertEquals(settings.getMessageFilter().get(), IFeedbackMessageFilter.ALL);
+		assertFalse(settings.getFontAwesomeSettings().isPresent());
+	}
+
+	@Test
+	public void initializeSettingsTwice() {
+		assertThrows(UnsupportedOperationException.class, () -> {
+			ToastrSettings.createInitializer(getWebApplication()).initialize();
+			ToastrSettings.createInitializer(getWebApplication()).initialize();
+		});
+	}
 
 	@Test
 	public void autoAppendBehavior() {
