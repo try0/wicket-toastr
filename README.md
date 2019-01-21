@@ -8,8 +8,7 @@
 
 
 
-[Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.
-
+[Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.  
 Just add behavior to component, you can display toast.
 This behavior use wicket feedback message system.  
 Also, you can display toast manually without use feedback message.
@@ -21,8 +20,14 @@ Also, you can display toast manually without use feedback message.
 |1.0.2  |2.1.4  |8.x  |
 
 
+## Demo
+Deployed wicket-toastr-samples module.  
+[demo](https://try0.jp/app/wicket-toastr-samples/)
 
-## Maven
+
+## Usage
+
+### Maven
 ```xml
 <dependency>
     <groupId>jp.try0.wicket</groupId>
@@ -31,14 +36,7 @@ Also, you can display toast manually without use feedback message.
 </dependency>
 ```
 
-
-## Demo
-Deployed wicket-toastr-samples module.  
-[demo](https://try0.jp/app/wicket-toastr-samples/)
-
-
-
-## Initialize Settings
+### Initialize Settings
 You can set default values, in the application initialize process(Application#init).
 ```java
 ToastrSettings.createInitializer(this)
@@ -49,7 +47,7 @@ ToastrSettings.createInitializer(this)
 ```
 
 
-## Display toast with ToastrBehavior
+### Display toast with ToastrBehavior
 
 add ToastrBehavior to any of components in page
 ```java
@@ -61,24 +59,24 @@ ToastrSettings.createInitializer(this)
 .setAutoAppendBehavior(true)
 ```
 
-Component#success, Session#success  
-⇒ displayed success toast  
+Component#success(Serializable), Session#success(Serializable)  
+⇒ success toast  
 <img alt="toast_success" src="https://user-images.githubusercontent.com/17096601/45070139-dd932f00-b10a-11e8-8c8a-b539945fcdc1.png" width="350px">
 
-Component#info, Session#info  
-⇒ displayed info toast  
+Component#info(Serializable), Session#info(Serializable)  
+⇒ info toast  
 <img alt="toast_info" src="https://user-images.githubusercontent.com/17096601/45070137-dd932f00-b10a-11e8-85ec-03036d325299.png" width="350px">
 
-Component#warn, Session#warn  
-⇒ displayed warn toast  
+Component#warn(Serializable), Session#warn(Serializable)  
+⇒ warn toast  
 <img alt="toast_warn" src="https://user-images.githubusercontent.com/17096601/45070136-dd932f00-b10a-11e8-85b8-69ff6accf8e1.png" width="350px">
 
-Component#error, Session#error  
-Component#fatal, Session#fatal  
-⇒ displayed error toast  
+Component#error(Serializable), Session#error(SerializableSerializable)  
+Component#fatal(Serializable), Session#fatal(Serializable)  
+⇒ error toast  
 <img alt="toast_error" src="https://user-images.githubusercontent.com/17096601/45070135-dcfa9880-b10a-11e8-8b32-9f1741bb2925.png" width="350px">
 
-## Display toast manually
+### Display toast manually
 In this case, need instance of class that implemented IHeaderResponse or AjaxRequestTarget.
 
 ```java
@@ -86,15 +84,15 @@ Toast.create(toastLevel, message)
 .show(target);
 ```
 
-## Others
-### With title
+### Others
+#### With title
 ```java
 Toast.create(toastLevel, message)
 .withTitle(title)
 .show(target);
 ```
 
-### With options
+#### With options
 Overrides global options.
 ```java
 Toast.create(toastLevel, message)
