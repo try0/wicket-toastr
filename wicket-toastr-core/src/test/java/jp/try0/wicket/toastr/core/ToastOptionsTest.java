@@ -2,7 +2,6 @@ package jp.try0.wicket.toastr.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import jp.try0.wicket.toastr.core.IToastOptions.OptionKeys;
@@ -182,40 +181,40 @@ public class ToastOptionsTest {
 
 			ToastOptions newOptions = baseOptions.overwrite(overwriteOptions);
 
-			Assertions.assertEquals(newOptions.getCloseClass(), overwriteOptions.getCloseClass());
-			Assertions.assertEquals(newOptions.getCloseDureation(), overwriteOptions.getCloseDureation());
-			Assertions.assertEquals(newOptions.getCloseEasing(), overwriteOptions.getCloseEasing());
-			Assertions.assertEquals(newOptions.getCloseHtml(), overwriteOptions.getCloseHtml());
-			Assertions.assertEquals(newOptions.getCloseMethod(), overwriteOptions.getCloseMethod());
-			Assertions.assertEquals(newOptions.getContainerId(), overwriteOptions.getContainerId());
-			Assertions.assertEquals(newOptions.getExtendedTimeOut(), overwriteOptions.getExtendedTimeOut());
-			Assertions.assertEquals(newOptions.getHideDuration(), overwriteOptions.getHideDuration());
-			Assertions.assertEquals(newOptions.getHideEasing(), overwriteOptions.getHideEasing());
-			Assertions.assertEquals(newOptions.getHideMethod(), overwriteOptions.getHideMethod());
-			Assertions.assertEquals(newOptions.getIconClass(), overwriteOptions.getIconClass());
-			Assertions.assertEquals(newOptions.isCloseOnHover(), overwriteOptions.isCloseOnHover());
-			Assertions.assertEquals(newOptions.isDebug(), overwriteOptions.isDebug());
-			Assertions.assertEquals(newOptions.isEnableCloseButton(), overwriteOptions.isEnableCloseButton());
-			Assertions.assertEquals(newOptions.isEnableProgressBar(), overwriteOptions.isEnableProgressBar());
-			Assertions.assertEquals(newOptions.isNewestOnTop(), overwriteOptions.isNewestOnTop());
-			Assertions.assertEquals(newOptions.isRightToLeft(), overwriteOptions.isRightToLeft());
-			Assertions.assertEquals(newOptions.isTapToDismiss(), overwriteOptions.isTapToDismiss());
-			Assertions.assertEquals(newOptions.getMessageClass(), overwriteOptions.getMessageClass());
-			Assertions.assertEquals(newOptions.needEscapeHtml(), overwriteOptions.needEscapeHtml());
-			Assertions.assertEquals(newOptions.needPreventDuplicates(), overwriteOptions.needPreventDuplicates());
-			Assertions.assertEquals(newOptions.getOnClickFunction(), overwriteOptions.getOnClickFunction());
-			Assertions.assertEquals(newOptions.getOnCloseClickFunction(), overwriteOptions.getOnCloseClickFunction());
-			Assertions.assertEquals(newOptions.getOnHiddenFunction(), overwriteOptions.getOnHiddenFunction());
-			Assertions.assertEquals(newOptions.getOnShownFunction(), overwriteOptions.getOnShownFunction());
-			Assertions.assertEquals(newOptions.getPositionClass(), overwriteOptions.getPositionClass());
-			Assertions.assertEquals(newOptions.getProgressClass(), overwriteOptions.getProgressClass());
-			Assertions.assertEquals(newOptions.getShowDuration(), overwriteOptions.getShowDuration());
-			Assertions.assertEquals(newOptions.getShowEasing(), overwriteOptions.getShowEasing());
-			Assertions.assertEquals(newOptions.getShowMethod(), overwriteOptions.getShowMethod());
-			Assertions.assertEquals(newOptions.getTarget(), overwriteOptions.getTarget());
-			Assertions.assertEquals(newOptions.getTimeOut(), overwriteOptions.getTimeOut());
-			Assertions.assertEquals(newOptions.getTitleClass(), overwriteOptions.getTitleClass());
-			Assertions.assertEquals(newOptions.getToastClass(), overwriteOptions.getToastClass());
+			assertEquals(newOptions.getCloseClass(), overwriteOptions.getCloseClass());
+			assertEquals(newOptions.getCloseDureation(), overwriteOptions.getCloseDureation());
+			assertEquals(newOptions.getCloseEasing(), overwriteOptions.getCloseEasing());
+			assertEquals(newOptions.getCloseHtml(), overwriteOptions.getCloseHtml());
+			assertEquals(newOptions.getCloseMethod(), overwriteOptions.getCloseMethod());
+			assertEquals(newOptions.getContainerId(), overwriteOptions.getContainerId());
+			assertEquals(newOptions.getExtendedTimeOut(), overwriteOptions.getExtendedTimeOut());
+			assertEquals(newOptions.getHideDuration(), overwriteOptions.getHideDuration());
+			assertEquals(newOptions.getHideEasing(), overwriteOptions.getHideEasing());
+			assertEquals(newOptions.getHideMethod(), overwriteOptions.getHideMethod());
+			assertEquals(newOptions.getIconClass(), overwriteOptions.getIconClass());
+			assertEquals(newOptions.isCloseOnHover(), overwriteOptions.isCloseOnHover());
+			assertEquals(newOptions.isDebug(), overwriteOptions.isDebug());
+			assertEquals(newOptions.isEnableCloseButton(), overwriteOptions.isEnableCloseButton());
+			assertEquals(newOptions.isEnableProgressBar(), overwriteOptions.isEnableProgressBar());
+			assertEquals(newOptions.isNewestOnTop(), overwriteOptions.isNewestOnTop());
+			assertEquals(newOptions.isRightToLeft(), overwriteOptions.isRightToLeft());
+			assertEquals(newOptions.isTapToDismiss(), overwriteOptions.isTapToDismiss());
+			assertEquals(newOptions.getMessageClass(), overwriteOptions.getMessageClass());
+			assertEquals(newOptions.needEscapeHtml(), overwriteOptions.needEscapeHtml());
+			assertEquals(newOptions.needPreventDuplicates(), overwriteOptions.needPreventDuplicates());
+			assertEquals(newOptions.getOnClickFunction(), overwriteOptions.getOnClickFunction());
+			assertEquals(newOptions.getOnCloseClickFunction(), overwriteOptions.getOnCloseClickFunction());
+			assertEquals(newOptions.getOnHiddenFunction(), overwriteOptions.getOnHiddenFunction());
+			assertEquals(newOptions.getOnShownFunction(), overwriteOptions.getOnShownFunction());
+			assertEquals(newOptions.getPositionClass(), overwriteOptions.getPositionClass());
+			assertEquals(newOptions.getProgressClass(), overwriteOptions.getProgressClass());
+			assertEquals(newOptions.getShowDuration(), overwriteOptions.getShowDuration());
+			assertEquals(newOptions.getShowEasing(), overwriteOptions.getShowEasing());
+			assertEquals(newOptions.getShowMethod(), overwriteOptions.getShowMethod());
+			assertEquals(newOptions.getTarget(), overwriteOptions.getTarget());
+			assertEquals(newOptions.getTimeOut(), overwriteOptions.getTimeOut());
+			assertEquals(newOptions.getTitleClass(), overwriteOptions.getTitleClass());
+			assertEquals(newOptions.getToastClass(), overwriteOptions.getToastClass());
 
 		}
 
@@ -224,40 +223,40 @@ public class ToastOptionsTest {
 
 			ToastOptions newOptions = baseOptions.overwrite(overwriteNullOptions);
 
-			Assertions.assertEquals(newOptions.getCloseClass(), baseOptions.getCloseClass());
-			Assertions.assertEquals(newOptions.getCloseDureation(), baseOptions.getCloseDureation());
-			Assertions.assertEquals(newOptions.getCloseEasing(), baseOptions.getCloseEasing());
-			Assertions.assertEquals(newOptions.getCloseHtml(), baseOptions.getCloseHtml());
-			Assertions.assertEquals(newOptions.getCloseMethod(), baseOptions.getCloseMethod());
-			Assertions.assertEquals(newOptions.getContainerId(), baseOptions.getContainerId());
-			Assertions.assertEquals(newOptions.getExtendedTimeOut(), baseOptions.getExtendedTimeOut());
-			Assertions.assertEquals(newOptions.getHideDuration(), baseOptions.getHideDuration());
-			Assertions.assertEquals(newOptions.getHideEasing(), baseOptions.getHideEasing());
-			Assertions.assertEquals(newOptions.getHideMethod(), baseOptions.getHideMethod());
-			Assertions.assertEquals(newOptions.getIconClass(), baseOptions.getIconClass());
-			Assertions.assertEquals(newOptions.isCloseOnHover(), baseOptions.isCloseOnHover());
-			Assertions.assertEquals(newOptions.isDebug(), baseOptions.isDebug());
-			Assertions.assertEquals(newOptions.isEnableCloseButton(), baseOptions.isEnableCloseButton());
-			Assertions.assertEquals(newOptions.isEnableProgressBar(), baseOptions.isEnableProgressBar());
-			Assertions.assertEquals(newOptions.isNewestOnTop(), baseOptions.isNewestOnTop());
-			Assertions.assertEquals(newOptions.isRightToLeft(), baseOptions.isRightToLeft());
-			Assertions.assertEquals(newOptions.isTapToDismiss(), baseOptions.isTapToDismiss());
-			Assertions.assertEquals(newOptions.getMessageClass(), baseOptions.getMessageClass());
-			Assertions.assertEquals(newOptions.needEscapeHtml(), baseOptions.needEscapeHtml());
-			Assertions.assertEquals(newOptions.needPreventDuplicates(), baseOptions.needPreventDuplicates());
-			Assertions.assertEquals(newOptions.getOnClickFunction(), baseOptions.getOnClickFunction());
-			Assertions.assertEquals(newOptions.getOnCloseClickFunction(), baseOptions.getOnCloseClickFunction());
-			Assertions.assertEquals(newOptions.getOnHiddenFunction(), baseOptions.getOnHiddenFunction());
-			Assertions.assertEquals(newOptions.getOnShownFunction(), baseOptions.getOnShownFunction());
-			Assertions.assertEquals(newOptions.getPositionClass(), baseOptions.getPositionClass());
-			Assertions.assertEquals(newOptions.getProgressClass(), baseOptions.getProgressClass());
-			Assertions.assertEquals(newOptions.getShowDuration(), baseOptions.getShowDuration());
-			Assertions.assertEquals(newOptions.getShowEasing(), baseOptions.getShowEasing());
-			Assertions.assertEquals(newOptions.getShowMethod(), baseOptions.getShowMethod());
-			Assertions.assertEquals(newOptions.getTarget(), baseOptions.getTarget());
-			Assertions.assertEquals(newOptions.getTimeOut(), baseOptions.getTimeOut());
-			Assertions.assertEquals(newOptions.getTitleClass(), baseOptions.getTitleClass());
-			Assertions.assertEquals(newOptions.getToastClass(), baseOptions.getToastClass());
+			assertEquals(newOptions.getCloseClass(), baseOptions.getCloseClass());
+			assertEquals(newOptions.getCloseDureation(), baseOptions.getCloseDureation());
+			assertEquals(newOptions.getCloseEasing(), baseOptions.getCloseEasing());
+			assertEquals(newOptions.getCloseHtml(), baseOptions.getCloseHtml());
+			assertEquals(newOptions.getCloseMethod(), baseOptions.getCloseMethod());
+			assertEquals(newOptions.getContainerId(), baseOptions.getContainerId());
+			assertEquals(newOptions.getExtendedTimeOut(), baseOptions.getExtendedTimeOut());
+			assertEquals(newOptions.getHideDuration(), baseOptions.getHideDuration());
+			assertEquals(newOptions.getHideEasing(), baseOptions.getHideEasing());
+			assertEquals(newOptions.getHideMethod(), baseOptions.getHideMethod());
+			assertEquals(newOptions.getIconClass(), baseOptions.getIconClass());
+			assertEquals(newOptions.isCloseOnHover(), baseOptions.isCloseOnHover());
+			assertEquals(newOptions.isDebug(), baseOptions.isDebug());
+			assertEquals(newOptions.isEnableCloseButton(), baseOptions.isEnableCloseButton());
+			assertEquals(newOptions.isEnableProgressBar(), baseOptions.isEnableProgressBar());
+			assertEquals(newOptions.isNewestOnTop(), baseOptions.isNewestOnTop());
+			assertEquals(newOptions.isRightToLeft(), baseOptions.isRightToLeft());
+			assertEquals(newOptions.isTapToDismiss(), baseOptions.isTapToDismiss());
+			assertEquals(newOptions.getMessageClass(), baseOptions.getMessageClass());
+			assertEquals(newOptions.needEscapeHtml(), baseOptions.needEscapeHtml());
+			assertEquals(newOptions.needPreventDuplicates(), baseOptions.needPreventDuplicates());
+			assertEquals(newOptions.getOnClickFunction(), baseOptions.getOnClickFunction());
+			assertEquals(newOptions.getOnCloseClickFunction(), baseOptions.getOnCloseClickFunction());
+			assertEquals(newOptions.getOnHiddenFunction(), baseOptions.getOnHiddenFunction());
+			assertEquals(newOptions.getOnShownFunction(), baseOptions.getOnShownFunction());
+			assertEquals(newOptions.getPositionClass(), baseOptions.getPositionClass());
+			assertEquals(newOptions.getProgressClass(), baseOptions.getProgressClass());
+			assertEquals(newOptions.getShowDuration(), baseOptions.getShowDuration());
+			assertEquals(newOptions.getShowEasing(), baseOptions.getShowEasing());
+			assertEquals(newOptions.getShowMethod(), baseOptions.getShowMethod());
+			assertEquals(newOptions.getTarget(), baseOptions.getTarget());
+			assertEquals(newOptions.getTimeOut(), baseOptions.getTimeOut());
+			assertEquals(newOptions.getTitleClass(), baseOptions.getTitleClass());
+			assertEquals(newOptions.getToastClass(), baseOptions.getToastClass());
 		}
 	}
 }

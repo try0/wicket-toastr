@@ -10,7 +10,6 @@ import org.apache.wicket.markup.Markup;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.util.tester.WicketTester;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -174,7 +173,7 @@ public class ToastTest extends AbstractToastrTest {
 			tester.startPage(page);
 
 			final String lastResponseString = tester.getLastResponseAsString();
-			Assertions.assertTrue(lastResponseString.contains("toastr.clear()"));
+			assertTrue(lastResponseString.contains("toastr.clear()"));
 		}
 
 		// AjaxRequestTarget
@@ -194,7 +193,7 @@ public class ToastTest extends AbstractToastrTest {
 			tester.clickLink(link);
 
 			final String lastResponseString = tester.getLastResponseAsString();
-			Assertions.assertTrue(lastResponseString.contains("toastr.clear()"));
+			assertTrue(lastResponseString.contains("toastr.clear()"));
 		}
 
 	}
@@ -220,7 +219,7 @@ public class ToastTest extends AbstractToastrTest {
 			tester.startPage(page);
 
 			final String lastResponseString = tester.getLastResponseAsString();
-			Assertions.assertTrue(lastResponseString.contains("toastr.remove()"));
+			assertTrue(lastResponseString.contains("toastr.remove()"));
 		}
 
 		// AjaxRequestTarget
@@ -240,7 +239,7 @@ public class ToastTest extends AbstractToastrTest {
 			tester.clickLink(link);
 
 			final String lastResponseString = tester.getLastResponseAsString();
-			Assertions.assertTrue(lastResponseString.contains("toastr.remove()"));
+			assertTrue(lastResponseString.contains("toastr.remove()"));
 		}
 
 	}

@@ -1,12 +1,13 @@
 package jp.try0.wicket.toastr.samples.panel.combine;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.Assert.*;
+
 import org.junit.jupiter.api.Test;
 
 import jp.try0.wicket.toastr.samples.test.ToastrSamplesTest;
 
 /**
- * {@link CombineSamplePanel} Test
+ * {@link CombineSamplePanel} tests
  *
  * @author Ryo Tsunoda
  *
@@ -17,7 +18,7 @@ public class CombineSamplePanelTest extends ToastrSamplesTest {
 	public void render() {
 		CombineSamplePanel panel = tester.startComponentInPage(CombineSamplePanel.class);
 
-		Assertions.assertNotNull(panel);
+		assertNotNull(panel);
 
 	}
 }

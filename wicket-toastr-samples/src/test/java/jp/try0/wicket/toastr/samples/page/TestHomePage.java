@@ -9,7 +9,10 @@ import jp.try0.wicket.toastr.samples.panel.options.OptionsSamplePanel;
 import jp.try0.wicket.toastr.samples.test.ToastrSamplesTest;
 
 /**
- * Simple test using the WicketTester
+ * {@link HomePage} tests
+ *
+ * @author Ryo Tsunoda
+ *
  */
 public class TestHomePage extends ToastrSamplesTest {
 

@@ -8,7 +8,7 @@ import jp.try0.wicket.toastr.samples.WicketApplication;
 /**
  * Toastr Samples Test Base
  *
- * @author ryoMac
+ * @author Ryo Tsunoda
  *
  */
 public abstract class ToastrSamplesTest {
