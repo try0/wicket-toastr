@@ -8,7 +8,6 @@
 [![Javadocs](https://www.javadoc.io/badge/jp.try0.wicket/wicket-toastr-core.svg?color=lightgrey)](https://www.javadoc.io/doc/jp.try0.wicket/wicket-toastr-core)
 
 
-
 [Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.  
 Just add behavior to component, you can display toast.
 This behavior use wicket feedback message system.  
