@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.apache.wicket.ThreadContext;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
@@ -59,6 +60,17 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	}
 
 	@Test
+	public void initializeSettings2() {
+
+		ToastrSettings settings = ToastrSettings.initialize(getWebApplication(), true);
+
+		ToastrSettings settings2 = ToastrSettings.get();
+
+		assertTrue(settings == settings2);
+
+	}
+
+	@Test
 	public void initializeSimpleSettings() {
 
 		ToastrSettings.createInitializer(getWebApplication()).initialize();
@@ -77,6 +89,15 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 		assertThrows(UnsupportedOperationException.class, () -> {
 			ToastrSettings.createInitializer(getWebApplication()).initialize();
 			ToastrSettings.createInitializer(getWebApplication()).initialize();
+		});
+	}
+
+	@Test
+	public void notExistsApplicationOnInitialize() {
+
+		assertThrows(UnsupportedOperationException.class, () -> {
+			ThreadContext.setApplication(null);
+			ToastrSettings.initialize();
 		});
 	}
 
