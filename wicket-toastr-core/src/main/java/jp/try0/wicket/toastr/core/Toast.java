@@ -3,7 +3,7 @@ package jp.try0.wicket.toastr.core;
 import java.util.Optional;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -317,7 +317,7 @@ public class Toast implements IToast {
 	 *
 	 * @param target the request target
 	 */
-	public static void remove(final AjaxRequestTarget target) {
+	public static void remove(final IPartialPageRequestHandler target) {
 		target.appendJavaScript("toastr.remove();");
 	}
 
@@ -335,7 +335,7 @@ public class Toast implements IToast {
 	 *
 	 * @param target the request target
 	 */
-	public static void clear(final AjaxRequestTarget target) {
+	public static void clear(final IPartialPageRequestHandler target) {
 		target.appendJavaScript("toastr.clear();");
 	}
 
@@ -534,7 +534,7 @@ public class Toast implements IToast {
 	 *
 	 * @param target the request target
 	 */
-	public void show(final AjaxRequestTarget target) {
+	public void show(final IPartialPageRequestHandler target) {
 		target.appendJavaScript(getScriptForDisplay());
 	}
 
