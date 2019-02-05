@@ -60,6 +60,11 @@
 			<version>${wicket-bootstrap.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+
 		<!-- LOGGING DEPENDENCIES - SLF4J-SIMPLE -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

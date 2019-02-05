@@ -3,8 +3,6 @@ package jp.try0.wicket.toastr.core.config;
 import java.io.Serializable;
 import java.util.Optional;
 
-import com.google.common.base.Strings;
-
 import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOptions;
@@ -82,7 +80,7 @@ public class ToastrFontAwesomeIcons implements Serializable {
 		final String containerId;
 		if (globalOptions.isPresent()) {
 			String tmpContainerId = globalOptions.get().getContainerId();
-			if (Strings.isNullOrEmpty(tmpContainerId)) {
+			if (tmpContainerId == null || tmpContainerId.isEmpty()) {
 				containerId = ToastOptions.DEFAULT_CONTAINER_ID;
 			} else {
 				containerId = tmpContainerId;

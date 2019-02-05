@@ -3,13 +3,12 @@ package jp.try0.wicket.toastr.core.feedback;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
-
-import com.google.common.collect.Sets;
 
 import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
@@ -31,7 +30,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 */
 	public static ToastLevelFeedbackMessageFilter lessThan(ToastLevel level) {
 
-		Set<ToastLevel> accepts = Sets.newHashSet();
+		Set<ToastLevel> accepts = new HashSet<>();
 
 		for (ToastLevel lv : ToastLevel.values()) {
 			if (lv.lessThan(level)) {
@@ -50,7 +49,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 */
 	public static ToastLevelFeedbackMessageFilter lessThanOrEqual(ToastLevel level) {
 
-		Set<ToastLevel> accepts = Sets.newHashSet();
+		Set<ToastLevel> accepts = new HashSet<>();
 
 		for (ToastLevel lv : ToastLevel.values()) {
 			if (lv.lessThan(level) || level == lv) {
@@ -69,7 +68,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 */
 	public static ToastLevelFeedbackMessageFilter greaterThan(ToastLevel level) {
 
-		Set<ToastLevel> accepts = Sets.newHashSet();
+		Set<ToastLevel> accepts = new HashSet<>();
 
 		for (ToastLevel lv : ToastLevel.values()) {
 			if (lv.greaterThan(level)) {
@@ -88,7 +87,7 @@ public class ToastLevelFeedbackMessageFilter implements IFeedbackMessageFilter {
 	 */
 	public static ToastLevelFeedbackMessageFilter greaterThanOrEqual(ToastLevel level) {
 
-		Set<ToastLevel> accepts = Sets.newHashSet();
+		Set<ToastLevel> accepts = new HashSet<>();
 
 		for (ToastLevel lv : ToastLevel.values()) {
 			if (lv.greaterThan(level) || level == lv) {

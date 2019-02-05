@@ -62,7 +62,7 @@
 	<dependencies>
 		<!-- TEST DEPENDENCIES -->
 		<dependency>
-		<groupId>javax.servlet</groupId>
+			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>test</scope>
@@ -95,6 +95,11 @@
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
 			<version>${junit-platform-launcher.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
 			<scope>test</scope>
 		</dependency>
 
