@@ -280,18 +280,19 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	/**
 	 * Message filter
 	 */
-	private IFeedbackMessageFilter messageFilter = IFeedbackMessageFilter.ALL;
+	private IFeedbackMessageFilter messageFilter;
 
 	/**
 	 * Message combiner
 	 */
-	private ToastMessageCombiner messageCombiner = ToastMessageCombiner.VOID_COMBINER;
+	private ToastMessageCombiner messageCombiner = ToastrSettings.get().getToastMessageCombiner();
 
 	/**
 	 * Constractor
 	 */
 	public ToastrBehavior() {
 		super();
+		ToastrSettings.get().getMessageFilter().ifPresent(filter -> this.messageFilter = filter);
 	}
 
 	/**

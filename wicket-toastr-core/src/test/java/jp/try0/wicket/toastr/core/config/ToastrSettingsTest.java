@@ -8,6 +8,8 @@ import java.util.function.Function;
 
 import org.apache.wicket.ThreadContext;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
 
@@ -122,11 +124,12 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	@Test
 	public void customBehaviorFactory() {
 
-		final ToastrBehavior behavior = new ToastrBehavior();
+		final IModel<ToastrBehavior> behavior = Model.of();
 		ToastrSettings.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.setToastrBehaviorFactory(filter -> {
-					return behavior;
+					behavior.setObject(new ToastrBehavior());
+					return behavior.getObject();
 				})
 				.initialize();
 
@@ -135,7 +138,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 		tester.startPage(ToastrTestPage.class);
 		List<ToastrBehavior> behaviors = tester.getLastRenderedPage().getBehaviors(ToastrBehavior.class);
 		assertTrue(behaviors.size() == 1);
-		assertTrue(behaviors.contains(behavior));
+		assertTrue(behaviors.contains(behavior.getObject()));
 	}
 
 	@Test
