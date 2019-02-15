@@ -13,6 +13,7 @@ import org.apache.wicket.util.lang.Args;
 import jp.try0.wicket.toastr.core.IToastOptions;
 import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
+import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 
 /**
  * Toastr settings. This class has configs for using toastr.
@@ -64,6 +65,11 @@ public class ToastrSettings {
 		 * {@link ToastrBehavior} factory
 		 */
 		private Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
+
+		/**
+		 * Message combiner
+		 */
+		private ToastMessageCombiner toastMessageCombiner = ToastMessageCombiner.VOID_COMBINER;
 
 		/**
 		 * Font Awesome icon settings
@@ -125,6 +131,16 @@ public class ToastrSettings {
 		}
 
 		/**
+		 * Sets {@link ToastMessageCombiner}.
+		 *
+		 * @param toastMessageCombiner combiner that combines messages for each toast level
+		 */
+		public ToastrSettingsInitializer setToastMessageCombiner(ToastMessageCombiner toastMessageCombiner) {
+			this.toastMessageCombiner = toastMessageCombiner;
+			return this;
+		}
+
+		/**
 		 * Set Font Awesome icons settings.
 		 *
 		 * @param fontAwesomeSettings setting for icons
@@ -140,7 +156,7 @@ public class ToastrSettings {
 		 */
 		public void initialize() {
 			ToastrSettings.initialize(application, needAutoAppendToastrBehavior, globalOptions, filter,
-					toastrBehaviorFactory, fontAwesomeSettings);
+					toastrBehaviorFactory, toastMessageCombiner, fontAwesomeSettings);
 		}
 
 	}
@@ -185,7 +201,8 @@ public class ToastrSettings {
 
 		final Application application = Application.get();
 		boolean needAutoAppendToastrBehavior = false;
-		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY, null);
+		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY,
+				ToastMessageCombiner.VOID_COMBINER, null);
 	}
 
 	/**
@@ -197,7 +214,8 @@ public class ToastrSettings {
 	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior) {
-		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY, null);
+		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY,
+				ToastMessageCombiner.VOID_COMBINER, null);
 	}
 
 	/**
@@ -211,7 +229,7 @@ public class ToastrSettings {
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
 			ToastOptions globalOptions) {
 		return initialize(application, needAutoAppendToastrBehavior, globalOptions, null,
-				DEFAULT_TOASTR_BEHAVIOR_FACTORY, null);
+				DEFAULT_TOASTR_BEHAVIOR_FACTORY, ToastMessageCombiner.VOID_COMBINER, null);
 	}
 
 	/**
@@ -222,12 +240,14 @@ public class ToastrSettings {
 	 * @param globalOptions toastr global options
 	 * @param filter the filter to apply
 	 * @param toastrBehaviorFactory the factory of {@link ToastrBehavior}
+	 * @param toastMessageCombiner the combiner that combines messages for each toast level
 	 * @param fontAwesomeSettings Font Awesome icons settings
 	 * @return toastr settings
 	 */
 	public static ToastrSettings initialize(final Application application, boolean needAutoAppendToastrBehavior,
 			ToastOptions globalOptions, IFeedbackMessageFilter filter,
 			Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
+			ToastMessageCombiner toastMessageConbiner,
 			ToastrFontAwesomeSettings fontAwesomeSettings) {
 
 		if (application.getMetaData(META_DATA_KEY) != null) {
@@ -239,7 +259,8 @@ public class ToastrSettings {
 			application.getComponentInstantiationListeners().add(new ToastrBehaviorAutoAppender());
 		}
 
-		ToastrSettings settings = new ToastrSettings(globalOptions, filter, toastrBehaviorFactory, fontAwesomeSettings);
+		ToastrSettings settings = new ToastrSettings(globalOptions, filter, toastrBehaviorFactory, toastMessageConbiner,
+				fontAwesomeSettings);
 
 		application.setMetaData(META_DATA_KEY, settings);
 
@@ -288,12 +309,18 @@ public class ToastrSettings {
 	private final Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory;
 
 	/**
+	 * Message combiner
+	 */
+	private final ToastMessageCombiner toastMessageCombiner;
+
+	/**
 	 * Constractor
 	 */
 	private ToastrSettings() {
 		this.globalOptions = Optional.empty();
 		this.filter = Optional.empty();
 		this.toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
+		this.toastMessageCombiner = ToastMessageCombiner.VOID_COMBINER;
 		this.fontAwesomeSettings = Optional.empty();
 	}
 
@@ -303,14 +330,17 @@ public class ToastrSettings {
 	 * @param globalOptions toastr global options
 	 * @param filter the filter to apply
 	 * @param toastrBehaviorFactory the factory of {@link ToastrBehavior}
+	 * @param toastMessageCombiner the combiner that combines messages for each toast level
 	 * @param fontAwsomeSettings Font Awesome icons settings
 	 */
 	private ToastrSettings(ToastOptions globalOptions, IFeedbackMessageFilter filter,
 			Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
+			ToastMessageCombiner toastMessageCombiner,
 			ToastrFontAwesomeSettings fontAwesomeSettings) {
 		this.globalOptions = Optional.ofNullable(globalOptions);
 		this.filter = Optional.ofNullable(filter);
 		this.toastrBehaviorFactory = Args.notNull(toastrBehaviorFactory, "toastrBehaviorFactory");
+		this.toastMessageCombiner = Args.notNull(toastMessageCombiner, "toastMessageCombiner");
 		this.fontAwesomeSettings = Optional.ofNullable(fontAwesomeSettings);
 	}
 
@@ -365,7 +395,20 @@ public class ToastrSettings {
 	 * @return the {@link ToastrBehavior} factory
 	 */
 	public Supplier<ToastrBehavior> getToastrBehaviorFactory() {
-		return () -> toastrBehaviorFactory.apply(getMessageFilter());
+		return () -> {
+			ToastrBehavior behavior = toastrBehaviorFactory.apply(getMessageFilter());
+			behavior.setMessageCombiner(toastMessageCombiner);
+			return behavior;
+		};
+	}
+
+	/**
+	 * Gets message cobiner.
+	 *
+	 * @return the combiner that combines messages for each toast level
+	 */
+	public ToastMessageCombiner getToastMessageCombiner() {
+		return toastMessageCombiner;
 	}
 
 }

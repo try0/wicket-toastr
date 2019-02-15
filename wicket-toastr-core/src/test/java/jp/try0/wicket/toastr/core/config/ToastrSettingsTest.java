@@ -19,6 +19,7 @@ import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
 import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
+import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
 import jp.try0.wicket.toastr.core.test.ToastrTestPage;
 
@@ -37,6 +38,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 		ToastOptions options = ToastOptions.create();
 		IFeedbackMessageFilter filter = msg -> true;
 		Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> factory = optFilter -> new ToastrBehavior();
+		ToastMessageCombiner combier = new ToastMessageCombiner();
 		ToastrFontAwesomeSettings fontSettings = new ToastrFontAwesomeSettings(
 				new ToastrFontAwesomeIcons("", "", "", ""));
 
@@ -45,6 +47,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 				.setGlobalOptions(options)
 				.setMessageFilter(filter)
 				.setToastrBehaviorFactory(factory)
+				.setToastMessageCombiner(combier)
 				.setFontAwesomeSettings(fontSettings)
 				.initialize();
 
@@ -56,6 +59,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 		assertTrue(settings.getFontAwesomeSettings().isPresent());
 		assertTrue(settings.getGlobalOptions().get() == options);
 		assertTrue(settings.getMessageFilter().get() == filter);
+		assertTrue(settings.getToastMessageCombiner() == combier);
 		assertTrue(settings.getFontAwesomeSettings().get() == fontSettings);
 	}
 
