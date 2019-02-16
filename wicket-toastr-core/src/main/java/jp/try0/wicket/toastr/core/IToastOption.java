@@ -62,7 +62,7 @@ public interface IToastOption extends Serializable {
 		public static final String TOAST_CLASS = "toastClass";
 
 		private OptionKeys() {
-			throw new IllegalStateException("No need create the instance.");
+			throw new IllegalStateException("There is no need create the instance.");
 		}
 	}
 
