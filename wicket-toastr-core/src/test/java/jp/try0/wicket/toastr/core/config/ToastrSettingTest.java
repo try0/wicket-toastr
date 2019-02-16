@@ -2,17 +2,18 @@ package jp.try0.wicket.toastr.core.config;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.apache.wicket.ThreadContext;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
 
+import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOption;
 import jp.try0.wicket.toastr.core.ToastOption.CloseMethod;
 import jp.try0.wicket.toastr.core.ToastOption.Easing;
@@ -20,6 +21,7 @@ import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOption.IconClass;
 import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
+import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
@@ -66,17 +68,6 @@ public class ToastrSettingTest extends AbstractToastrTest {
 	}
 
 	@Test
-	public void initializeSettings2() {
-
-		ToastrSetting settings = ToastrSetting.initialize(getWebApplication(), true);
-
-		ToastrSetting settings2 = ToastrSetting.get();
-
-		assertTrue(settings == settings2);
-
-	}
-
-	@Test
 	public void initializeSimpleSettings() {
 
 		ToastrSetting.createInitializer(getWebApplication()).initialize();
@@ -95,15 +86,6 @@ public class ToastrSettingTest extends AbstractToastrTest {
 		assertThrows(UnsupportedOperationException.class, () -> {
 			ToastrSetting.createInitializer(getWebApplication()).initialize();
 			ToastrSetting.createInitializer(getWebApplication()).initialize();
-		});
-	}
-
-	@Test
-	public void notExistsApplicationOnInitialize() {
-
-		assertThrows(UnsupportedOperationException.class, () -> {
-			ThreadContext.setApplication(null);
-			ToastrSetting.initialize();
 		});
 	}
 
@@ -216,4 +198,36 @@ public class ToastrSettingTest extends AbstractToastrTest {
 
 	}
 
+	@Test
+	public void setGlobalEachLevelOptions() {
+
+		ToastOption info = new ToastOption();
+		ToastOption success = new ToastOption();
+		ToastOption warn = new ToastOption();
+		ToastOption error = new ToastOption();
+
+		ToastOptions options = new ToastOptions(new HashMap<ToastLevel, ToastOption>() {
+			{
+				put(ToastLevel.INFO, info);
+				put(ToastLevel.SUCCESS, success);
+				put(ToastLevel.WARNING, warn);
+				put(ToastLevel.ERROR, error);
+			}
+		});
+
+		ToastrSetting setting = ToastrSetting.createInitializer(getWebApplication())
+				.setAutoAppendBehavior(true)
+				.setGlobalEachLevelOptions(options)
+				.initialize();
+
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.INFO).isPresent());
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.INFO).get() == info);
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.SUCCESS).isPresent());
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.SUCCESS).get() == success);
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.WARNING).isPresent());
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.WARNING).get() == warn);
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.ERROR).isPresent());
+		assertTrue(setting.getGlobalEachLevelOptions().get(ToastLevel.ERROR).get() == error);
+
+	}
 }

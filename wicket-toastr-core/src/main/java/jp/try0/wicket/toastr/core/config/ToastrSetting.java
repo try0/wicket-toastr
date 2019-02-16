@@ -12,6 +12,7 @@ import org.apache.wicket.util.lang.Args;
 
 import jp.try0.wicket.toastr.core.IToastOption;
 import jp.try0.wicket.toastr.core.ToastOption;
+import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 
@@ -47,9 +48,14 @@ public class ToastrSetting {
 		private final Application application;
 
 		/**
-		 * Global options
+		 * Global option
 		 */
 		private ToastOption globalOptions = null;
+
+		/**
+		 * Global options for each toast levels
+		 */
+		private ToastOptions globalEachLevelOptions = new ToastOptions();
 
 		/**
 		 * Message Filter
@@ -93,6 +99,17 @@ public class ToastrSetting {
 		 */
 		public ToastrSettingInitializer setGlobalOptions(ToastOption globalOptions) {
 			this.globalOptions = globalOptions;
+			return this;
+		}
+
+		/**
+		 * Sets toastr global options for each levels.
+		 *
+		 * @param globalOptions global options
+		 * @return this
+		 */
+		public ToastrSettingInitializer setGlobalEachLevelOptions(ToastOptions globalEachLevelOptions) {
+			this.globalEachLevelOptions = globalEachLevelOptions;
 			return this;
 		}
 
@@ -154,9 +171,22 @@ public class ToastrSetting {
 		/**
 		 * Initialize toastr settings.
 		 */
-		public void initialize() {
-			ToastrSetting.initialize(application, needAutoAppendToastrBehavior, globalOptions, filter,
-					toastrBehaviorFactory, toastMessageCombiner, fontAwesomeSettings);
+		public ToastrSetting initialize() {
+
+			if (application.getMetaData(META_DATA_KEY) != null) {
+				throw new UnsupportedOperationException(
+						"The setting has already been initialized. ToastrSettings#initialize can only be called once.");
+			}
+
+			if (needAutoAppendToastrBehavior) {
+				application.getComponentInstantiationListeners().add(new ToastrBehaviorAutoAppender());
+			}
+
+			ToastrSetting settings = new ToastrSetting(this);
+
+			application.setMetaData(META_DATA_KEY, settings);
+
+			return settings;
 		}
 
 	}
@@ -193,7 +223,7 @@ public class ToastrSetting {
 	 *
 	 * @return toastr settings
 	 */
-	public static ToastrSetting initialize() {
+	private static ToastrSetting initialize() {
 
 		if (!Application.exists()) {
 			throw new UnsupportedOperationException("Application is not exisits.");
@@ -201,70 +231,10 @@ public class ToastrSetting {
 
 		final Application application = Application.get();
 		boolean needAutoAppendToastrBehavior = false;
-		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY,
-				ToastMessageCombiner.VOID_COMBINER, null);
-	}
 
-	/**
-	 * Sets up default values.
-	 *
-	 * @param application the current application
-	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
-	 *
-	 * @return toastr settings
-	 */
-	public static ToastrSetting initialize(final Application application, boolean needAutoAppendToastrBehavior) {
-		return initialize(application, needAutoAppendToastrBehavior, null, null, DEFAULT_TOASTR_BEHAVIOR_FACTORY,
-				ToastMessageCombiner.VOID_COMBINER, null);
-	}
-
-	/**
-	 * Set up default values.
-	 *
-	 * @param application the current application
-	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
-	 * @param globalOptions toastr global options
-	 * @return toastr settings
-	 */
-	public static ToastrSetting initialize(final Application application, boolean needAutoAppendToastrBehavior,
-			ToastOption globalOptions) {
-		return initialize(application, needAutoAppendToastrBehavior, globalOptions, null,
-				DEFAULT_TOASTR_BEHAVIOR_FACTORY, ToastMessageCombiner.VOID_COMBINER, null);
-	}
-
-	/**
-	 * Set up default values.
-	 *
-	 * @param application the current application
-	 * @param needAutoAppendToastrBehavior whether or not to append {@link ToastrBehavior} to new page
-	 * @param globalOptions toastr global options
-	 * @param filter the filter to apply
-	 * @param toastrBehaviorFactory the factory of {@link ToastrBehavior}
-	 * @param toastMessageCombiner the combiner that combines messages for each toast level
-	 * @param fontAwesomeSettings Font Awesome icons settings
-	 * @return toastr settings
-	 */
-	public static ToastrSetting initialize(final Application application, boolean needAutoAppendToastrBehavior,
-			ToastOption globalOptions, IFeedbackMessageFilter filter,
-			Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
-			ToastMessageCombiner toastMessageConbiner,
-			ToastrFontAwesomeSetting fontAwesomeSettings) {
-
-		if (application.getMetaData(META_DATA_KEY) != null) {
-			throw new UnsupportedOperationException(
-					"The setting has already been initialized. ToastrSettings#initialize can only be called once.");
-		}
-
-		if (needAutoAppendToastrBehavior) {
-			application.getComponentInstantiationListeners().add(new ToastrBehaviorAutoAppender());
-		}
-
-		ToastrSetting settings = new ToastrSetting(globalOptions, filter, toastrBehaviorFactory, toastMessageConbiner,
-				fontAwesomeSettings);
-
-		application.setMetaData(META_DATA_KEY, settings);
-
-		return settings;
+		return ToastrSetting.createInitializer(application)
+				.setAutoAppendBehavior(needAutoAppendToastrBehavior)
+				.initialize();
 	}
 
 	/**
@@ -294,6 +264,11 @@ public class ToastrSetting {
 	private final Optional<IToastOption> globalOptions;
 
 	/**
+	 * Global options for each toast levels
+	 */
+	private final ToastOptions globalEachLevelOptions;
+
+	/**
 	 * Message Filter
 	 */
 	private final Optional<IFeedbackMessageFilter> filter;
@@ -318,6 +293,7 @@ public class ToastrSetting {
 	 */
 	private ToastrSetting() {
 		this.globalOptions = Optional.empty();
+		this.globalEachLevelOptions = new ToastOptions();
 		this.filter = Optional.empty();
 		this.toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
 		this.toastMessageCombiner = ToastMessageCombiner.VOID_COMBINER;
@@ -326,22 +302,15 @@ public class ToastrSetting {
 
 	/**
 	 * Constractor
-	 *
-	 * @param globalOptions toastr global options
-	 * @param filter the filter to apply
-	 * @param toastrBehaviorFactory the factory of {@link ToastrBehavior}
-	 * @param toastMessageCombiner the combiner that combines messages for each toast level
-	 * @param fontAwsomeSettings Font Awesome icons settings
+	 * @param initializer the initializer for set default values
 	 */
-	private ToastrSetting(ToastOption globalOptions, IFeedbackMessageFilter filter,
-			Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory,
-			ToastMessageCombiner toastMessageCombiner,
-			ToastrFontAwesomeSetting fontAwesomeSettings) {
-		this.globalOptions = Optional.ofNullable(globalOptions);
-		this.filter = Optional.ofNullable(filter);
-		this.toastrBehaviorFactory = Args.notNull(toastrBehaviorFactory, "toastrBehaviorFactory");
-		this.toastMessageCombiner = Args.notNull(toastMessageCombiner, "toastMessageCombiner");
-		this.fontAwesomeSettings = Optional.ofNullable(fontAwesomeSettings);
+	private ToastrSetting(ToastrSettingInitializer initializer) {
+		this.globalOptions = Optional.ofNullable(initializer.globalOptions);
+		this.globalEachLevelOptions = Args.notNull(initializer.globalEachLevelOptions, "globalEachLevelOptions");
+		this.filter = Optional.ofNullable(initializer.filter);
+		this.toastrBehaviorFactory = Args.notNull(initializer.toastrBehaviorFactory, "toastrBehaviorFactory");
+		this.toastMessageCombiner = Args.notNull(initializer.toastMessageCombiner, "toastMessageCombiner");
+		this.fontAwesomeSettings = Optional.ofNullable(initializer.fontAwesomeSettings);
 	}
 
 	/**
@@ -351,6 +320,15 @@ public class ToastrSetting {
 	 */
 	public Optional<IToastOption> getGlobalOptions() {
 		return globalOptions;
+	}
+
+	/**
+	 * Gets default toastr options for each levels.
+	 *
+	 * @return toastr options
+	 */
+	public ToastOptions getGlobalEachLevelOptions() {
+		return globalEachLevelOptions;
 	}
 
 	/**

@@ -29,6 +29,7 @@ import jp.try0.wicket.toastr.core.IToastOption;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOption;
+import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.config.ToastrSetting;
 
 /**
@@ -483,8 +484,24 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		} else {
 			// create new one
 			ToastLevel level = ToastLevel.fromFeedbackMessageLevel(feedbackMessage.getLevel());
-			return Toast.create(level, feedbackMessage.getMessage().toString());
+			Toast toast = Toast.create(level, feedbackMessage.getMessage().toString());
+
+			return applyDefaultOption(toast);
 		}
+	}
+
+	/**
+	 * Applies default option to toast.
+	 *
+	 * @param toast the toast
+	 * @return toast
+	 */
+	private Toast applyDefaultOption(Toast toast) {
+		ToastOptions defaultOptions = ToastrSetting.get().getGlobalEachLevelOptions();
+		defaultOptions.get(toast.getToastLevel()).ifPresent(option -> {
+			toast.withToastOptions(option);
+		});
+		return toast;
 	}
 
 	/**

@@ -22,6 +22,7 @@ import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOption.IconClass;
 import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
+import jp.try0.wicket.toastr.core.ToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.config.ToastrSetting;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
@@ -281,5 +282,64 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 
 		final String lastResponseString = tester.getLastResponseAsString();
 		assertTrue(lastResponseString.contains("toastr.success(\"toastOptions\", \"\", " + options.toJsonString()));
+	}
+
+	@Test
+	public void outputDefaultOptionForEachLevels() {
+		ToastOption option = ToastOption.create()
+				.setCloseClass("closeClass-base")
+				.setCloseDureation(0)
+				.setCloseEasing(Easing.LINEAR)
+				.setCloseHtml("closeHtml-base")
+				.setCloseMethod(CloseMethod.FADE_OUT)
+				.setContainerId("base")
+				.setExtendedTimeOut(0)
+				.setHideDuration(0)
+				.setHideEasing(Easing.LINEAR)
+				.setHideMethod(HideMethod.FADE_OUT)
+				.setIconClass(IconClass.ERROR)
+				.setIsCloseOnHover(false)
+				.setIsDebug(false)
+				.setIsEnableCloseButton(false)
+				.setIsEnableProgressBar(false)
+				.setIsNewestOnTop(false)
+				.setIsRightToLeft(false)
+				.setIsTapToDismiss(false)
+				.setMessageClass("messageClass-base")
+				.setNeedEscapeHtml(false)
+				.setNeedPreventDuplicates(false)
+				.setOnClickFunction("onClickFunction-base")
+				.setOnCloseClickFunction("onCloseClickFunction-base")
+				.setOnHiddenFunction("onHiddenFunction-base")
+				.setOnShownFunction("onShownFunction-base")
+				.setPositionClass(PositionClass.BOTTOM_CENTER)
+				.setProgressClass("progressClass-base")
+				.setShowDuration(0)
+				.setShowEasing(Easing.LINEAR)
+				.setShowMethod(ShowMethod.FADE_IN)
+				.setTarget("target-base")
+				.setTimeOut(0)
+				.setTitleClass("titleClass-base")
+				.setToastClass("toastClass-base");
+
+		ToastrSetting.createInitializer(getWebApplication())
+				.setAutoAppendBehavior(true)
+				.setGlobalEachLevelOptions(ToastOptions.builder().setSuccessOption(option).get())
+				.initialize();
+
+		final WicketTester tester = getWicketTester();
+		ToastrTestPage page = new ToastrTestPage() {
+			{
+				add(new ToastrBehavior());
+			}
+		};
+		page.success("");
+		page.info("");
+
+		tester.startPage(page);
+
+		final String lastResponseString = tester.getLastResponseAsString();
+		assertTrue(lastResponseString.contains("toastr.success(\"\", \"\", " + option.toJsonString()));
+		assertTrue(lastResponseString.contains("toastr.info(\"\", \"\");"));
 	}
 }
