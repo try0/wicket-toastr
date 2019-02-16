@@ -11,7 +11,7 @@ import jp.try0.wicket.toastr.core.resource.css.TweakFontAwesomeIconCssResourceRe
  * @author Ryo Tsunoda
  *
  */
-public class ToastrFontAwesomeSettings {
+public class ToastrFontAwesomeSetting {
 
 	private static final String FONT_AWESOME_5_FREE = "<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.3.1/css/all.css\" integrity=\"sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU\" crossorigin=\"anonymous\">";
 
@@ -34,7 +34,7 @@ public class ToastrFontAwesomeSettings {
 	 *
 	 * @param icons Font Awesome icon
 	 */
-	public ToastrFontAwesomeSettings(ToastrFontAwesomeIcons icons) {
+	public ToastrFontAwesomeSetting(ToastrFontAwesomeIcons icons) {
 		this(icons, FONT_AWESOME_5_FREE, TweakFontAwesomeIconCssResourceReference.INSTANCE);
 	}
 
@@ -45,7 +45,7 @@ public class ToastrFontAwesomeSettings {
 	 * @param linkTag Font Awesome css link tag
 	 * @param tweakCssReference Tweak icon style resource reference
 	 */
-	public ToastrFontAwesomeSettings(ToastrFontAwesomeIcons icons, String linkTag,
+	public ToastrFontAwesomeSetting(ToastrFontAwesomeIcons icons, String linkTag,
 			ResourceReference tweakCssReference) {
 		this.icons = Args.notNull(icons, "icons");
 		this.linkTag = Args.notNull(linkTag, "linkTag");

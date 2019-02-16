@@ -357,7 +357,7 @@ public class Toast implements IToast {
 	/**
 	 * Options for override global options
 	 */
-	private ToastOptions options;
+	private ToastOption options;
 
 	/**
 	 * Constractor
@@ -388,7 +388,7 @@ public class Toast implements IToast {
 	 * @param title the string displayed on toast
 	 * @param options options for override global options
 	 */
-	public Toast(ToastLevel level, String message, String title, ToastOptions options) {
+	public Toast(ToastLevel level, String message, String title, ToastOption options) {
 		if (!level.isSupported()) {
 			throw new IllegalArgumentException("This level is unsupported.");
 		}
@@ -441,7 +441,7 @@ public class Toast implements IToast {
 	 * @param options the options to override global options
 	 * @return this
 	 */
-	public Toast withToastOptions(ToastOptions options) {
+	public Toast withToastOptions(ToastOption options) {
 		this.options = options;
 		return this;
 	}
@@ -450,10 +450,10 @@ public class Toast implements IToast {
 	 * Sets override options if the condition is true.
 	 *
 	 * @param canSet the condition that the options can be set
-	 * @param optionsFactory factory of {@link ToastOptions}
+	 * @param optionsFactory factory of {@link ToastOption}
 	 * @return this
 	 */
-	public Toast withToastOptions(boolean canSet, SerializableSupplier<ToastOptions> optionsFactory) {
+	public Toast withToastOptions(boolean canSet, SerializableSupplier<ToastOption> optionsFactory) {
 		if (canSet) {
 			this.options = optionsFactory.get();
 		}
@@ -466,7 +466,7 @@ public class Toast implements IToast {
 	 * @return an {@code Optional} with a toast options
 	 */
 	@Override
-	public Optional<ToastOptions> getToastOptions() {
+	public Optional<ToastOption> getToastOptions() {
 		return Optional.ofNullable(options);
 	}
 

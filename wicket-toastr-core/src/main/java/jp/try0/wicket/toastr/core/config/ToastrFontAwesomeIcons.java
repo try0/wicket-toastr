@@ -3,10 +3,10 @@ package jp.try0.wicket.toastr.core.config;
 import java.io.Serializable;
 import java.util.Optional;
 
-import jp.try0.wicket.toastr.core.IToastOptions;
+import jp.try0.wicket.toastr.core.IToastOption;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
-import jp.try0.wicket.toastr.core.ToastOptions;
-import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
+import jp.try0.wicket.toastr.core.ToastOption;
+import jp.try0.wicket.toastr.core.ToastOption.IconClass;
 
 /**
  * Font Awsome icon unicodes.<br>
@@ -76,18 +76,18 @@ public class ToastrFontAwesomeIcons implements Serializable {
 	 */
 	public String getStyleForAdaptIconContent() {
 
-		Optional<IToastOptions> globalOptions = ToastrSettings.get().getGlobalOptions();
+		Optional<IToastOption> globalOptions = ToastrSetting.get().getGlobalOptions();
 		final String containerId;
 		if (globalOptions.isPresent()) {
 			String tmpContainerId = globalOptions.get().getContainerId();
 			if (tmpContainerId == null || tmpContainerId.isEmpty()) {
-				containerId = ToastOptions.DEFAULT_CONTAINER_ID;
+				containerId = ToastOption.DEFAULT_CONTAINER_ID;
 			} else {
 				containerId = tmpContainerId;
 			}
 
 		} else {
-			containerId = ToastOptions.DEFAULT_CONTAINER_ID;
+			containerId = ToastOption.DEFAULT_CONTAINER_ID;
 		}
 
 		final StringBuilder sb = new StringBuilder();

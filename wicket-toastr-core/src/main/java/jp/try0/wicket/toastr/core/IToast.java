@@ -41,7 +41,7 @@ public interface IToast extends Serializable {
 	 *
 	 * @return toast options
 	 */
-	public default Optional<ToastOptions> getToastOptions() {
+	public default Optional<ToastOption> getToastOptions() {
 		return Optional.empty();
 	}
 

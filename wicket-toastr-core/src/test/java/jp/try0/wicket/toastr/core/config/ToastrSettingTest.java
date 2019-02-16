@@ -13,38 +13,38 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
 
-import jp.try0.wicket.toastr.core.ToastOptions;
-import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.Easing;
-import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
-import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
-import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
+import jp.try0.wicket.toastr.core.ToastOption;
+import jp.try0.wicket.toastr.core.ToastOption.CloseMethod;
+import jp.try0.wicket.toastr.core.ToastOption.Easing;
+import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
+import jp.try0.wicket.toastr.core.ToastOption.IconClass;
+import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
+import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
 import jp.try0.wicket.toastr.core.test.ToastrTestPage;
 
 /**
- * {@link ToastrSettings} tests.
+ * {@link ToastrSetting} tests.
  *
  * @author Ryo Tsunoda
  *
  */
-public class ToastrSettingsTest extends AbstractToastrTest {
+public class ToastrSettingTest extends AbstractToastrTest {
 
 	@Test
 	public void initializeSettings() {
 
 		boolean autoAppend = true;
-		ToastOptions options = ToastOptions.create();
+		ToastOption options = ToastOption.create();
 		IFeedbackMessageFilter filter = msg -> true;
 		Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> factory = optFilter -> new ToastrBehavior();
 		ToastMessageCombiner combier = new ToastMessageCombiner();
-		ToastrFontAwesomeSettings fontSettings = new ToastrFontAwesomeSettings(
+		ToastrFontAwesomeSetting fontSettings = new ToastrFontAwesomeSetting(
 				new ToastrFontAwesomeIcons("", "", "", ""));
 
-		ToastrSettings.createInitializer(getWebApplication())
+		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(autoAppend)
 				.setGlobalOptions(options)
 				.setMessageFilter(filter)
@@ -53,7 +53,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 				.setFontAwesomeSettings(fontSettings)
 				.initialize();
 
-		ToastrSettings settings = ToastrSettings.get();
+		ToastrSetting settings = ToastrSetting.get();
 
 		assertEquals(settings.hasGlobalOptions(), true);
 		assertTrue(settings.getGlobalOptions().isPresent());
@@ -68,9 +68,9 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	@Test
 	public void initializeSettings2() {
 
-		ToastrSettings settings = ToastrSettings.initialize(getWebApplication(), true);
+		ToastrSetting settings = ToastrSetting.initialize(getWebApplication(), true);
 
-		ToastrSettings settings2 = ToastrSettings.get();
+		ToastrSetting settings2 = ToastrSetting.get();
 
 		assertTrue(settings == settings2);
 
@@ -79,9 +79,9 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	@Test
 	public void initializeSimpleSettings() {
 
-		ToastrSettings.createInitializer(getWebApplication()).initialize();
+		ToastrSetting.createInitializer(getWebApplication()).initialize();
 
-		ToastrSettings settings = ToastrSettings.get();
+		ToastrSetting settings = ToastrSetting.get();
 
 		assertEquals(settings.hasGlobalOptions(), false);
 		assertFalse(settings.getGlobalOptions().isPresent());
@@ -93,8 +93,8 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	@Test
 	public void initializeSettingsTwice() {
 		assertThrows(UnsupportedOperationException.class, () -> {
-			ToastrSettings.createInitializer(getWebApplication()).initialize();
-			ToastrSettings.createInitializer(getWebApplication()).initialize();
+			ToastrSetting.createInitializer(getWebApplication()).initialize();
+			ToastrSetting.createInitializer(getWebApplication()).initialize();
 		});
 	}
 
@@ -103,14 +103,14 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 
 		assertThrows(UnsupportedOperationException.class, () -> {
 			ThreadContext.setApplication(null);
-			ToastrSettings.initialize();
+			ToastrSetting.initialize();
 		});
 	}
 
 	@Test
 	public void autoAppendBehavior() {
 
-		ToastrSettings.createInitializer(getWebApplication())
+		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.initialize();
 
@@ -125,7 +125,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	public void customBehaviorFactory() {
 
 		final IModel<ToastrBehavior> behavior = Model.of();
-		ToastrSettings.createInitializer(getWebApplication())
+		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.setToastrBehaviorFactory(filter -> {
 					behavior.setObject(new ToastrBehavior());
@@ -144,14 +144,14 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 	@Test
 	public void useFontAwesomeIcons() {
 
-		ToastrFontAwesomeSettings fontAwesomeSettings = new ToastrFontAwesomeSettings(
+		ToastrFontAwesomeSetting fontAwesomeSettings = new ToastrFontAwesomeSetting(
 				new ToastrFontAwesomeIcons(
 						"\\f058", // fa-check-circle
 						"\\f05a", // fa-info-circle
 						"\\f071", // fa-exclamation-triangle
 						"\\f057" // fa-times-circle
 				));
-		ToastrSettings.createInitializer(getWebApplication())
+		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.setFontAwesomeSettings(fontAwesomeSettings)
 				.initialize();
@@ -168,7 +168,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 
 	@Test
 	public void setGlobalOptions() {
-		ToastOptions globalOptions = ToastOptions.create()
+		ToastOption globalOptions = ToastOption.create()
 				.setCloseClass("closeClass-global")
 				.setCloseDureation(0)
 				.setCloseEasing(Easing.LINEAR)
@@ -203,7 +203,7 @@ public class ToastrSettingsTest extends AbstractToastrTest {
 				.setTimeOut(0)
 				.setTitleClass("titleClass-global")
 				.setToastClass("toastClass-global");
-		ToastrSettings.createInitializer(getWebApplication())
+		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.setGlobalOptions(globalOptions)
 				.initialize();

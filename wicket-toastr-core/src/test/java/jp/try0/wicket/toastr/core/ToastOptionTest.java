@@ -4,25 +4,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jp.try0.wicket.toastr.core.IToastOptions.OptionKeys;
-import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.Easing;
-import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
-import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
-import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
+import jp.try0.wicket.toastr.core.IToastOption.OptionKeys;
+import jp.try0.wicket.toastr.core.ToastOption.CloseMethod;
+import jp.try0.wicket.toastr.core.ToastOption.Easing;
+import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
+import jp.try0.wicket.toastr.core.ToastOption.IconClass;
+import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
+import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
 
 /**
- * {@link ToastOptions} tests.
+ * {@link ToastOption} tests.
  *
  * @author Ryo Tsunoda
  *
  */
-public class ToastOptionsTest {
+public class ToastOptionTest {
 
 	@Test
 	public void squeezeWithDoubleQuotes() {
-		ToastOptions options = ToastOptions.create();
+		ToastOption options = ToastOption.create();
 		options.setCloseClass("closeClass");
 		options.setPositionClass(PositionClass.BOTTOM_CENTER);
 
@@ -36,7 +36,7 @@ public class ToastOptionsTest {
 
 	@Test
 	public void unsqueezeWithDoubleQuotes() {
-		ToastOptions options = ToastOptions.create();
+		ToastOption options = ToastOption.create();
 		final String onCloseClick = "function(){alert('test');}";
 		options.setOnCloseClickFunction(onCloseClick);
 
@@ -46,20 +46,20 @@ public class ToastOptionsTest {
 	}
 
 	/**
-	 * {@link ToastOptions#overwrite(IToastOptions)}
+	 * {@link ToastOption#overwrite(IToastOption)}
 	 */
 	@Test
 	public void createOverwriteOptions() {
 
 		{
-			ToastOptions base = ToastOptions.create();
+			ToastOption base = ToastOption.create();
 
-			ToastOptions overwrite = ToastOptions.create();
+			ToastOption overwrite = ToastOption.create();
 			overwrite.setContainerId("overwriteId");
 			overwrite.setCloseDureation(1000);
 			overwrite.setCloseMethod(CloseMethod.FADE_OUT);
 
-			ToastOptions overwritten = base.overwrite(overwrite);
+			ToastOption overwritten = base.overwrite(overwrite);
 
 			assertEquals(overwritten.getContainerId(), "overwriteId");
 			assertTrue(overwritten.getCloseDureation() == 1000);
@@ -67,16 +67,16 @@ public class ToastOptionsTest {
 		}
 
 		{
-			ToastOptions base = ToastOptions.create();
+			ToastOption base = ToastOption.create();
 			base.setContainerId("baseId");
 			base.setCloseDureation(10);
 
-			ToastOptions overwrite = ToastOptions.create();
+			ToastOption overwrite = ToastOption.create();
 			overwrite.setContainerId("overwriteId");
 			overwrite.setCloseDureation(1000);
 			overwrite.setCloseMethod(CloseMethod.FADE_OUT);
 
-			ToastOptions overwritten = base.overwrite(overwrite);
+			ToastOption overwritten = base.overwrite(overwrite);
 
 			assertEquals(overwritten.getContainerId(), "overwriteId");
 			assertTrue(overwritten.getCloseDureation() == 1000);
@@ -84,14 +84,14 @@ public class ToastOptionsTest {
 		}
 
 		{
-			ToastOptions base = ToastOptions.create();
+			ToastOption base = ToastOption.create();
 			base.setContainerId("baseId");
 			base.setCloseDureation(10);
 
-			ToastOptions overwrite = ToastOptions.create();
+			ToastOption overwrite = ToastOption.create();
 			overwrite.setCloseMethod(CloseMethod.FADE_OUT);
 
-			ToastOptions overwritten = base.overwrite(overwrite);
+			ToastOption overwritten = base.overwrite(overwrite);
 
 			assertEquals(overwritten.getContainerId(), "baseId");
 			assertTrue(overwritten.getCloseDureation() == 10);
@@ -101,12 +101,12 @@ public class ToastOptionsTest {
 	}
 
 	/**
-	 * {@link ToastOptions#overwrite(IToastOptions)}
+	 * {@link ToastOption#overwrite(IToastOption)}
 	 */
 	@Test
 	public void overwriteAllOptions() {
 
-		ToastOptions baseOptions = ToastOptions.create()
+		ToastOption baseOptions = ToastOption.create()
 				.setCloseClass("closeClass-base")
 				.setCloseDureation(0)
 				.setCloseEasing(Easing.LINEAR)
@@ -143,7 +143,7 @@ public class ToastOptionsTest {
 				.setToastClass("toastClass-base");
 
 		{
-			ToastOptions overwriteOptions = ToastOptions.create()
+			ToastOption overwriteOptions = ToastOption.create()
 					.setCloseClass("closeClass-new")
 					.setCloseDureation(1)
 					.setCloseEasing(Easing.SWING)
@@ -179,7 +179,7 @@ public class ToastOptionsTest {
 					.setTitleClass("titleClass-new")
 					.setToastClass("toastClass-new");
 
-			ToastOptions newOptions = baseOptions.overwrite(overwriteOptions);
+			ToastOption newOptions = baseOptions.overwrite(overwriteOptions);
 
 			assertEquals(newOptions.getCloseClass(), overwriteOptions.getCloseClass());
 			assertEquals(newOptions.getCloseDureation(), overwriteOptions.getCloseDureation());
@@ -219,9 +219,9 @@ public class ToastOptionsTest {
 		}
 
 		{
-			ToastOptions overwriteNullOptions = ToastOptions.create();
+			ToastOption overwriteNullOptions = ToastOption.create();
 
-			ToastOptions newOptions = baseOptions.overwrite(overwriteNullOptions);
+			ToastOption newOptions = baseOptions.overwrite(overwriteNullOptions);
 
 			assertEquals(newOptions.getCloseClass(), baseOptions.getCloseClass());
 			assertEquals(newOptions.getCloseDureation(), baseOptions.getCloseDureation());

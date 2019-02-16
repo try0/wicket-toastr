@@ -15,15 +15,15 @@ import org.junit.jupiter.params.provider.EnumSource.Mode;
 
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
-import jp.try0.wicket.toastr.core.ToastOptions;
-import jp.try0.wicket.toastr.core.ToastOptions.CloseMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.Easing;
-import jp.try0.wicket.toastr.core.ToastOptions.HideMethod;
-import jp.try0.wicket.toastr.core.ToastOptions.IconClass;
-import jp.try0.wicket.toastr.core.ToastOptions.PositionClass;
-import jp.try0.wicket.toastr.core.ToastOptions.ShowMethod;
+import jp.try0.wicket.toastr.core.ToastOption;
+import jp.try0.wicket.toastr.core.ToastOption.CloseMethod;
+import jp.try0.wicket.toastr.core.ToastOption.Easing;
+import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
+import jp.try0.wicket.toastr.core.ToastOption.IconClass;
+import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
+import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
-import jp.try0.wicket.toastr.core.config.ToastrSettings;
+import jp.try0.wicket.toastr.core.config.ToastrSetting;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
 import jp.try0.wicket.toastr.core.test.ToastrTestPage;
 
@@ -205,11 +205,11 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 			}
 		};
 
-		final ToastOptions opt1 = ToastOptions.create().setCloseClass("cls");
+		final ToastOption opt1 = ToastOption.create().setCloseClass("cls");
 		Toast.success("msg1")
 				.withToastOptions(opt1)
 				.show(page);
-		final ToastOptions opt2 = ToastOptions.create().setCloseDureation(1000);
+		final ToastOption opt2 = ToastOption.create().setCloseDureation(1000);
 		Toast.success("msg2")
 				.withToastOptions(opt2)
 				.show(page);
@@ -227,7 +227,7 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 	@Test
 	public void outputToastOptions() {
 
-		ToastrSettings.createInitializer(getWebApplication())
+		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
 				.initialize();
 
@@ -237,7 +237,7 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 				add(new ToastrBehavior());
 			}
 		};
-		ToastOptions options = ToastOptions.create()
+		ToastOption options = ToastOption.create()
 				.setCloseClass("closeClass-base")
 				.setCloseDureation(0)
 				.setCloseEasing(Easing.LINEAR)

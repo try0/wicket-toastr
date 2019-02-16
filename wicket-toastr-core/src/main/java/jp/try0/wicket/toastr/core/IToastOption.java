@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Ryo Tsunoda
  *
  */
-public interface IToastOptions extends Serializable {
+public interface IToastOption extends Serializable {
 
 	public static final String DEFAULT_TOAST_CLASS = "toast";
 	public static final String DEFAULT_CONTAINER_ID = "toast-container";
@@ -363,6 +363,6 @@ public interface IToastOptions extends Serializable {
 	 * @param options overwrite options
 	 * @return overwritten options
 	 */
-	public IToastOptions overwrite(IToastOptions options);
+	public IToastOption overwrite(IToastOption options);
 
 }

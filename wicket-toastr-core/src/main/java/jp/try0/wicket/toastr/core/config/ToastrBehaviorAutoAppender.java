@@ -22,7 +22,7 @@ public class ToastrBehaviorAutoAppender implements IComponentInstantiationListen
 	@Override
 	public void onInstantiation(Component component) {
 		if (component instanceof Page) {
-			Supplier<ToastrBehavior> factory = ToastrSettings.get().getToastrBehaviorFactory();
+			Supplier<ToastrBehavior> factory = ToastrSetting.get().getToastrBehaviorFactory();
 			ToastrBehavior behavior = factory.get();
 			component.add(behavior);
 		}

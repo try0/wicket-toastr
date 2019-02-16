@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
  * @author Ryo Tsunoda
  *
  */
-public class ToastOptions implements IToastOptions {
+public class ToastOption implements IToastOption {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -24,7 +24,7 @@ public class ToastOptions implements IToastOptions {
 	 */
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
-	private static @interface ToastOption {
+	private static @interface ToastOptionValue {
 
 		/**
 		 * Option key name.
@@ -326,107 +326,107 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * Create new one.
 	 *
-	 * @return new {@link ToastOptions}
+	 * @return new {@link ToastOption}
 	 */
-	public static ToastOptions create() {
-		return new ToastOptions();
+	public static ToastOption create() {
+		return new ToastOption();
 	}
 
 	/**
 	 * Constractor
 	 */
-	public ToastOptions() {
+	public ToastOption() {
 
 	}
 
 	/**
 	 * closeButton
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_BUTTON, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.CLOSE_BUTTON, squeezeWithDoubleQuotes = false)
 	private Boolean isEnableCloseButton = null;
 
 	/**
 	 * closeClass
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_CLASS)
+	@ToastOptionValue(value = OptionKeys.CLOSE_CLASS)
 	private String closeClass = null;
 
 	/**
 	 * closeDuration
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_DURATION, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.CLOSE_DURATION, squeezeWithDoubleQuotes = false)
 	private Integer closeDureation = null;
 
 	/**
 	 * closeEasing
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_EASING)
+	@ToastOptionValue(value = OptionKeys.CLOSE_EASING)
 	private IEasing closeEasing = null;
 
 	/**
 	 * closeHtml
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_HTML)
+	@ToastOptionValue(value = OptionKeys.CLOSE_HTML)
 	private String closeHtml = null;
 
 	/**
 	 * closeMethod
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_METHOD)
+	@ToastOptionValue(value = OptionKeys.CLOSE_METHOD)
 	private IDisappearAnimationMethod closeMethod = null;
 
 	/**
 	 * closeOnHover
 	 */
-	@ToastOption(value = OptionKeys.CLOSE_ON_HOVER, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.CLOSE_ON_HOVER, squeezeWithDoubleQuotes = false)
 	private Boolean isCloseOnHover = null;
 
 	/**
 	 * containerId
 	 */
-	@ToastOption(value = OptionKeys.CONTAINER_ID)
+	@ToastOptionValue(value = OptionKeys.CONTAINER_ID)
 	private String containerId = null;
 
 	/**
 	 * debug
 	 */
-	@ToastOption(value = OptionKeys.DEBUG, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.DEBUG, squeezeWithDoubleQuotes = false)
 	private Boolean isDebug = null;
 
 	/**
 	 * escapeHtml
 	 */
-	@ToastOption(value = OptionKeys.ESCAPE_HTML, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.ESCAPE_HTML, squeezeWithDoubleQuotes = false)
 	private Boolean needEscapeHtml = null;
 
 	/**
 	 * extendedTimeOut
 	 */
-	@ToastOption(value = OptionKeys.EXTENDED_TIME_OUT)
+	@ToastOptionValue(value = OptionKeys.EXTENDED_TIME_OUT)
 	private Integer extendedTimeOut = null;
 
 	/**
 	 * hideDuration
 	 */
-	@ToastOption(value = OptionKeys.HIDE_DURATION, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.HIDE_DURATION, squeezeWithDoubleQuotes = false)
 	private Integer hideDuration = null;
 
 	/**
 	 * hideEasing
 	 */
-	@ToastOption(value = OptionKeys.HIDE_EASING)
+	@ToastOptionValue(value = OptionKeys.HIDE_EASING)
 	private IEasing hideEasing = null;
 
 	/**
 	 * hideMethod
 	 */
-	@ToastOption(value = OptionKeys.HIDE_METHOD)
+	@ToastOptionValue(value = OptionKeys.HIDE_METHOD)
 	private IDisappearAnimationMethod hideMethod = null;
 
 	/**
 	 * iconClass
 	 */
-	@ToastOption(value = OptionKeys.ICON_CLASS)
+	@ToastOptionValue(value = OptionKeys.ICON_CLASS)
 	private IIconClass iconClass = null;
 
 	// /**
@@ -438,115 +438,115 @@ public class ToastOptions implements IToastOptions {
 	/**
 	 * messageClass
 	 */
-	@ToastOption(value = OptionKeys.MESSAGE_CLASS)
+	@ToastOptionValue(value = OptionKeys.MESSAGE_CLASS)
 	private String messageClass = null;
 
 	/**
 	 * newestOnTop
 	 */
-	@ToastOption(value = OptionKeys.NEWEST_ON_TOP, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.NEWEST_ON_TOP, squeezeWithDoubleQuotes = false)
 	private Boolean isNewestOnTop = null;
 
 	/**
 	 * onclick
 	 */
-	@ToastOption(value = OptionKeys.ONCLICK, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.ONCLICK, squeezeWithDoubleQuotes = false)
 	private String onClickFunction = null;
 
 	/**
 	 * onCloseClick
 	 */
-	@ToastOption(value = OptionKeys.ON_CLOSE_CLICK, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.ON_CLOSE_CLICK, squeezeWithDoubleQuotes = false)
 	private String onCloseClickFunction = null;
 
 	/**
 	 * onHidden
 	 */
-	@ToastOption(value = OptionKeys.ON_HIDDEN, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.ON_HIDDEN, squeezeWithDoubleQuotes = false)
 	private String onHiddenFunction = null;
 
 	/**
 	 * onShown
 	 */
-	@ToastOption(value = OptionKeys.ON_SHOWN, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.ON_SHOWN, squeezeWithDoubleQuotes = false)
 	private String onShownFunction = null;
 
 	/**
 	 * positionClass
 	 */
-	@ToastOption(value = OptionKeys.POSITION_CLASS)
+	@ToastOptionValue(value = OptionKeys.POSITION_CLASS)
 	private IPositionClass positionClass = null;
 
 	/**
 	 * preventDuplicates
 	 */
-	@ToastOption(value = OptionKeys.PREVENT_DUPLICATES, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.PREVENT_DUPLICATES, squeezeWithDoubleQuotes = false)
 	private Boolean needPreventDuplicates = null;
 
 	/**
 	 * progressBar
 	 */
-	@ToastOption(value = OptionKeys.PROGRESS_BAR, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.PROGRESS_BAR, squeezeWithDoubleQuotes = false)
 	private Boolean isEnableProgressBar = null;
 
 	/**
 	 * progressClass
 	 */
-	@ToastOption(value = OptionKeys.PROGRESS_CLASS)
+	@ToastOptionValue(value = OptionKeys.PROGRESS_CLASS)
 	private String progressClass = null;
 
 	/**
 	 * rtl
 	 */
-	@ToastOption(value = OptionKeys.RTL, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.RTL, squeezeWithDoubleQuotes = false)
 	private Boolean isRightToLeft = null;
 
 	/**
 	 * showDuration
 	 */
-	@ToastOption(value = OptionKeys.SHOW_DURATION, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.SHOW_DURATION, squeezeWithDoubleQuotes = false)
 	private Integer showDuration = null;
 
 	/**
 	 * showEasing
 	 */
-	@ToastOption(value = OptionKeys.SHOW_EASING)
+	@ToastOptionValue(value = OptionKeys.SHOW_EASING)
 	private IEasing showEasing = null;
 
 	/**
 	 * showMethod
 	 */
-	@ToastOption(value = OptionKeys.SHOW_METHOD)
+	@ToastOptionValue(value = OptionKeys.SHOW_METHOD)
 	private IAppearAnimationMethod showMethod = null;
 
 	/**
 	 * tapToDismiss
 	 */
-	@ToastOption(value = OptionKeys.TAP_TO_DISMISS, squeezeWithDoubleQuotes = false)
+	@ToastOptionValue(value = OptionKeys.TAP_TO_DISMISS, squeezeWithDoubleQuotes = false)
 	private Boolean isTapToDismiss = null;
 
 	/**
 	 * target
 	 */
-	@ToastOption(value = OptionKeys.TARGET)
+	@ToastOptionValue(value = OptionKeys.TARGET)
 	private String target = null;
 
 	/**
 	 * timeOut
 	 */
-	@ToastOption(value = OptionKeys.TIME_OUT)
+	@ToastOptionValue(value = OptionKeys.TIME_OUT)
 	private Integer timeOut = null;
 
 	/**
 	 * titleClass
 	 */
-	@ToastOption(value = OptionKeys.TITLE_CLASS)
+	@ToastOptionValue(value = OptionKeys.TITLE_CLASS)
 	private String titleClass = null;
 
 	/**
 	 * toastClass
 	 */
-	@ToastOption(value = OptionKeys.TOAST_CLASS)
+	@ToastOptionValue(value = OptionKeys.TOAST_CLASS)
 	private String toastClass = null;
 
 	/**
@@ -563,7 +563,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isEnableCloseButton option value
 	 * @return this
 	 */
-	public ToastOptions setIsEnableCloseButton(Boolean isEnableCloseButton) {
+	public ToastOption setIsEnableCloseButton(Boolean isEnableCloseButton) {
 		this.isEnableCloseButton = isEnableCloseButton;
 		return this;
 	}
@@ -582,7 +582,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param closeClass option value
 	 * @return this
 	 */
-	public ToastOptions setCloseClass(String closeClass) {
+	public ToastOption setCloseClass(String closeClass) {
 		this.closeClass = closeClass;
 		return this;
 	}
@@ -601,7 +601,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param closeDureation option value
 	 * @return this
 	 */
-	public ToastOptions setCloseDureation(Integer closeDureation) {
+	public ToastOption setCloseDureation(Integer closeDureation) {
 		this.closeDureation = closeDureation;
 		return this;
 	}
@@ -620,7 +620,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param closeEasing option value
 	 * @return this
 	 */
-	public ToastOptions setCloseEasing(IEasing closeEasing) {
+	public ToastOption setCloseEasing(IEasing closeEasing) {
 		this.closeEasing = closeEasing;
 		return this;
 	}
@@ -639,7 +639,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param closeHtml option value
 	 * @return this
 	 */
-	public ToastOptions setCloseHtml(String closeHtml) {
+	public ToastOption setCloseHtml(String closeHtml) {
 		this.closeHtml = closeHtml;
 		return this;
 	}
@@ -658,7 +658,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param closeMethod option value
 	 * @return this
 	 */
-	public ToastOptions setCloseMethod(IDisappearAnimationMethod closeMethod) {
+	public ToastOption setCloseMethod(IDisappearAnimationMethod closeMethod) {
 		this.closeMethod = closeMethod;
 		return this;
 	}
@@ -677,7 +677,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isCloseOnHover option value
 	 * @return this
 	 */
-	public ToastOptions setIsCloseOnHover(Boolean isCloseOnHover) {
+	public ToastOption setIsCloseOnHover(Boolean isCloseOnHover) {
 		this.isCloseOnHover = isCloseOnHover;
 		return this;
 	}
@@ -696,7 +696,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param containerId option value
 	 * @return this
 	 */
-	public ToastOptions setContainerId(String containerId) {
+	public ToastOption setContainerId(String containerId) {
 		this.containerId = containerId;
 		return this;
 	}
@@ -715,7 +715,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isDebug option value
 	 * @return this
 	 */
-	public ToastOptions setIsDebug(Boolean isDebug) {
+	public ToastOption setIsDebug(Boolean isDebug) {
 		this.isDebug = isDebug;
 		return this;
 	}
@@ -734,7 +734,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param needEscapeHtml option value
 	 * @return this
 	 */
-	public ToastOptions setNeedEscapeHtml(Boolean needEscapeHtml) {
+	public ToastOption setNeedEscapeHtml(Boolean needEscapeHtml) {
 		this.needEscapeHtml = needEscapeHtml;
 		return this;
 	}
@@ -753,7 +753,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param extendedTimeOut option value
 	 * @return this
 	 */
-	public ToastOptions setExtendedTimeOut(Integer extendedTimeOut) {
+	public ToastOption setExtendedTimeOut(Integer extendedTimeOut) {
 		this.extendedTimeOut = extendedTimeOut;
 		return this;
 	}
@@ -772,7 +772,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param hideDuration option value
 	 * @return this
 	 */
-	public ToastOptions setHideDuration(Integer hideDuration) {
+	public ToastOption setHideDuration(Integer hideDuration) {
 		this.hideDuration = hideDuration;
 		return this;
 	}
@@ -791,7 +791,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param hideEasing option value
 	 * @return this
 	 */
-	public ToastOptions setHideEasing(IEasing hideEasing) {
+	public ToastOption setHideEasing(IEasing hideEasing) {
 		this.hideEasing = hideEasing;
 		return this;
 	}
@@ -810,7 +810,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param hideMethod option value
 	 * @return this
 	 */
-	public ToastOptions setHideMethod(IDisappearAnimationMethod hideMethod) {
+	public ToastOption setHideMethod(IDisappearAnimationMethod hideMethod) {
 		this.hideMethod = hideMethod;
 		return this;
 	}
@@ -829,7 +829,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param iconClass option value
 	 * @return this
 	 */
-	public ToastOptions setIconClass(IIconClass iconClass) {
+	public ToastOption setIconClass(IIconClass iconClass) {
 		this.iconClass = iconClass;
 		return this;
 	}
@@ -848,7 +848,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param messageClass option value
 	 * @return this
 	 */
-	public ToastOptions setMessageClass(String messageClass) {
+	public ToastOption setMessageClass(String messageClass) {
 		this.messageClass = messageClass;
 		return this;
 	}
@@ -867,7 +867,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isNewestOnTop option value
 	 * @return this
 	 */
-	public ToastOptions setIsNewestOnTop(Boolean isNewestOnTop) {
+	public ToastOption setIsNewestOnTop(Boolean isNewestOnTop) {
 		this.isNewestOnTop = isNewestOnTop;
 		return this;
 	}
@@ -886,7 +886,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param onClickFunction option value
 	 * @return this
 	 */
-	public ToastOptions setOnClickFunction(String onClickFunction) {
+	public ToastOption setOnClickFunction(String onClickFunction) {
 		this.onClickFunction = onClickFunction;
 		return this;
 	}
@@ -905,7 +905,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param onCloseClickFunction option value
 	 * @return this
 	 */
-	public ToastOptions setOnCloseClickFunction(String onCloseClickFunction) {
+	public ToastOption setOnCloseClickFunction(String onCloseClickFunction) {
 		this.onCloseClickFunction = onCloseClickFunction;
 		return this;
 	}
@@ -924,7 +924,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param onHiddenFunction option value
 	 * @return this
 	 */
-	public ToastOptions setOnHiddenFunction(String onHiddenFunction) {
+	public ToastOption setOnHiddenFunction(String onHiddenFunction) {
 		this.onHiddenFunction = onHiddenFunction;
 		return this;
 	}
@@ -943,7 +943,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param onShownFunction option value
 	 * @return this
 	 */
-	public ToastOptions setOnShownFunction(String onShownFunction) {
+	public ToastOption setOnShownFunction(String onShownFunction) {
 		this.onShownFunction = onShownFunction;
 		return this;
 	}
@@ -962,7 +962,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param positionClass option value
 	 * @return this
 	 */
-	public ToastOptions setPositionClass(IPositionClass positionClass) {
+	public ToastOption setPositionClass(IPositionClass positionClass) {
 		this.positionClass = positionClass;
 		return this;
 	}
@@ -981,7 +981,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param needPreventDuplicates option value
 	 * @return this
 	 */
-	public ToastOptions setNeedPreventDuplicates(Boolean needPreventDuplicates) {
+	public ToastOption setNeedPreventDuplicates(Boolean needPreventDuplicates) {
 		this.needPreventDuplicates = needPreventDuplicates;
 		return this;
 	}
@@ -1000,7 +1000,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isEnableProgressBar option value
 	 * @return this
 	 */
-	public ToastOptions setIsEnableProgressBar(Boolean isEnableProgressBar) {
+	public ToastOption setIsEnableProgressBar(Boolean isEnableProgressBar) {
 		this.isEnableProgressBar = isEnableProgressBar;
 		return this;
 	}
@@ -1019,7 +1019,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param progressClass option value
 	 * @return this
 	 */
-	public ToastOptions setProgressClass(String progressClass) {
+	public ToastOption setProgressClass(String progressClass) {
 		this.progressClass = progressClass;
 		return this;
 	}
@@ -1038,7 +1038,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isRightToLeft option value
 	 * @return this
 	 */
-	public ToastOptions setIsRightToLeft(Boolean isRightToLeft) {
+	public ToastOption setIsRightToLeft(Boolean isRightToLeft) {
 		this.isRightToLeft = isRightToLeft;
 		return this;
 	}
@@ -1057,7 +1057,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param showDuration option value
 	 * @return this
 	 */
-	public ToastOptions setShowDuration(Integer showDuration) {
+	public ToastOption setShowDuration(Integer showDuration) {
 		this.showDuration = showDuration;
 		return this;
 	}
@@ -1076,7 +1076,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param showEasing option value
 	 * @return this
 	 */
-	public ToastOptions setShowEasing(IEasing showEasing) {
+	public ToastOption setShowEasing(IEasing showEasing) {
 		this.showEasing = showEasing;
 		return this;
 	}
@@ -1095,7 +1095,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param showMethod option value
 	 * @return this
 	 */
-	public ToastOptions setShowMethod(IAppearAnimationMethod showMethod) {
+	public ToastOption setShowMethod(IAppearAnimationMethod showMethod) {
 		this.showMethod = showMethod;
 		return this;
 	}
@@ -1114,7 +1114,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param isTapToDismiss option value
 	 * @return this
 	 */
-	public ToastOptions setIsTapToDismiss(Boolean isTapToDismiss) {
+	public ToastOption setIsTapToDismiss(Boolean isTapToDismiss) {
 		this.isTapToDismiss = isTapToDismiss;
 		return this;
 	}
@@ -1133,7 +1133,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param target option value
 	 * @return this
 	 */
-	public ToastOptions setTarget(String target) {
+	public ToastOption setTarget(String target) {
 		this.target = target;
 		return this;
 	}
@@ -1152,7 +1152,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param timeOut option value
 	 * @return this
 	 */
-	public ToastOptions setTimeOut(Integer timeOut) {
+	public ToastOption setTimeOut(Integer timeOut) {
 		this.timeOut = timeOut;
 		return this;
 	}
@@ -1171,7 +1171,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param titleClass option value
 	 * @return this
 	 */
-	public ToastOptions setTitleClass(String titleClass) {
+	public ToastOption setTitleClass(String titleClass) {
 		this.titleClass = titleClass;
 		return this;
 	}
@@ -1190,7 +1190,7 @@ public class ToastOptions implements IToastOptions {
 	 * @param toastClass option value
 	 * @return this
 	 */
-	public ToastOptions setToastClass(String toastClass) {
+	public ToastOption setToastClass(String toastClass) {
 		this.toastClass = toastClass;
 		return this;
 	}
@@ -1204,7 +1204,7 @@ public class ToastOptions implements IToastOptions {
 
 		for (Field field : this.getClass().getDeclaredFields()) {
 
-			ToastOption option = field.getAnnotation(ToastOption.class);
+			ToastOptionValue option = field.getAnnotation(ToastOptionValue.class);
 			if (option == null) {
 				continue;
 			}
@@ -1237,9 +1237,9 @@ public class ToastOptions implements IToastOptions {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ToastOptions overwrite(IToastOptions options) {
+	public ToastOption overwrite(IToastOption options) {
 
-		ToastOptions newOptions = ToastOptions.create();
+		ToastOption newOptions = ToastOption.create();
 
 		if (options.isEnableCloseButton() == null) {
 			newOptions.setIsEnableCloseButton(this.isEnableCloseButton);

@@ -25,11 +25,11 @@ import org.apache.wicket.request.Response;
 import org.apache.wicket.util.lang.Args;
 
 import jp.try0.wicket.toastr.core.IToast;
-import jp.try0.wicket.toastr.core.IToastOptions;
+import jp.try0.wicket.toastr.core.IToastOption;
 import jp.try0.wicket.toastr.core.Toast;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
-import jp.try0.wicket.toastr.core.ToastOptions;
-import jp.try0.wicket.toastr.core.config.ToastrSettings;
+import jp.try0.wicket.toastr.core.ToastOption;
+import jp.try0.wicket.toastr.core.config.ToastrSetting;
 
 /**
  * Toastr behavior.<br>
@@ -174,7 +174,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			title.ifPresent(val -> newToast.withTitle(val));
 
 			// combine toast options
-			Optional<ToastOptions> options = decideToastOptions(combined, target);
+			Optional<ToastOption> options = decideToastOptions(combined, target);
 			options.ifPresent(val -> newToast.withToastOptions(val));
 
 			return newToast;
@@ -187,16 +187,16 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 		 * @param target the uncombined toast
 		 * @return the options to apply
 		 */
-		protected Optional<ToastOptions> decideToastOptions(IToast combined, IToast target) {
+		protected Optional<ToastOption> decideToastOptions(IToast combined, IToast target) {
 
-			Optional<ToastOptions> optCombinedOptions = combined.getToastOptions();
-			Optional<ToastOptions> optTargetOptions = target.getToastOptions();
+			Optional<ToastOption> optCombinedOptions = combined.getToastOptions();
+			Optional<ToastOption> optTargetOptions = target.getToastOptions();
 
 			if (optTargetOptions.isPresent()) {
 				if (optCombinedOptions.isPresent()) {
 
-					ToastOptions optionsOfCombined = optCombinedOptions.get();
-					ToastOptions optionsOfTarget = optTargetOptions.get();
+					ToastOption optionsOfCombined = optCombinedOptions.get();
+					ToastOption optionsOfTarget = optTargetOptions.get();
 
 					return Optional.of(optionsOfCombined.overwrite(optionsOfTarget));
 				} else {
@@ -285,14 +285,14 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	/**
 	 * Message combiner
 	 */
-	private ToastMessageCombiner messageCombiner = ToastrSettings.get().getToastMessageCombiner();
+	private ToastMessageCombiner messageCombiner = ToastrSetting.get().getToastMessageCombiner();
 
 	/**
 	 * Constractor
 	 */
 	public ToastrBehavior() {
 		super();
-		ToastrSettings.get().getMessageFilter().ifPresent(filter -> this.messageFilter = filter);
+		ToastrSetting.get().getMessageFilter().ifPresent(filter -> this.messageFilter = filter);
 	}
 
 	/**
@@ -368,12 +368,12 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
-		ToastrSettings.get().getGlobalOptions().ifPresent(options -> {
+		ToastrSetting.get().getGlobalOptions().ifPresent(options -> {
 			// toastr global options setting
 			response.render(JavaScriptHeaderItem.forScript(getScriptForSettingOptions(options), null));
 		});
 
-		ToastrSettings.get().getFontAwesomeSettings().ifPresent(faSettings -> {
+		ToastrSetting.get().getFontAwesomeSettings().ifPresent(faSettings -> {
 			// toastr FontAwesome icons setting
 			response.render(new HeaderItem() {
 				private static final long serialVersionUID = 1L;
@@ -493,7 +493,7 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	 * @param options the option to specify toast styles, behaviors...
 	 * @return script for setting toastr options
 	 */
-	protected String getScriptForSettingOptions(final IToastOptions options) {
+	protected String getScriptForSettingOptions(final IToastOption options) {
 		return "toastr.options =" + options.toJsonString() + ";";
 	}
 

@@ -10,7 +10,7 @@ import org.apache.wicket.model.Model;
 
 import jp.try0.wicket.toastr.core.IToast;
 import jp.try0.wicket.toastr.core.Toast;
-import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.ToastOption;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.samples.panel.ToastBasicPanel;
@@ -53,7 +53,7 @@ public class CombineSamplePanel extends Panel {
 			public void onSubmit() {
 				super.onSubmit();
 				Toast toast = pnlBasic.getToast();
-				ToastOptions options = new ToastOptions();
+				ToastOption options = new ToastOption();
 				options.setNeedEscapeHtml(false);
 				toast.withToastOptions(options);
 
