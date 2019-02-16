@@ -50,7 +50,7 @@ public class ToastrSetting {
 		/**
 		 * Global option
 		 */
-		private ToastOption globalOptions = null;
+		private ToastOption globalOption = null;
 
 		/**
 		 * Global options for each toast levels
@@ -92,20 +92,20 @@ public class ToastrSetting {
 		}
 
 		/**
-		 * Sets toastr global options.
+		 * Sets toastr global option.
 		 *
-		 * @param globalOptions global options
+		 * @param globalOption global option
 		 * @return this
 		 */
-		public ToastrSettingInitializer setGlobalOptions(ToastOption globalOptions) {
-			this.globalOptions = globalOptions;
+		public ToastrSettingInitializer setGlobalOption(ToastOption globalOption) {
+			this.globalOption = globalOption;
 			return this;
 		}
 
 		/**
 		 * Sets toastr global options for each levels.
 		 *
-		 * @param globalOptions global options
+		 * @param globalOption global options
 		 * @return this
 		 */
 		public ToastrSettingInitializer setGlobalEachLevelOptions(ToastOptions globalEachLevelOptions) {
@@ -259,9 +259,9 @@ public class ToastrSetting {
 	}
 
 	/**
-	 * Global options
+	 * Global option
 	 */
-	private final Optional<IToastOption> globalOptions;
+	private final Optional<IToastOption> globalOption;
 
 	/**
 	 * Global options for each toast levels
@@ -292,7 +292,7 @@ public class ToastrSetting {
 	 * Constractor
 	 */
 	private ToastrSetting() {
-		this.globalOptions = Optional.empty();
+		this.globalOption = Optional.empty();
 		this.globalEachLevelOptions = new ToastOptions();
 		this.filter = Optional.empty();
 		this.toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
@@ -305,7 +305,7 @@ public class ToastrSetting {
 	 * @param initializer the initializer for set default values
 	 */
 	private ToastrSetting(ToastrSettingInitializer initializer) {
-		this.globalOptions = Optional.ofNullable(initializer.globalOptions);
+		this.globalOption = Optional.ofNullable(initializer.globalOption);
 		this.globalEachLevelOptions = Args.notNull(initializer.globalEachLevelOptions, "globalEachLevelOptions");
 		this.filter = Optional.ofNullable(initializer.filter);
 		this.toastrBehaviorFactory = Args.notNull(initializer.toastrBehaviorFactory, "toastrBehaviorFactory");
@@ -314,12 +314,12 @@ public class ToastrSetting {
 	}
 
 	/**
-	 * Gets default toastr options.
+	 * Gets default toastr option.
 	 *
-	 * @return toastr options
+	 * @return toastr option
 	 */
-	public Optional<IToastOption> getGlobalOptions() {
-		return globalOptions;
+	public Optional<IToastOption> getGlobalOption() {
+		return globalOption;
 	}
 
 	/**
@@ -337,7 +337,7 @@ public class ToastrSetting {
 	 * @return true if settings has global options, otherwise false
 	 */
 	public boolean hasGlobalOptions() {
-		return globalOptions.isPresent();
+		return globalOption.isPresent();
 	}
 
 	/**

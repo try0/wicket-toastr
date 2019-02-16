@@ -1237,215 +1237,215 @@ public class ToastOption implements IToastOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ToastOption overwrite(IToastOption options) {
+	public ToastOption overwrite(IToastOption option) {
 
-		ToastOption newOptions = ToastOption.create();
+		ToastOption newOption = ToastOption.create();
 
-		if (options.isEnableCloseButton() == null) {
-			newOptions.setIsEnableCloseButton(this.isEnableCloseButton);
+		if (option.isEnableCloseButton() == null) {
+			newOption.setIsEnableCloseButton(this.isEnableCloseButton);
 		} else {
-			newOptions.setIsEnableCloseButton(options.isEnableCloseButton());
+			newOption.setIsEnableCloseButton(option.isEnableCloseButton());
 		}
 
-		if (options.getCloseClass() == null) {
-			newOptions.setCloseClass(this.closeClass);
+		if (option.getCloseClass() == null) {
+			newOption.setCloseClass(this.closeClass);
 		} else {
-			newOptions.setCloseClass(options.getCloseClass());
+			newOption.setCloseClass(option.getCloseClass());
 		}
 
-		if (options.getCloseDureation() == null) {
-			newOptions.setCloseDureation(this.closeDureation);
+		if (option.getCloseDureation() == null) {
+			newOption.setCloseDureation(this.closeDureation);
 		} else {
-			newOptions.setCloseDureation(options.getCloseDureation());
+			newOption.setCloseDureation(option.getCloseDureation());
 		}
 
-		if (options.getCloseEasing() == null) {
-			newOptions.setCloseEasing(this.closeEasing);
+		if (option.getCloseEasing() == null) {
+			newOption.setCloseEasing(this.closeEasing);
 		} else {
-			newOptions.setCloseEasing(options.getCloseEasing());
+			newOption.setCloseEasing(option.getCloseEasing());
 		}
 
-		if (options.getCloseHtml() == null) {
-			newOptions.setCloseHtml(this.closeHtml);
+		if (option.getCloseHtml() == null) {
+			newOption.setCloseHtml(this.closeHtml);
 		} else {
-			newOptions.setCloseHtml(options.getCloseHtml());
+			newOption.setCloseHtml(option.getCloseHtml());
 		}
 
-		if (options.getCloseMethod() == null) {
-			newOptions.setCloseMethod(this.closeMethod);
+		if (option.getCloseMethod() == null) {
+			newOption.setCloseMethod(this.closeMethod);
 		} else {
-			newOptions.setCloseMethod(options.getCloseMethod());
+			newOption.setCloseMethod(option.getCloseMethod());
 		}
 
-		if (options.isCloseOnHover() == null) {
-			newOptions.setIsCloseOnHover(this.isCloseOnHover);
+		if (option.isCloseOnHover() == null) {
+			newOption.setIsCloseOnHover(this.isCloseOnHover);
 		} else {
-			newOptions.setIsCloseOnHover(options.isCloseOnHover());
+			newOption.setIsCloseOnHover(option.isCloseOnHover());
 		}
 
-		if (options.getContainerId() == null) {
-			newOptions.setContainerId(this.containerId);
+		if (option.getContainerId() == null) {
+			newOption.setContainerId(this.containerId);
 		} else {
-			newOptions.setContainerId(options.getContainerId());
+			newOption.setContainerId(option.getContainerId());
 		}
 
-		if (options.isDebug() == null) {
-			newOptions.setIsDebug(this.isDebug);
+		if (option.isDebug() == null) {
+			newOption.setIsDebug(this.isDebug);
 		} else {
-			newOptions.setIsDebug(options.isDebug());
+			newOption.setIsDebug(option.isDebug());
 		}
 
-		if (options.needEscapeHtml() == null) {
-			newOptions.setNeedEscapeHtml(this.needEscapeHtml);
+		if (option.needEscapeHtml() == null) {
+			newOption.setNeedEscapeHtml(this.needEscapeHtml);
 		} else {
-			newOptions.setNeedEscapeHtml(options.needEscapeHtml());
+			newOption.setNeedEscapeHtml(option.needEscapeHtml());
 		}
 
-		if (options.getExtendedTimeOut() == null) {
-			newOptions.setExtendedTimeOut(this.extendedTimeOut);
+		if (option.getExtendedTimeOut() == null) {
+			newOption.setExtendedTimeOut(this.extendedTimeOut);
 		} else {
-			newOptions.setExtendedTimeOut(options.getExtendedTimeOut());
+			newOption.setExtendedTimeOut(option.getExtendedTimeOut());
 		}
 
-		if (options.getHideDuration() == null) {
-			newOptions.setHideDuration(this.hideDuration);
+		if (option.getHideDuration() == null) {
+			newOption.setHideDuration(this.hideDuration);
 		} else {
-			newOptions.setHideDuration(options.getHideDuration());
+			newOption.setHideDuration(option.getHideDuration());
 		}
 
-		if (options.getHideEasing() == null) {
-			newOptions.setHideEasing(this.hideEasing);
+		if (option.getHideEasing() == null) {
+			newOption.setHideEasing(this.hideEasing);
 		} else {
-			newOptions.setHideEasing(options.getHideEasing());
+			newOption.setHideEasing(option.getHideEasing());
 		}
 
-		if (options.getHideMethod() == null) {
-			newOptions.setHideMethod(this.hideMethod);
+		if (option.getHideMethod() == null) {
+			newOption.setHideMethod(this.hideMethod);
 		} else {
-			newOptions.setHideMethod(options.getHideMethod());
+			newOption.setHideMethod(option.getHideMethod());
 		}
 
-		if (options.getIconClass() == null) {
-			newOptions.setIconClass(this.iconClass);
+		if (option.getIconClass() == null) {
+			newOption.setIconClass(this.iconClass);
 		} else {
-			newOptions.setIconClass(options.getIconClass());
+			newOption.setIconClass(option.getIconClass());
 		}
 
-		if (options.getMessageClass() == null) {
-			newOptions.setMessageClass(this.messageClass);
+		if (option.getMessageClass() == null) {
+			newOption.setMessageClass(this.messageClass);
 		} else {
-			newOptions.setMessageClass(options.getMessageClass());
+			newOption.setMessageClass(option.getMessageClass());
 		}
 
-		if (options.isNewestOnTop() == null) {
-			newOptions.setIsNewestOnTop(this.isNewestOnTop);
+		if (option.isNewestOnTop() == null) {
+			newOption.setIsNewestOnTop(this.isNewestOnTop);
 		} else {
-			newOptions.setIsNewestOnTop(options.isNewestOnTop());
+			newOption.setIsNewestOnTop(option.isNewestOnTop());
 		}
 
-		if (options.getOnClickFunction() == null) {
-			newOptions.setOnClickFunction(this.onClickFunction);
+		if (option.getOnClickFunction() == null) {
+			newOption.setOnClickFunction(this.onClickFunction);
 		} else {
-			newOptions.setOnClickFunction(options.getOnClickFunction());
+			newOption.setOnClickFunction(option.getOnClickFunction());
 		}
 
-		if (options.getOnCloseClickFunction() == null) {
-			newOptions.setOnCloseClickFunction(this.onCloseClickFunction);
+		if (option.getOnCloseClickFunction() == null) {
+			newOption.setOnCloseClickFunction(this.onCloseClickFunction);
 		} else {
-			newOptions.setOnCloseClickFunction(options.getOnCloseClickFunction());
+			newOption.setOnCloseClickFunction(option.getOnCloseClickFunction());
 		}
 
-		if (options.getOnHiddenFunction() == null) {
-			newOptions.setOnHiddenFunction(this.onHiddenFunction);
+		if (option.getOnHiddenFunction() == null) {
+			newOption.setOnHiddenFunction(this.onHiddenFunction);
 		} else {
-			newOptions.setOnHiddenFunction(options.getOnHiddenFunction());
+			newOption.setOnHiddenFunction(option.getOnHiddenFunction());
 		}
 
-		if (options.getOnShownFunction() == null) {
-			newOptions.setOnShownFunction(this.onShownFunction);
+		if (option.getOnShownFunction() == null) {
+			newOption.setOnShownFunction(this.onShownFunction);
 		} else {
-			newOptions.setOnShownFunction(options.getOnShownFunction());
+			newOption.setOnShownFunction(option.getOnShownFunction());
 		}
 
-		if (options.getPositionClass() == null) {
-			newOptions.setPositionClass(this.positionClass);
+		if (option.getPositionClass() == null) {
+			newOption.setPositionClass(this.positionClass);
 		} else {
-			newOptions.setPositionClass(options.getPositionClass());
+			newOption.setPositionClass(option.getPositionClass());
 		}
 
-		if (options.needPreventDuplicates() == null) {
-			newOptions.setNeedPreventDuplicates(this.needPreventDuplicates);
+		if (option.needPreventDuplicates() == null) {
+			newOption.setNeedPreventDuplicates(this.needPreventDuplicates);
 		} else {
-			newOptions.setNeedPreventDuplicates(options.needPreventDuplicates());
+			newOption.setNeedPreventDuplicates(option.needPreventDuplicates());
 		}
 
-		if (options.isEnableProgressBar() == null) {
-			newOptions.setIsEnableProgressBar(this.isEnableProgressBar);
+		if (option.isEnableProgressBar() == null) {
+			newOption.setIsEnableProgressBar(this.isEnableProgressBar);
 		} else {
-			newOptions.setIsEnableProgressBar(options.isEnableProgressBar());
+			newOption.setIsEnableProgressBar(option.isEnableProgressBar());
 		}
 
-		if (options.getProgressClass() == null) {
-			newOptions.setProgressClass(this.progressClass);
+		if (option.getProgressClass() == null) {
+			newOption.setProgressClass(this.progressClass);
 		} else {
-			newOptions.setProgressClass(options.getProgressClass());
+			newOption.setProgressClass(option.getProgressClass());
 		}
 
-		if (options.isRightToLeft() == null) {
-			newOptions.setIsRightToLeft(this.isRightToLeft);
+		if (option.isRightToLeft() == null) {
+			newOption.setIsRightToLeft(this.isRightToLeft);
 		} else {
-			newOptions.setIsRightToLeft(options.isRightToLeft());
+			newOption.setIsRightToLeft(option.isRightToLeft());
 		}
 
-		if (options.getShowDuration() == null) {
-			newOptions.setShowDuration(this.showDuration);
+		if (option.getShowDuration() == null) {
+			newOption.setShowDuration(this.showDuration);
 		} else {
-			newOptions.setShowDuration(options.getShowDuration());
+			newOption.setShowDuration(option.getShowDuration());
 		}
 
-		if (options.getShowEasing() == null) {
-			newOptions.setShowEasing(this.showEasing);
+		if (option.getShowEasing() == null) {
+			newOption.setShowEasing(this.showEasing);
 		} else {
-			newOptions.setShowEasing(options.getShowEasing());
+			newOption.setShowEasing(option.getShowEasing());
 		}
 
-		if (options.getShowMethod() == null) {
-			newOptions.setShowMethod(this.showMethod);
+		if (option.getShowMethod() == null) {
+			newOption.setShowMethod(this.showMethod);
 		} else {
-			newOptions.setShowMethod(options.getShowMethod());
+			newOption.setShowMethod(option.getShowMethod());
 		}
 
-		if (options.isTapToDismiss() == null) {
-			newOptions.setIsTapToDismiss(this.isTapToDismiss);
+		if (option.isTapToDismiss() == null) {
+			newOption.setIsTapToDismiss(this.isTapToDismiss);
 		} else {
-			newOptions.setIsTapToDismiss(options.isTapToDismiss());
+			newOption.setIsTapToDismiss(option.isTapToDismiss());
 		}
 
-		if (options.getTarget() == null) {
-			newOptions.setTarget(this.target);
+		if (option.getTarget() == null) {
+			newOption.setTarget(this.target);
 		} else {
-			newOptions.setTarget(options.getTarget());
+			newOption.setTarget(option.getTarget());
 		}
 
-		if (options.getTimeOut() == null) {
-			newOptions.setTimeOut(this.timeOut);
+		if (option.getTimeOut() == null) {
+			newOption.setTimeOut(this.timeOut);
 		} else {
-			newOptions.setTimeOut(options.getTimeOut());
+			newOption.setTimeOut(option.getTimeOut());
 		}
 
-		if (options.getTitleClass() == null) {
-			newOptions.setTitleClass(this.titleClass);
+		if (option.getTitleClass() == null) {
+			newOption.setTitleClass(this.titleClass);
 		} else {
-			newOptions.setTitleClass(options.getTitleClass());
+			newOption.setTitleClass(option.getTitleClass());
 		}
 
-		if (options.getToastClass() == null) {
-			newOptions.setToastClass(this.toastClass);
+		if (option.getToastClass() == null) {
+			newOption.setToastClass(this.toastClass);
 		} else {
-			newOptions.setToastClass(options.getToastClass());
+			newOption.setToastClass(option.getToastClass());
 		}
 
-		return newOptions;
+		return newOption;
 	}
 
 }

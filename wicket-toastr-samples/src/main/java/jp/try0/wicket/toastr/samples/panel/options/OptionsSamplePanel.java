@@ -182,7 +182,7 @@ public class OptionsSamplePanel extends Panel {
 		// Toast
 		IModel<Toast> toast = () -> {
 			return pnlBasic.getToast()
-					.withToastOptions(options.getObject());
+					.withToastOption(options.getObject());
 		};
 
 		// Links

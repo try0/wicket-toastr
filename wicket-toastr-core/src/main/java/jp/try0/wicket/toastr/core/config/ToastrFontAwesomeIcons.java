@@ -76,10 +76,10 @@ public class ToastrFontAwesomeIcons implements Serializable {
 	 */
 	public String getStyleForAdaptIconContent() {
 
-		Optional<IToastOption> globalOptions = ToastrSetting.get().getGlobalOptions();
+		Optional<IToastOption> globalOption = ToastrSetting.get().getGlobalOption();
 		final String containerId;
-		if (globalOptions.isPresent()) {
-			String tmpContainerId = globalOptions.get().getContainerId();
+		if (globalOption.isPresent()) {
+			String tmpContainerId = globalOption.get().getContainerId();
 			if (tmpContainerId == null || tmpContainerId.isEmpty()) {
 				containerId = ToastOption.DEFAULT_CONTAINER_ID;
 			} else {

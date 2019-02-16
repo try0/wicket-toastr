@@ -208,11 +208,11 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 
 		final ToastOption opt1 = ToastOption.create().setCloseClass("cls");
 		Toast.success("msg1")
-				.withToastOptions(opt1)
+				.withToastOption(opt1)
 				.show(page);
 		final ToastOption opt2 = ToastOption.create().setCloseDureation(1000);
 		Toast.success("msg2")
-				.withToastOptions(opt2)
+				.withToastOption(opt2)
 				.show(page);
 
 		tester.startPage(page);
@@ -275,7 +275,7 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 				.setToastClass("toastClass-base");
 
 		Toast.success("toastOptions")
-				.withToastOptions(options)
+				.withToastOption(options)
 				.show(page);
 
 		tester.startPage(page);

@@ -175,33 +175,33 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 			title.ifPresent(val -> newToast.withTitle(val));
 
 			// combine toast options
-			Optional<ToastOption> options = decideToastOptions(combined, target);
-			options.ifPresent(val -> newToast.withToastOptions(val));
+			Optional<ToastOption> option = decideToastOption(combined, target);
+			option.ifPresent(val -> newToast.withToastOption(val));
 
 			return newToast;
 		}
 
 		/**
-		 * Decides toast options.
+		 * Decides toast option.
 		 *
 		 * @param combined the combined toast
 		 * @param target the uncombined toast
-		 * @return the options to apply
+		 * @return the option to apply
 		 */
-		protected Optional<ToastOption> decideToastOptions(IToast combined, IToast target) {
+		protected Optional<ToastOption> decideToastOption(IToast combined, IToast target) {
 
-			Optional<ToastOption> optCombinedOptions = combined.getToastOptions();
-			Optional<ToastOption> optTargetOptions = target.getToastOptions();
+			Optional<ToastOption> optCombinedOption = combined.getToastOption();
+			Optional<ToastOption> optTargetOption = target.getToastOption();
 
-			if (optTargetOptions.isPresent()) {
-				if (optCombinedOptions.isPresent()) {
+			if (optTargetOption.isPresent()) {
+				if (optCombinedOption.isPresent()) {
 
-					ToastOption optionsOfCombined = optCombinedOptions.get();
-					ToastOption optionsOfTarget = optTargetOptions.get();
+					ToastOption optionOfCombined = optCombinedOption.get();
+					ToastOption optionOfTarget = optTargetOption.get();
 
-					return Optional.of(optionsOfCombined.overwrite(optionsOfTarget));
+					return Optional.of(optionOfCombined.overwrite(optionOfTarget));
 				} else {
-					return optTargetOptions;
+					return optTargetOption;
 				}
 			}
 
@@ -369,9 +369,9 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
-		ToastrSetting.get().getGlobalOptions().ifPresent(options -> {
-			// toastr global options setting
-			response.render(JavaScriptHeaderItem.forScript(getScriptForSettingOptions(options), null));
+		ToastrSetting.get().getGlobalOption().ifPresent(option -> {
+			// toastr global option setting
+			response.render(JavaScriptHeaderItem.forScript(getScriptForSettingOption(option), null));
 		});
 
 		ToastrSetting.get().getFontAwesomeSettings().ifPresent(faSettings -> {
@@ -499,19 +499,19 @@ public class ToastrBehavior extends ToastrResourcesBehavior {
 	private Toast applyDefaultOption(Toast toast) {
 		ToastOptions defaultOptions = ToastrSetting.get().getGlobalEachLevelOptions();
 		defaultOptions.get(toast.getToastLevel()).ifPresent(option -> {
-			toast.withToastOptions(option);
+			toast.withToastOption(option);
 		});
 		return toast;
 	}
 
 	/**
-	 * Gets script for setting toastr options.
+	 * Gets script for setting toastr option.
 	 *
-	 * @param options the option to specify toast styles, behaviors...
-	 * @return script for setting toastr options
+	 * @param option the option to specify toast styles, behaviors...
+	 * @return script for setting toastr option
 	 */
-	protected String getScriptForSettingOptions(final IToastOption options) {
-		return "toastr.options =" + options.toJsonString() + ";";
+	protected String getScriptForSettingOption(final IToastOption option) {
+		return "toastr.options =" + option.toJsonString() + ";";
 	}
 
 	/**

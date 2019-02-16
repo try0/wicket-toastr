@@ -360,9 +360,9 @@ public interface IToastOption extends Serializable {
 	 * Gets new overwritten options.<br>
 	 * If the value of the argument's option is exists, overwrite the option value.
 	 *
-	 * @param options overwrite options
-	 * @return overwritten options
+	 * @param option overwrite options
+	 * @return overwritten option
 	 */
-	public IToastOption overwrite(IToastOption options);
+	public IToastOption overwrite(IToastOption option);
 
 }

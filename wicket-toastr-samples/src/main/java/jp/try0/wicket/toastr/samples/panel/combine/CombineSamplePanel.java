@@ -55,7 +55,7 @@ public class CombineSamplePanel extends Panel {
 				Toast toast = pnlBasic.getToast();
 				ToastOption options = new ToastOption();
 				options.setNeedEscapeHtml(false);
-				toast.withToastOptions(options);
+				toast.withToastOption(options);
 
 				toast.show(this);
 				toast.show(this);

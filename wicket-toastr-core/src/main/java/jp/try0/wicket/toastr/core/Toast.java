@@ -355,9 +355,9 @@ public class Toast implements IToast {
 	private String title;
 
 	/**
-	 * Options for override global options
+	 * Option for override global option
 	 */
-	private ToastOption options;
+	private ToastOption option;
 
 	/**
 	 * Constractor
@@ -386,9 +386,9 @@ public class Toast implements IToast {
 	 * @param level the toast level
 	 * @param message the string displayed on toast
 	 * @param title the string displayed on toast
-	 * @param options options for override global options
+	 * @param option option for override global option
 	 */
-	public Toast(ToastLevel level, String message, String title, ToastOption options) {
+	public Toast(ToastLevel level, String message, String title, ToastOption option) {
 		if (!level.isSupported()) {
 			throw new IllegalArgumentException("This level is unsupported.");
 		}
@@ -396,7 +396,7 @@ public class Toast implements IToast {
 		this.level = Args.notNull(level, "level");
 		this.message = Args.notNull(message, "message");
 		this.title = title;
-		this.options = options;
+		this.option = option;
 
 	}
 
@@ -436,38 +436,38 @@ public class Toast implements IToast {
 	}
 
 	/**
-	 * Sets override options.
+	 * Sets override option.
 	 *
-	 * @param options the options to override global options
+	 * @param option the option to override global option
 	 * @return this
 	 */
-	public Toast withToastOptions(ToastOption options) {
-		this.options = options;
+	public Toast withToastOption(ToastOption option) {
+		this.option = option;
 		return this;
 	}
 
 	/**
-	 * Sets override options if the condition is true.
+	 * Sets override option if the condition is true.
 	 *
-	 * @param canSet the condition that the options can be set
-	 * @param optionsFactory factory of {@link ToastOption}
+	 * @param canSet the condition that the option can be set
+	 * @param optionFactory factory of {@link ToastOption}
 	 * @return this
 	 */
-	public Toast withToastOptions(boolean canSet, SerializableSupplier<ToastOption> optionsFactory) {
+	public Toast withToastOption(boolean canSet, SerializableSupplier<ToastOption> optionFactory) {
 		if (canSet) {
-			this.options = optionsFactory.get();
+			this.option = optionFactory.get();
 		}
 		return this;
 	}
 
 	/**
-	 * Gets options.
+	 * Gets option.
 	 *
-	 * @return an {@code Optional} with a toast options
+	 * @return an {@code Optional} with a toast option
 	 */
 	@Override
-	public Optional<ToastOption> getToastOptions() {
-		return Optional.ofNullable(options);
+	public Optional<ToastOption> getToastOption() {
+		return Optional.ofNullable(option);
 	}
 
 	/**
@@ -520,7 +520,7 @@ public class Toast implements IToast {
 		}
 
 		// sets override options
-		getToastOptions().ifPresent(opt -> {
+		getToastOption().ifPresent(opt -> {
 			script.append(", ").append(opt.toJsonString());
 		});
 

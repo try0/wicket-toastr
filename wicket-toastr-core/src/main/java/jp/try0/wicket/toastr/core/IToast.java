@@ -39,9 +39,9 @@ public interface IToast extends Serializable {
 	/**
 	 * Gets toast options that override global options.
 	 *
-	 * @return toast options
+	 * @return toast option
 	 */
-	public default Optional<ToastOption> getToastOptions() {
+	public default Optional<ToastOption> getToastOption() {
 		return Optional.empty();
 	}
 

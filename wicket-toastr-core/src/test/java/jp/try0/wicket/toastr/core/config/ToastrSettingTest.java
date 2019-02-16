@@ -48,7 +48,7 @@ public class ToastrSettingTest extends AbstractToastrTest {
 
 		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(autoAppend)
-				.setGlobalOptions(options)
+				.setGlobalOption(options)
 				.setMessageFilter(filter)
 				.setToastrBehaviorFactory(factory)
 				.setToastMessageCombiner(combier)
@@ -58,10 +58,10 @@ public class ToastrSettingTest extends AbstractToastrTest {
 		ToastrSetting settings = ToastrSetting.get();
 
 		assertEquals(settings.hasGlobalOptions(), true);
-		assertTrue(settings.getGlobalOptions().isPresent());
+		assertTrue(settings.getGlobalOption().isPresent());
 		assertTrue(settings.hasMessageFilter());
 		assertTrue(settings.getFontAwesomeSettings().isPresent());
-		assertTrue(settings.getGlobalOptions().get() == options);
+		assertTrue(settings.getGlobalOption().get() == options);
 		assertTrue(settings.getMessageFilter().get() == filter);
 		assertTrue(settings.getToastMessageCombiner() == combier);
 		assertTrue(settings.getFontAwesomeSettings().get() == fontSettings);
@@ -75,7 +75,7 @@ public class ToastrSettingTest extends AbstractToastrTest {
 		ToastrSetting settings = ToastrSetting.get();
 
 		assertEquals(settings.hasGlobalOptions(), false);
-		assertFalse(settings.getGlobalOptions().isPresent());
+		assertFalse(settings.getGlobalOption().isPresent());
 		assertTrue(settings.getMessageFilter().isPresent());
 		assertEquals(settings.getMessageFilter().get(), IFeedbackMessageFilter.ALL);
 		assertFalse(settings.getFontAwesomeSettings().isPresent());
@@ -187,7 +187,7 @@ public class ToastrSettingTest extends AbstractToastrTest {
 				.setToastClass("toastClass-global");
 		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
-				.setGlobalOptions(globalOptions)
+				.setGlobalOption(globalOptions)
 				.initialize();
 
 		final WicketTester tester = getWicketTester();
