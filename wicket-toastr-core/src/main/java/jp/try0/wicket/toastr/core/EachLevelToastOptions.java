@@ -15,7 +15,7 @@ import jp.try0.wicket.toastr.core.Toast.ToastLevel;
  * @author Ryo Tsunoda
  *
  */
-public class ToastOptions implements Serializable {
+public class EachLevelToastOptions implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -24,7 +24,7 @@ public class ToastOptions implements Serializable {
 	 * @author Ryo Tsunoda
 	 *
 	 */
-	public static class ToastOptionsBuilder {
+	public static class EachLevelToastOptionsBuilder {
 
 		/**
 		 * options for each levels
@@ -37,7 +37,7 @@ public class ToastOptions implements Serializable {
 		 * @param option option of information toast
 		 * @return builder
 		 */
-		public ToastOptionsBuilder setInfoOption(ToastOption option) {
+		public EachLevelToastOptionsBuilder setInfoOption(ToastOption option) {
 			options.put(ToastLevel.INFO, option);
 			return this;
 		}
@@ -48,7 +48,7 @@ public class ToastOptions implements Serializable {
 		 * @param option option of success toast
 		 * @return builder
 		 */
-		public ToastOptionsBuilder setSuccessOption(ToastOption option) {
+		public EachLevelToastOptionsBuilder setSuccessOption(ToastOption option) {
 			options.put(ToastLevel.SUCCESS, option);
 			return this;
 		}
@@ -59,7 +59,7 @@ public class ToastOptions implements Serializable {
 		 * @param option option of warn toast
 		 * @return builder
 		 */
-		public ToastOptionsBuilder setWarnOption(ToastOption option) {
+		public EachLevelToastOptionsBuilder setWarnOption(ToastOption option) {
 			options.put(ToastLevel.WARNING, option);
 			return this;
 		}
@@ -70,7 +70,7 @@ public class ToastOptions implements Serializable {
 		 * @param option option of error toast
 		 * @return builder
 		 */
-		public ToastOptionsBuilder setErrorOption(ToastOption option) {
+		public EachLevelToastOptionsBuilder setErrorOption(ToastOption option) {
 			options.put(ToastLevel.ERROR, option);
 			return this;
 		}
@@ -80,8 +80,8 @@ public class ToastOptions implements Serializable {
 		 *
 		 * @return the options for each levels
 		 */
-		public ToastOptions get() {
-			return new ToastOptions(options);
+		public EachLevelToastOptions get() {
+			return new EachLevelToastOptions(options);
 		}
 	}
 
@@ -90,8 +90,8 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @return builder
 	 */
-	public static ToastOptionsBuilder builder() {
-		return new ToastOptionsBuilder();
+	public static EachLevelToastOptionsBuilder builder() {
+		return new EachLevelToastOptionsBuilder();
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class ToastOptions implements Serializable {
 	/**
 	 * Constructor
 	 */
-	public ToastOptions() {
+	public EachLevelToastOptions() {
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class ToastOptions implements Serializable {
 	 *
 	 * @param options the options for each levels
 	 */
-	public ToastOptions(Map<ToastLevel, ToastOption> options) {
+	public EachLevelToastOptions(Map<ToastLevel, ToastOption> options) {
 		options.forEach((key, val) -> {
 			this.options.put(key, Optional.ofNullable(val));
 		});

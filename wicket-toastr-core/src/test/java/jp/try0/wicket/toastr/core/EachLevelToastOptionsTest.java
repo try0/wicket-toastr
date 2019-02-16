@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 
 /**
- * {@link ToastOptions} tests.
+ * {@link EachLevelToastOptions} tests.
  *
  * @author Ryo Tsunoda
  *
  */
-public class ToastOptionsTest {
+public class EachLevelToastOptionsTest {
 
 	@Test
 	public void build() {
@@ -21,7 +21,7 @@ public class ToastOptionsTest {
 		ToastOption warn = new ToastOption();
 		ToastOption error = new ToastOption();
 
-		ToastOptions options = ToastOptions.builder()
+		EachLevelToastOptions options = EachLevelToastOptions.builder()
 				.setInfoOption(info)
 				.setSuccessOption(success)
 				.setWarnOption(warn)

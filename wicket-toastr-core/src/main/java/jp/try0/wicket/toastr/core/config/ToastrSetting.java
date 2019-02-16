@@ -12,7 +12,7 @@ import org.apache.wicket.util.lang.Args;
 
 import jp.try0.wicket.toastr.core.IToastOption;
 import jp.try0.wicket.toastr.core.ToastOption;
-import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 
@@ -55,7 +55,7 @@ public class ToastrSetting {
 		/**
 		 * Global options for each toast levels
 		 */
-		private ToastOptions globalEachLevelOptions = new ToastOptions();
+		private EachLevelToastOptions globalEachLevelOptions = new EachLevelToastOptions();
 
 		/**
 		 * Message Filter
@@ -108,7 +108,7 @@ public class ToastrSetting {
 		 * @param globalOption global options
 		 * @return this
 		 */
-		public ToastrSettingInitializer setGlobalEachLevelOptions(ToastOptions globalEachLevelOptions) {
+		public ToastrSettingInitializer setGlobalEachLevelOptions(EachLevelToastOptions globalEachLevelOptions) {
 			this.globalEachLevelOptions = globalEachLevelOptions;
 			return this;
 		}
@@ -266,7 +266,7 @@ public class ToastrSetting {
 	/**
 	 * Global options for each toast levels
 	 */
-	private final ToastOptions globalEachLevelOptions;
+	private final EachLevelToastOptions globalEachLevelOptions;
 
 	/**
 	 * Message Filter
@@ -293,7 +293,7 @@ public class ToastrSetting {
 	 */
 	private ToastrSetting() {
 		this.globalOption = Optional.empty();
-		this.globalEachLevelOptions = new ToastOptions();
+		this.globalEachLevelOptions = new EachLevelToastOptions();
 		this.filter = Optional.empty();
 		this.toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
 		this.toastMessageCombiner = ToastMessageCombiner.VOID_COMBINER;
@@ -327,7 +327,7 @@ public class ToastrSetting {
 	 *
 	 * @return toastr options
 	 */
-	public ToastOptions getGlobalEachLevelOptions() {
+	public EachLevelToastOptions getGlobalEachLevelOptions() {
 		return globalEachLevelOptions;
 	}
 

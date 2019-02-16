@@ -21,7 +21,7 @@ import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOption.IconClass;
 import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
-import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
@@ -206,7 +206,7 @@ public class ToastrSettingTest extends AbstractToastrTest {
 		ToastOption warn = new ToastOption();
 		ToastOption error = new ToastOption();
 
-		ToastOptions options = new ToastOptions(new HashMap<ToastLevel, ToastOption>() {
+		EachLevelToastOptions options = new EachLevelToastOptions(new HashMap<ToastLevel, ToastOption>() {
 			{
 				put(ToastLevel.INFO, info);
 				put(ToastLevel.SUCCESS, success);

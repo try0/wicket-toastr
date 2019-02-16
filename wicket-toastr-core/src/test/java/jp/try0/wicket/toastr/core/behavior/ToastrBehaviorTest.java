@@ -22,7 +22,7 @@ import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOption.IconClass;
 import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
-import jp.try0.wicket.toastr.core.ToastOptions;
+import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.config.ToastrSetting;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
@@ -324,7 +324,7 @@ public class ToastrBehaviorTest extends AbstractToastrTest {
 
 		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
-				.setGlobalEachLevelOptions(ToastOptions.builder().setSuccessOption(option).get())
+				.setGlobalEachLevelOptions(EachLevelToastOptions.builder().setSuccessOption(option).get())
 				.initialize();
 
 		final WicketTester tester = getWicketTester();
