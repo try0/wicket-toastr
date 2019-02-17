@@ -269,7 +269,9 @@ public class ToastOptionTest {
 		classes.set(ToastLevel.SUCCESS, IconClass.ERROR);
 
 		String classesJson = "{\"info\":\"toast-error\",\"success\":\"toast-error\",}";
-		assertEquals(classes.toString(), classesJson);
+		String classesJson2 = "{\"success\":\"toast-error\",\"info\":\"toast-error\",}";
+		assertTrue(classes.toString().equals(classesJson)
+				|| classes.toString().equals(classesJson2));
 
 		String optionJson = ToastOption.create().setIconClasses(classes).toJsonString();
 
