@@ -2,6 +2,8 @@ package jp.try0.wicket.toastr.core;
 
 import java.io.Serializable;
 
+import jp.try0.wicket.toastr.core.ToastOption.IconClasses;
+
 /**
  * Toast options interface.
  *
@@ -215,6 +217,13 @@ public interface IToastOption extends Serializable {
 	 * @return iconClass option value
 	 */
 	public IIconClass getIconClass();
+
+	/**
+	 * Gets iconClasses.
+	 *
+	 * @return
+	 */
+	public IconClasses getIconClasses();
 
 	/**
 	 * Gets messageClass.

@@ -1,10 +1,15 @@
 package jp.try0.wicket.toastr.core;
 
+import java.io.Serializable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
+import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 
 /**
  * Toast options.<br>
@@ -324,6 +329,56 @@ public class ToastOption implements IToastOption {
 	}
 
 	/**
+	 * Toast icon classes.
+	 *
+	 * @author Ryo Tsunoda
+	 *
+	 */
+	public static class IconClasses implements Serializable {
+
+		/**
+		 * icon classes
+		 */
+		private final Map<ToastLevel, IIconClass> iconClasses = new HashMap<>();
+
+		/**
+		 * Gets Icon css class.
+		 *
+		 * @param level
+		 * @return
+		 */
+		public IIconClass get(ToastLevel level) {
+			return iconClasses.get(level);
+		}
+
+		/**
+		 * Sets icon class.
+		 *
+		 * @param level
+		 * @param iconClass
+		 * @return
+		 */
+		public IconClasses set(ToastLevel level, IIconClass iconClass) {
+			iconClasses.put(level, iconClass);
+			return this;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("{");
+			iconClasses.forEach((key, val) -> {
+				sb.append("\"").append(key.toString().toLowerCase()).append("\":");
+				sb.append("\"").append(val.toString()).append("\",");
+			});
+			sb.append("}");
+
+			return sb.toString();
+		}
+
+	}
+
+	/**
 	 * Create new one.
 	 *
 	 * @return new {@link ToastOption}
@@ -429,11 +484,11 @@ public class ToastOption implements IToastOption {
 	@ToastOptionValue(value = OptionKeys.ICON_CLASS)
 	private IIconClass iconClass = null;
 
-	// /**
-	// * iconClasses
-	// */
-	// @ToastOption(value = OptionKeys.ICON_CLASSES)
-	// private Map<String, IIconClass> iconClasses = null;
+	/**
+	* iconClasses
+	*/
+	@ToastOptionValue(value = OptionKeys.ICON_CLASSES, squeezeWithDoubleQuotes = false)
+	private IconClasses iconClasses = null;
 
 	/**
 	 * messageClass
@@ -831,6 +886,24 @@ public class ToastOption implements IToastOption {
 	 */
 	public ToastOption setIconClass(IIconClass iconClass) {
 		this.iconClass = iconClass;
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IconClasses getIconClasses() {
+		return iconClasses;
+	}
+
+	/**
+	 * Sets iconClasses option value.
+	 *
+	 * @param iconClasses option value
+	 */
+	public ToastOption setIconClasses(IconClasses iconClasses) {
+		this.iconClasses = iconClasses;
 		return this;
 	}
 

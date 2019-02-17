@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import jp.try0.wicket.toastr.core.IToastOption.OptionKeys;
+import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOption.CloseMethod;
 import jp.try0.wicket.toastr.core.ToastOption.Easing;
 import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOption.IconClass;
+import jp.try0.wicket.toastr.core.ToastOption.IconClasses;
 import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
 
@@ -259,4 +261,20 @@ public class ToastOptionTest {
 			assertEquals(newOptions.getToastClass(), baseOptions.getToastClass());
 		}
 	}
+
+	@Test
+	public void toStringIconClasses() {
+		IconClasses classes = new IconClasses();
+		classes.set(ToastLevel.INFO, IconClass.ERROR);
+		classes.set(ToastLevel.SUCCESS, IconClass.ERROR);
+
+		String classesJson = "{\"info\":\"toast-error\",\"success\":\"toast-error\",}";
+		assertEquals(classes.toString(), classesJson);
+
+		String optionJson = ToastOption.create().setIconClasses(classes).toJsonString();
+
+		assertTrue(optionJson.contains("\"iconClasses\":" + classesJson));
+
+	}
+
 }
