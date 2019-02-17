@@ -1,7 +1,6 @@
 package jp.try0.wicket.toastr.core.config;
 
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.apache.wicket.Application;
@@ -10,9 +9,9 @@ import org.apache.wicket.Page;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.util.lang.Args;
 
+import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.IToastOption;
 import jp.try0.wicket.toastr.core.ToastOption;
-import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 
@@ -70,7 +69,7 @@ public class ToastrSetting {
 		/**
 		 * {@link ToastrBehavior} factory
 		 */
-		private Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
+		private Supplier<ToastrBehavior> toastrBehaviorFactory = DEFAULT_TOASTR_BEHAVIOR_FACTORY;
 
 		/**
 		 * Message combiner
@@ -142,7 +141,7 @@ public class ToastrSetting {
 		 * @return this
 		 */
 		public ToastrSettingInitializer setToastrBehaviorFactory(
-				Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory) {
+				Supplier<ToastrBehavior> toastrBehaviorFactory) {
 			this.toastrBehaviorFactory = toastrBehaviorFactory;
 			return this;
 		}
@@ -200,13 +199,7 @@ public class ToastrSetting {
 	/**
 	 * Default {@link ToastrBehavior} factory.
 	 */
-	private static final Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = filter -> {
-		if (filter.isPresent()) {
-			return new ToastrBehavior(filter.get());
-		} else {
-			return new ToastrBehavior();
-		}
-	};
+	private static final Supplier<ToastrBehavior> DEFAULT_TOASTR_BEHAVIOR_FACTORY = () -> new ToastrBehavior();
 
 	/**
 	 * Creates settings builder.
@@ -281,7 +274,7 @@ public class ToastrSetting {
 	/**
 	 * {@link ToastrBehavior} factory
 	 */
-	private final Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> toastrBehaviorFactory;
+	private final Supplier<ToastrBehavior> toastrBehaviorFactory;
 
 	/**
 	 * Message combiner
@@ -374,8 +367,9 @@ public class ToastrSetting {
 	 */
 	public Supplier<ToastrBehavior> getToastrBehaviorFactory() {
 		return () -> {
-			ToastrBehavior behavior = toastrBehaviorFactory.apply(getMessageFilter());
+			ToastrBehavior behavior = toastrBehaviorFactory.get();
 			behavior.setMessageCombiner(toastMessageCombiner);
+			getMessageFilter().ifPresent(filter -> behavior.setMessageFilter(filter));
 			return behavior;
 		};
 	}

@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.model.IModel;
@@ -13,6 +12,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.jupiter.api.Test;
 
+import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 import jp.try0.wicket.toastr.core.ToastOption;
 import jp.try0.wicket.toastr.core.ToastOption.CloseMethod;
@@ -21,7 +21,6 @@ import jp.try0.wicket.toastr.core.ToastOption.HideMethod;
 import jp.try0.wicket.toastr.core.ToastOption.IconClass;
 import jp.try0.wicket.toastr.core.ToastOption.PositionClass;
 import jp.try0.wicket.toastr.core.ToastOption.ShowMethod;
-import jp.try0.wicket.toastr.core.EachLevelToastOptions;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior;
 import jp.try0.wicket.toastr.core.behavior.ToastrBehavior.ToastMessageCombiner;
 import jp.try0.wicket.toastr.core.test.AbstractToastrTest;
@@ -41,7 +40,7 @@ public class ToastrSettingTest extends AbstractToastrTest {
 		boolean autoAppend = true;
 		ToastOption options = ToastOption.create();
 		IFeedbackMessageFilter filter = msg -> true;
-		Function<Optional<IFeedbackMessageFilter>, ToastrBehavior> factory = optFilter -> new ToastrBehavior();
+		Supplier<ToastrBehavior> factory = () -> new ToastrBehavior();
 		ToastMessageCombiner combier = new ToastMessageCombiner();
 		ToastrFontAwesomeSetting fontSettings = new ToastrFontAwesomeSetting(
 				new ToastrFontAwesomeIcons("", "", "", ""));
@@ -109,7 +108,7 @@ public class ToastrSettingTest extends AbstractToastrTest {
 		final IModel<ToastrBehavior> behavior = Model.of();
 		ToastrSetting.createInitializer(getWebApplication())
 				.setAutoAppendBehavior(true)
-				.setToastrBehaviorFactory(filter -> {
+				.setToastrBehaviorFactory(() -> {
 					behavior.setObject(new ToastrBehavior());
 					return behavior.getObject();
 				})
