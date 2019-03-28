@@ -95,7 +95,7 @@ public class EachLevelToastOptions implements Serializable {
 	/**
 	 * options for each level
 	 */
-	private final Map<ToastLevel, Optional<ToastOption>> options = new EnumMap<>(ToastLevel.class);
+	private final Map<ToastLevel, ToastOption> options = new EnumMap<>(ToastLevel.class);
 
 	/**
 	 * Constructor
@@ -110,7 +110,11 @@ public class EachLevelToastOptions implements Serializable {
 	 */
 	public EachLevelToastOptions(Map<ToastLevel, ToastOption> options) {
 		options.forEach((key, val) -> {
-			this.options.put(key, Optional.ofNullable(val));
+			if (val == null) {
+				return;
+			}
+
+			this.options.put(key, val);
 		});
 	}
 
@@ -121,7 +125,8 @@ public class EachLevelToastOptions implements Serializable {
 	 * @return the toast option
 	 */
 	public Optional<ToastOption> get(ToastLevel level) {
-		return options.computeIfAbsent(level, key -> Optional.empty());
+		ToastOption option = options.get(level);
+		return Optional.ofNullable(option);
 	}
 
 }
