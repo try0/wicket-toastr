@@ -1,11 +1,9 @@
 package jp.try0.wicket.toastr.core;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
-
-import org.apache.commons.collections4.map.HashedMap;
 
 import jp.try0.wicket.toastr.core.Toast.ToastLevel;
 
@@ -29,7 +27,7 @@ public class EachLevelToastOptions implements Serializable {
 		/**
 		 * options for each levels
 		 */
-		Map<ToastLevel, ToastOption> options = new HashMap<>();
+		Map<ToastLevel, ToastOption> options = new EnumMap<>(ToastLevel.class);
 
 		/**
 		 * Sets option of infomation toast.
@@ -97,7 +95,7 @@ public class EachLevelToastOptions implements Serializable {
 	/**
 	 * options for each level
 	 */
-	private final Map<ToastLevel, Optional<ToastOption>> options = new HashedMap<>();
+	private final Map<ToastLevel, Optional<ToastOption>> options = new EnumMap<>(ToastLevel.class);
 
 	/**
 	 * Constructor
