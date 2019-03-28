@@ -275,7 +275,8 @@ public class ToastOptionTest {
 
 		String optionJson = ToastOption.create().setIconClasses(classes).toJsonString();
 
-		assertTrue(optionJson.contains("\"iconClasses\":" + classesJson));
+		assertTrue(optionJson.contains("\"iconClasses\":" + classesJson)
+				|| optionJson.contains("\"iconClasses\":" + classesJson2));
 
 	}
 
