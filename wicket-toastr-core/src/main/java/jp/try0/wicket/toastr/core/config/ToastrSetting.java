@@ -104,7 +104,7 @@ public class ToastrSetting {
 		/**
 		 * Sets toastr global options for each levels.
 		 *
-		 * @param globalOption global options
+		 * @param globalEachLevelOptions global options
 		 * @return this
 		 */
 		public ToastrSettingInitializer setGlobalEachLevelOptions(EachLevelToastOptions globalEachLevelOptions) {
@@ -150,6 +150,7 @@ public class ToastrSetting {
 		 * Sets {@link ToastMessageCombiner}.
 		 *
 		 * @param toastMessageCombiner combiner that combines messages for each toast level
+		 * @return this
 		 */
 		public ToastrSettingInitializer setToastMessageCombiner(ToastMessageCombiner toastMessageCombiner) {
 			this.toastMessageCombiner = toastMessageCombiner;
@@ -169,6 +170,8 @@ public class ToastrSetting {
 
 		/**
 		 * Initialize toastr settings.
+		 *
+		 * @return settings
 		 */
 		public ToastrSetting initialize() {
 

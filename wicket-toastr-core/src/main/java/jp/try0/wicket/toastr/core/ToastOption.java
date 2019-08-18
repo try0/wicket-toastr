@@ -344,8 +344,8 @@ public class ToastOption implements IToastOption {
 		/**
 		 * Gets Icon css class.
 		 *
-		 * @param level
-		 * @return
+		 * @param level the toast level
+		 * @return iconClass
 		 */
 		public IIconClass get(ToastLevel level) {
 			return iconClasses.get(level);
@@ -354,9 +354,9 @@ public class ToastOption implements IToastOption {
 		/**
 		 * Sets icon class.
 		 *
-		 * @param level
-		 * @param iconClass
-		 * @return
+		 * @param level the toast level
+		 * @param iconClass iconClass
+		 * @return iconClasses
 		 */
 		public IconClasses set(ToastLevel level, IIconClass iconClass) {
 			iconClasses.put(level, iconClass);
@@ -901,6 +901,7 @@ public class ToastOption implements IToastOption {
 	 * Sets iconClasses option value.
 	 *
 	 * @param iconClasses option value
+	 * @return this
 	 */
 	public ToastOption setIconClasses(IconClasses iconClasses) {
 		this.iconClasses = iconClasses;

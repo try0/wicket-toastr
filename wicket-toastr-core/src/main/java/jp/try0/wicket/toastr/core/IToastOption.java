@@ -221,7 +221,7 @@ public interface IToastOption extends Serializable {
 	/**
 	 * Gets iconClasses.
 	 *
-	 * @return
+	 * @return iconClasses option value
 	 */
 	public IconClasses getIconClasses();
 
