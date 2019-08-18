@@ -47,7 +47,7 @@ ToastrSettings.createInitializer(this)
 ```
 
 
-### Display toast with ToastrBehavior
+### Display toast using ToastrBehavior
 
 add ToastrBehavior to any of components in page
 ```java
