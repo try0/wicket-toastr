@@ -2,8 +2,16 @@ language: java
 
 jdk:
   - openjdk8
+addons:
+  sonarcloud:
+    organization: "try0-github"
+    token:
+      secure: "$SONAR_SECURE"
 
-script: "mvn cobertura:cobertura"
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn cobertura:cobertura
 
 after_success:
   - mvn clean test jacoco:report coveralls:report
