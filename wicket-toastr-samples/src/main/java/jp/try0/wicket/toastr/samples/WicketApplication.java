@@ -32,6 +32,7 @@ public class WicketApplication extends WebApplication {
 
 		getMarkupSettings().setStripWicketTags(true);
 		getRequestCycleSettings().setRenderStrategy(RenderStrategy.ONE_PASS_RENDER);
+		getCspSettings().blocking().disabled();
 
 		getApplicationSettings().setFeedbackMessageCleanupFilter(msg -> true);
 
