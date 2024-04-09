@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>jp.try0.wicket</groupId>
 		<artifactId>wicket-toastr-parent</artifactId>
-		<version>2.0.0</version>
+		<version>3.0.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -26,10 +26,10 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<wicket-bootstrap.version>5.0.0-M2</wicket-bootstrap.version>
-		<wicket-toastr.version>2.0.0</wicket-toastr.version>
+		<wicket-bootstrap.version>7.0.3</wicket-bootstrap.version>
+		<wicket-toastr.version>3.0.0</wicket-toastr.version>
 		<jetty9.version>9.4.34.v20201102</jetty9.version>
-		<slf4j.version>1.7.25</slf4j.version>
+		<slf4j.version>2.0.6</slf4j.version>
 	</properties>
 
 	<dependencies>

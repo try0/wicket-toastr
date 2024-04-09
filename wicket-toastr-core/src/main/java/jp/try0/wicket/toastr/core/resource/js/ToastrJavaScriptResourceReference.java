@@ -51,7 +51,7 @@ public class ToastrJavaScriptResourceReference extends JavaScriptResourceReferen
 		if (Application.exists()) {
 			jQueryResourceReference = Application.get().getJavaScriptLibrarySettings().getJQueryReference();
 		} else {
-			jQueryResourceReference = JQueryResourceReference.getV2();
+			jQueryResourceReference = JQueryResourceReference.getV3();
 		}
 
 		HeaderItem item = JavaScriptHeaderItem.forReference(jQueryResourceReference);
