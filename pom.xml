@@ -42,18 +42,18 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<wicket.version>10.0.0-M1</wicket.version>
+		<wicket.version>10.0.0</wicket.version>
 		<guava.version>32.0.0-jre</guava.version>
 		<junit.version>5.5.1</junit.version>
 		<junit-platform-launcher.version>1.5.1</junit-platform-launcher.version>
 
-		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-		<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-		<maven-source-plugin.version>3.1.0</maven-source-plugin.version>
-		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+		<maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+		<maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
 
-		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 
 		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 	</properties>
@@ -101,6 +101,11 @@
 			<artifactId>guava</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-tester</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -120,6 +125,11 @@
 			<dependency>
 				<groupId>org.apache.wicket</groupId>
 				<artifactId>wicket-util</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-tester</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
 
@@ -214,9 +224,9 @@
 				<version>${maven-source-plugin.version}</version>
 				<executions>
 					<execution>
-						<phase>package</phase>
+						<id>attach-sources</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
 					</execution>
 				</executions>
