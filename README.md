@@ -8,17 +8,18 @@
 [![Javadocs](https://www.javadoc.io/badge/jp.try0.wicket/wicket-toastr-core.svg?color=lightgrey)](https://www.javadoc.io/doc/jp.try0.wicket/wicket-toastr-core)
 
 
-[Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is library of a simple javascript toast notification.  
-Just add behavior to component, you can display toast.
-This behavior use wicket feedback message system.  
-Also, you can display toast manually without use feedback message.
+[Apache Wicket](https://wicket.apache.org/) utilities for using [toastr](https://codeseven.github.io/toastr/) which is a library of a simple javascript toast notification.  
+Just add behavior to the component, and you can display toast.
+This behavior uses a wicket feedback message system.  
+Also, you can display toast manually without using a feedback message.
 
 
 ## Version
 |  |toastr  |wicket  |
 |--:|--:|--:|
-|1.0.2  |2.1.4  |8.x  |
+|3.0.0  |2.1.4  |10.x  |
 |2.0.0  |2.1.4  |9.x  |
+|1.0.2  |2.1.4  |8.x  |
 
 
 ## Demo
@@ -29,6 +30,15 @@ Deployed wicket-toastr-samples module.
 ## Usage
 
 ### Maven
+
+Wicket10
+```xml
+<dependency>
+    <groupId>jp.try0.wicket</groupId>
+    <artifactId>wicket-toastr-core</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
 
 Wicket9
 ```xml
@@ -61,7 +71,7 @@ ToastrSettings.createInitializer(this)
 
 ### Display toast using ToastrBehavior
 
-add ToastrBehavior to any of components in page
+add ToastrBehavior to any of the components on the page
 ```java
 add(new ToastrBehavior());
 ```
@@ -89,7 +99,7 @@ Component#fatal(Serializable), Session#fatal(Serializable)
 <img alt="toast_error" src="https://user-images.githubusercontent.com/17096601/45070135-dcfa9880-b10a-11e8-8b32-9f1741bb2925.png" width="350px">
 
 ### Display toast manually
-In this case, need instance of class that implemented IHeaderResponse or AjaxRequestTarget.
+In this case, it needs an instance of the class that implemented IHeaderResponse or AjaxRequestTarget.
 
 ```java
 Toast.create(toastLevel, message)
