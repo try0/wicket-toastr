@@ -27,7 +27,7 @@ public class CombineSamplePanel extends Panel {
 	/**
 	 * Constractor
 	 *
-	 * @param parameters
+	 * @param id the component id
 	 */
 	public CombineSamplePanel(String id) {
 		super(id);

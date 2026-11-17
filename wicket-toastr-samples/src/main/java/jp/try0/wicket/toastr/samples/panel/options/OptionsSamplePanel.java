@@ -41,7 +41,7 @@ public class OptionsSamplePanel extends Panel {
 	/**
 	 * Constractor
 	 *
-	 * @param parameters
+	 * @param id the component id
 	 */
 	public OptionsSamplePanel(String id) {
 		super(id);

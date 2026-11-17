@@ -36,7 +36,7 @@ public class FilterSamplePanel extends Panel {
 	/**
 	 * Constractor
 	 *
-	 * @param parameters
+	 * @param id the component id
 	 */
 	public FilterSamplePanel(String id) {
 		super(id);

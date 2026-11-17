@@ -10,9 +10,7 @@ import jp.try0.wicket.toastr.samples.page.HomePage;
 
 /**
  * Application object for your web application.
- * If you want to run this application without deploying, run the Start class.
- *
- * @see jp.try0.wicket.toastr.samples.page.Start#main(String[])
+ * If you want to run this application without deploying, run the {@code Start} class in src/test/java.
  */
 public class WicketApplication extends WebApplication {
 	/**

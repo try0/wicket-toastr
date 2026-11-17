@@ -45,7 +45,7 @@ public class ToastBasicPanel extends Panel {
 	/**
 	 * Constractor
 	 *
-	 * @param parameters
+	 * @param id the component id
 	 */
 	public ToastBasicPanel(String id) {
 		super(id);
