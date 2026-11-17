@@ -94,7 +94,7 @@ public class HomePage extends WebPage {
 				.collect(Collectors.joining("/"));
 
 		return GIT_HUB_PROJECT_ROOT
-				+ "/tree/master/wicket-toastr-samples/src/main/java"
+				+ "/tree/wicket-11.x/wicket-toastr-samples/src/main/java"
 				+ "/" + packageOfSample;
 	};
 

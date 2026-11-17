@@ -1,9 +1,11 @@
 package jp.try0.wicket.toastr.samples.page;
 
 import java.lang.management.ManagementFactory;
+import java.time.Duration;
 
 import javax.management.MBeanServer;
 
+import org.eclipse.jetty.ee11.webapp.WebAppContext;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
@@ -12,8 +14,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
  * Separate startup class for people that want to run the examples directly. Use parameter
@@ -39,27 +41,29 @@ public class Start
 
 		ServerConnector http = new ServerConnector(server, new HttpConnectionFactory(http_config));
 		http.setPort(8080);
-		http.setIdleTimeout(1000 * 60 * 60);
+		http.setIdleTimeout(Duration.ofHours(1).toMillis());
 
 		server.addConnector(http);
 
-		Resource keystore = Resource.newClassPathResource("/keystore");
+		Resource keystore = ResourceFactory.root().newClassLoaderResource("/keystore");
 		if (keystore != null && keystore.exists())
 		{
 			// if a keystore for a SSL certificate is available, start a SSL
 			// connector on port 8443.
 			// By default, the quickstart comes with a Apache Wicket Quickstart
-			// Certificate that expires about half way september 2021. Do not
+			// Certificate that expires about half way september 2031. Do not
 			// use this certificate anywhere important as the passwords are
 			// available in the source.
 
-			SslContextFactory sslContextFactory = new SslContextFactory();
+			SslContextFactory.Server sslContextFactory = new SslContextFactory.Server();
 			sslContextFactory.setKeyStoreResource(keystore);
 			sslContextFactory.setKeyStorePassword("wicket");
 			sslContextFactory.setKeyManagerPassword("wicket");
 
 			HttpConfiguration https_config = new HttpConfiguration(http_config);
-			https_config.addCustomizer(new SecureRequestCustomizer());
+			SecureRequestCustomizer src = new SecureRequestCustomizer();
+			src.setSniHostCheck(false);
+			https_config.addCustomizer(src);
 
 			ServerConnector https = new ServerConnector(server, new SslConnectionFactory(
 				sslContextFactory, "http/1.1"), new HttpConnectionFactory(https_config));
@@ -78,14 +82,15 @@ public class Start
 		bb.setContextPath("/");
 		bb.setWar("src/main/webapp");
 
-		// uncomment the next two lines if you want to start Jetty with WebSocket (JSR-356) support
-		// you need org.apache.wicket:wicket-native-websocket-javax in the classpath!
-		// ServerContainer serverContainer = WebSocketServerContainerInitializer.configureContext(bb);
-		// serverContainer.addEndpoint(new WicketServerEndpointConfig());
+		// To start Jetty with WebSocket (JSR-356) support, add
+		// org.apache.wicket:wicket-native-websocket-javax and
+		// org.eclipse.jetty.ee11.websocket:jetty-ee11-websocket-jakarta-server to the classpath and use:
+		// ServletContextHandler contextHandler = ServletContextHandler.getServletContextHandler(bb.getServletContext());
+		// JakartaWebSocketServletContainerInitializer.configure(contextHandler,
+		//		(servletContext, container) -> container.addEndpoint(new WicketServerEndpointConfig()));
 
 		// uncomment next line if you want to test with JSESSIONID encoded in the urls
-		// ((AbstractSessionManager)
-		// bb.getSessionHandler().getSessionManager()).setUsingCookies(false);
+		// bb.getSessionHandler().setUsingCookies(false);
 
 		server.setHandler(bb);
 

@@ -46,12 +46,15 @@ public class ToastrJavaScriptResourceReference extends JavaScriptResourceReferen
 	public List<HeaderItem> getDependencies() {
 		List<HeaderItem> dependencies = super.getDependencies();
 
-		// JQuery
+		// toastr requires jQuery.
+		// Wicket 11 can run Wicket Ajax without jQuery (WicketAjaxResourceReference),
+		// so always declare jQuery here instead of relying on Wicket Ajax to load it.
 		final ResourceReference jQueryResourceReference;
 		if (Application.exists()) {
 			jQueryResourceReference = Application.get().getJavaScriptLibrarySettings().getJQueryReference();
 		} else {
-			jQueryResourceReference = JQueryResourceReference.getV3();
+			// same as the default of JavaScriptLibrarySettings in Wicket 11
+			jQueryResourceReference = JQueryResourceReference.getV4();
 		}
 
 		HeaderItem item = JavaScriptHeaderItem.forReference(jQueryResourceReference);
